@@ -10,7 +10,7 @@ Donde se situa el bucle principal del juego, llama a las subrutinas de inicializ
 ## CONST.X68
 Donde se guarda las constantes utilizada en el juego.
 
-## SYSCONST.X/*/68
+## SYSCONST.X68
 En este fichero se guarda los constantes del sistema.
 
 Constantes:
