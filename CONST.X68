@@ -4,8 +4,8 @@
 
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
 
-MWIDHT  EQU NULL                        ; MARIO WIDHT
-MHEIGHT EQU NULL                        ; MARIO HEIGHT
+MAWIDHT  EQU NULL                        ; MARIO WIDHT
+MAHEIGHT EQU NULL                        ; MARIO HEIGHT
 
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
 
@@ -25,7 +25,12 @@ PCHPOSY  EQU NULL                      ; PEACH Y POSITION
 
 BRLWIDHT EQU NULL                      ; BARREL WIDHT
 BRLHEIGH EQU NULL                      ; BARREL HEIGHT
-BRLSPEED EQU NULL                     ; MAGNITUDE OF THE X AND Y VEL. 
+BRLSPEED EQU NULL                      ; MAGNITUDE OF THE X AND Y VEL. 
+
+;---HAMMER RELATED CONSTANTS ----------------------------------------------------
+
+HMRWIDHT EQU NULL                      ; BARREL WIDHT
+HMRHEIGH EQU NULL                      ; BARREL HEIGHT
 
 
 *~Font name~Courier New~
