@@ -17,12 +17,12 @@
 START		
 
 ; --- INITIALIZATION --------------------------------------------------------------------------
-            JSR SYSINIT
-			JSR PCHINIT
-            JSR MAINIT
-            JSR DKINIT
-            JSR BRLINIT
-			JSR HMRINIT
+            		JSR SYSINIT
+	   		JSR PCHINIT
+            		JSR MAINIT
+            		JSR DKINIT
+            		JSR BRLINIT
+	    		JSR HMRINIT
             
 .LOOP
 
@@ -35,8 +35,8 @@ START
 
 			JSR MAPUPD
 			JSR PCHUPD
-            JSR MAUPD
-            JSR DKUPD
+            		JSR MAUPD
+            		JSR DKUPD
 			JSR BRLUPD
 			JSR HMRUPD
 
@@ -49,9 +49,9 @@ START
 
 			JSR MAPPLOT
 			JSR PCHPLOT
-            JSR MAPLOT
-            JSR DKPLOT
-            JSR BRLPLOT
+            		JSR MAPLOT
+            		JSR DKPLOT
+            		JSR BRLPLOT
 			JSR HMRPLOT
 
 			SIMHALT
