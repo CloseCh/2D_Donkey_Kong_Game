@@ -11,16 +11,18 @@
 			INCLUDE "MARIO.X68"
 			INCLUDE "MAP.X68"
 			INCLUDE "DONKEY_KONG.X68"
-			INCLUDE "FIRE_BALL.X68"
+			INCLUDE "BARREL.X68"
+			INCLUDE "HAMMER.X68"
 			
 START		
 
 ; --- INITIALIZATION --------------------------------------------------------------------------
             JSR SYSINIT
-			JSR PEAINIT
+			JSR PCHINIT
             JSR MAINIT
-            JSR KONGINIT
-            JSR FBALINIT
+            JSR DKINIT
+            JSR BRLINIT
+			JSR HMRINIT
             
 .LOOP
 
@@ -32,10 +34,11 @@ START
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
 
 			JSR MAPUPD
-			JSR PEAUPD
+			JSR PCHUPD
             JSR MAUPD
-            JSR KONGUPD
-			JSR FBALUPD
+            JSR DKUPD
+			JSR BRLUPD
+			JSR HMRUPD
 
 ; --- SYNC (FASE DE SINCRONIZACIÓN DE LA VELOCIDAD DE EJECUCIÓN CONSTANTE) --------------------
 
@@ -45,11 +48,11 @@ START
 ; COMODIDAD
 
 			JSR MAPPLOT
-			JSR PEAPLOT
+			JSR PCHPLOT
             JSR MAPLOT
-            JSR KONGPLOT
-            JSR FBALPLOT
-
+            JSR DKPLOT
+            JSR BRLPLOT
+			JSR HMRPLOT
 
 			SIMHALT
 			
