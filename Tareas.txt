@@ -25,3 +25,14 @@
 16-Gestionar musica
 
 //Empezar proceso de aspectos adicionales.
+
+
+//Problemas pendientes
+
+			LEA     MAPDATA,A0
+            MOVE.B  #87,D0
+            CLR.W   D2
+            MOVE.W  #BLCHEIGH,D4
+            MOVE.W  #(SCRHEIGH/BLCHEIGH)-1,D6 ; VECES DE INTERACIÓN POR Y
+
+No se copia el valor en D6
