@@ -18,11 +18,11 @@ START
 
 ; --- INITIALIZATION --------------------------------------------------------------------------
             JSR SYSINIT
-	   		JSR PCHINIT
-            JSR MAINIT
-            JSR DKINIT
-            JSR BRLINIT
-	    	JSR HMRINIT
+	   		;JSR PCHINIT
+            ;JSR MAINIT
+            ;JSR DKINIT
+            ;JSR BRLINIT
+	    	;JSR HMRINIT
             
 .LOOP
 
@@ -33,12 +33,12 @@ START
 
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
 
-			JSR MAPUPD
-			JSR PCHUPD
-            JSR MAUPD
-            JSR DKUPD
-			JSR BRLUPD
-			JSR HMRUPD
+			;JSR MAPUPD
+			;JSR PCHUPD
+            ;JSR MAUPD
+            ;JSR DKUPD
+			;JSR BRLUPD
+			;JSR HMRUPD
 
 ; --- SYNC (FASE DE SINCRONIZACIÓN DE LA VELOCIDAD DE EJECUCIÓN CONSTANTE) --------------------
 
@@ -47,12 +47,12 @@ START
 ; CAMBIO DE ASPECTO GRAFICO
 ; COMODIDAD
 
-			JSR MAPPLOT
-			JSR PCHPLOT
-            JSR MAPLOT
-            JSR DKPLOT
-            JSR BRLPLOT
-			JSR HMRPLOT
+			;JSR MAPPLOT
+			;JSR PCHPLOT
+            ;JSR MAPLOT
+            ;JSR DKPLOT
+            ;JSR BRLPLOT
+			;JSR HMRPLOT
 
 			SIMHALT
 			
