@@ -2,6 +2,11 @@
 ; SYSTEM VARIABLES
 ; =============================================================================================
 
+; --- KEYBOARD RELATED VARIABLES -----------------------------------------------
+
+KBDVAL      DS.B    1                       ; KEY STATE
+KBDEDGE     DS.B    1                       ; KEY EDGE
+
 
 
 *~Font name~Courier New~
