@@ -4,6 +4,7 @@
 ; AUTHOR      : JAUME, WEIYU
 ; HISTORY     : VERSION 1
 ; =============================================================================================
+			ORG 	$1000
 			
 			INCLUDE "CONST.X68"
 			INCLUDE "SYSCONST.X68"
@@ -31,7 +32,7 @@ START
 
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
 
-			TRAP	#TRNDBUFF
+			
 
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
 
@@ -52,6 +53,8 @@ START
             ; JSR 	DKPLOT
             ; JSR 	BRLPLOT
 			; JSR 	HMRPLOT
+
+			TRAP	#TRNDBUFF
 			
 			BRA     .LOOP
 			
@@ -61,6 +64,7 @@ START
 			INCLUDE "SYSVARS.X68"
 
 			END    START
+
 
 
 *~Font name~Courier New~
