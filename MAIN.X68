@@ -4,25 +4,27 @@
 ; AUTHOR      : JAUME, WEIYU
 ; HISTORY     : VERSION 1
 ; =============================================================================================
+			ORG 	$1000
 			
 			INCLUDE "CONST.X68"
 			INCLUDE "SYSCONST.X68"
 			INCLUDE "SYSTEM.X68"
-			INCLUDE "MARIO.X68"
 			INCLUDE "MAP.X68"
-			INCLUDE "DONKEY_KONG.X68"
-			INCLUDE "BARREL.X68"
-			INCLUDE "HAMMER.X68"
+			; INCLUDE "MARIO.X68"
+			; INCLUDE "DONKEY_KONG.X68"
+			; INCLUDE "BARREL.X68"
+			; INCLUDE "PEACH.X68"
+			; INCLUDE "HAMMER.X68"
 			
 START		
 
 ; --- INITIALIZATION --------------------------------------------------------------------------
-            JSR SYSINIT
-	   		;JSR PCHINIT
-            ;JSR MAINIT
-            ;JSR DKINIT
-            ;JSR BRLINIT
-	    	;JSR HMRINIT
+            JSR 	SYSINIT
+	   		; JSR 	PCHINIT
+            ; JSR 	MAINIT
+            ; JSR 	DKINIT
+            ; JSR 	BRLINIT
+	    	; JSR 	HMRINIT
             
 .LOOP
 
@@ -30,35 +32,39 @@ START
 
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
 
+			
 
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
+			; JSR 	PCHUPD
+            ; JSR 	MAUPD
+            ; JSR 	DKUPD
+			; JSR 	BRLUPD
+			; JSR 	HMRUPD
 
-			;JSR MAPUPD
-			;JSR PCHUPD
-            ;JSR MAUPD
-            ;JSR DKUPD
-			;JSR BRLUPD
-			;JSR HMRUPD
+; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
 
-; --- SYNC (FASE DE SINCRONIZACIÓN DE LA VELOCIDAD DE EJECUCIÓN CONSTANTE) --------------------
+
 
 ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
-; ES BENEFICIOSO EN EL TRANSPORTE DE CODIGO
-; CAMBIO DE ASPECTO GRAFICO
-; COMODIDAD
+			JSR 	MAPPLOT
+			; JSR 	PCHPLOT
+            ; JSR 	MAPLOT
+            ; JSR 	DKPLOT
+            ; JSR 	BRLPLOT
+			; JSR 	HMRPLOT
 
-			;JSR MAPPLOT
-			;JSR PCHPLOT
-            ;JSR MAPLOT
-            ;JSR DKPLOT
-            ;JSR BRLPLOT
-			;JSR HMRPLOT
-
+			TRAP	#TRNDBUFF
+			
+			BRA     .LOOP
+			
 			SIMHALT
 			
 			INCLUDE "VARS.X68"
 			INCLUDE "SYSVARS.X68"
+
 			END    START
+
+
 
 *~Font name~Courier New~
 *~Font size~12~

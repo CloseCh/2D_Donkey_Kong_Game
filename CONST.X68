@@ -2,35 +2,42 @@
 ; GAME CONSTANTS
 ; =============================================================================================
 
-; --- MARIO RELATED CONSTANTS ----------------------------------------------------
+; --- Map Constants ---------------------------------------------------------------------------
+BLCWIDTH    EQU     32                       ; BLOCK WIDTH
+BLCHEIGH    EQU     32                       ; BLOCK HEIGH
 
-;MAWIDHT  EQU NULL                        ; MARIO WIDHT
-;MAHEIGHT EQU NULL                        ; MARIO HEIGHT
+    ; --- BLOCK 1 -----------------------------------------------------------------------------
+B1LCOL      EQU     $00000000
+B1MCOL      EQU     $00D8171D
+
+; --- MARIO RELATED CONSTANTS ----------------------------------------------------
+MAWIDHT     EQU     0                        ; MARIO WIDHT
+MAHEIGHT    EQU     0                        ; MARIO HEIGHT
 
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
 
-;DKWIDTH  EQU NULL                       ; DONKEY_KONG WIDHT
-;DKHEIGHT EQU NULL                       ; DONKEY_KONG HEIGHT
-;DKPOSX   EQU NULL                       ; DONKEY_KONG X POSITION
-;DKPOSY   EQU NULL                       ; DONKEY_KONG Y POSITION
+DKWIDTH     EQU     0                       ; DONKEY_KONG WIDHT
+DKHEIGHT    EQU     0                       ; DONKEY_KONG HEIGHT
+DKPOSX      EQU     0                       ; DONKEY_KONG X POSITION
+DKPOSY      EQU     0                       ; DONKEY_KONG Y POSITION
 
 ; --- PEACH RELATED CONSTANTS ----------------------------------------------------
 
-;PCHWIDHT EQU NULL                      ; PEACH WIDHT
-;PCHHEIGH EQU NULL                      ; PEACH HEIGHT
-;PCHPOSX  EQU NULL                      ; PEACH X POSITION
-;PCHPOSY  EQU NULL                      ; PEACH Y POSITION
+PCHWIDHT    EQU     0                      ; PEACH WIDHT
+PCHHEIGH    EQU     0                      ; PEACH HEIGHT
+PCHPOSX     EQU     0                      ; PEACH X POSITION
+PCHPOSY     EQU     0                      ; PEACH Y POSITION
 
 ; --- BARREL RELATED CONSTANTS ----------------------------------------------------
 
-;BRLWIDHT EQU NULL                      ; BARREL WIDHT
-;BRLHEIGH EQU NULL                      ; BARREL HEIGHT
-;BRLSPEED EQU NULL                      ; MAGNITUDE OF THE X AND Y VEL. 
+BRLWIDHT    EQU     0                      ; BARREL WIDHT
+BRLHEIGH    EQU     0                      ; BARREL HEIGHT
+BRLSPEED    EQU     0                      ; MAGNITUDE OF THE X AND Y VEL. 
 
 ;---HAMMER RELATED CONSTANTS ----------------------------------------------------
 
-;HMRWIDHT EQU NULL                      ; BARREL WIDHT
-;HMRHEIGH EQU NULL                      ; BARREL HEIGHT
+HMRWIDHT    EQU     0                      ; BARREL WIDHT
+HMRHEIGH    EQU     0                      ; BARREL HEIGHT
 
 
 *~Font name~Courier New~
