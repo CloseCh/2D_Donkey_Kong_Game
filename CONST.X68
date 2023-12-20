@@ -10,6 +10,10 @@ BLCHEIGH    EQU     32                       ; BLOCK HEIGH
 B1LCOL      EQU     $00000000
 B1MCOL      EQU     $00D8171D
 
+; --- Mario -----------------------------------------------------------------------------------
+MABLW       EQU     16
+MABLH       EQU     Z6
+
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
 
 MAWIDHT     EQU     0                        ; MARIO WIDHT
