@@ -10,14 +10,13 @@ BLCHEIGH    EQU     32                       ; BLOCK HEIGH
 B1LCOL      EQU     $00000000
 B1MCOL      EQU     $00D8171D
 
-; --- Mario -----------------------------------------------------------------------------------
-MABLW       EQU     16
-MABLH       EQU     Z6
+    ; --- BLOCK 2 -----------------------------------------------------------------------------
 
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
 
-MAWIDHT     EQU     0                        ; MARIO WIDHT
-MAHEIGHT    EQU     0                        ; MARIO HEIGHT
+MASPEED     EQU     2                       ; MARNITUDE OF THE X AND Y VEL
+MAWIDHT     EQU     8                      ; MARIO WIDHT
+MAHEIGHT    EQU     12                      ; MARIO HEIGHT
 
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
 
@@ -28,16 +27,16 @@ DKPOSY      EQU     0                       ; DONKEY_KONG Y POSITION
 
 ; --- PEACH RELATED CONSTANTS ----------------------------------------------------
 
-PCHWIDHT    EQU     0                      ; PEACH WIDHT
-PCHHEIGH    EQU     0                      ; PEACH HEIGHT
-PCHPOSX     EQU     0                      ; PEACH X POSITION
-PCHPOSY     EQU     0                      ; PEACH Y POSITION
+PCHWIDHT    EQU     0                       ; PEACH WIDHT
+PCHHEIGH    EQU     0                       ; PEACH HEIGHT
+PCHPOSX     EQU     0                       ; PEACH X POSITION
+PCHPOSY     EQU     0                       ; PEACH Y POSITION
 
 ; --- BARREL RELATED CONSTANTS ----------------------------------------------------
 
-BRLWIDHT    EQU     0                      ; BARREL WIDHT
-BRLHEIGH    EQU     0                      ; BARREL HEIGHT
-BRLSPEED    EQU     0                      ; MAGNITUDE OF THE X AND Y VEL. 
+BRLWIDHT    EQU     0                       ; BARREL WIDHT
+BRLHEIGH    EQU     0                       ; BARREL HEIGHT
+BRLSPEED    EQU     0                       ; MAGNITUDE OF THE X AND Y VEL. 
 
 ;---HAMMER RELATED CONSTANTS ----------------------------------------------------
 

@@ -10,7 +10,7 @@
 			INCLUDE "SYSCONST.X68"
 			INCLUDE "SYSTEM.X68"
 			INCLUDE "MAP.X68"
-			; INCLUDE "MARIO.X68"
+			INCLUDE "MARIO.X68"
 			; INCLUDE "DONKEY_KONG.X68"
 			; INCLUDE "BARREL.X68"
 			; INCLUDE "PEACH.X68"
@@ -19,9 +19,11 @@
 START		
 
 ; --- INITIALIZATION --------------------------------------------------------------------------
-            JSR 	SYSINIT
+            
+			ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
+			JSR 	SYSINIT
 	   		; JSR 	PCHINIT
-            ; JSR 	MAINIT
+            JSR 	MAINIT
             ; JSR 	DKINIT
             ; JSR 	BRLINIT
 	    	; JSR 	HMRINIT
@@ -32,29 +34,32 @@ START
 
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
 
-			
+			TRAP    #TRAPKEY
 
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
 
 			; JSR 	PCHUPD
-            ; JSR 	MAUPD
+            JSR 	MAUPD
             ; JSR 	DKUPD
 			; JSR 	BRLUPD
 			; JSR 	HMRUPD
 
 ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
 
+.WINT       TST.B   (SCRINTCT)
+            BEQ     .WINT
+            CLR.B   (SCRINTCT)
 
 ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
 
 			JSR 	MAPPLOT
 			; JSR 	PCHPLOT
-            ; JSR 	MAPLOT
+            JSR 	MAPLOT
             ; JSR 	DKPLOT
             ; JSR 	BRLPLOT
 			; JSR 	HMRPLOT
 
-			TRAP	#TRNDBUFF
+			TRAP	#TRAPSCR
 			
 			BRA     .LOOP
 			
@@ -64,6 +69,7 @@ START
 			INCLUDE "SYSVARS.X68"
 
 			END    START
+
 
 
 
