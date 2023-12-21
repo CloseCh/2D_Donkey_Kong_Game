@@ -37,7 +37,6 @@ START
 			TRAP    #TRAPKEY
 
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
-
 			; JSR 	PCHUPD
             JSR 	MAUPD
             ; JSR 	DKUPD
@@ -50,8 +49,8 @@ START
             BEQ     .WINT
             CLR.B   (SCRINTCT)
 
-; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
 
+; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
 			JSR 	MAPPLOT
 			; JSR 	PCHPLOT
             JSR 	MAPLOT

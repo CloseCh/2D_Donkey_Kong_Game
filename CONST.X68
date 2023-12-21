@@ -13,7 +13,6 @@ B1MCOL      EQU     $00D8171D
     ; --- BLOCK 2 -----------------------------------------------------------------------------
 
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
-
 MASPEED     EQU     2                       ; MARNITUDE OF THE X AND Y VEL
 MAWIDHT     EQU     8                      ; MARIO WIDHT
 MAHEIGHT    EQU     12                      ; MARIO HEIGHT

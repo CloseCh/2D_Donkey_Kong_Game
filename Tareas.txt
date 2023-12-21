@@ -10,6 +10,7 @@
 	(a)-Movimiento hacia izquierda.
 	(d)-Movimiento hacia derecha.
 	( )-Salto.
+	(click izquierdo )-Golpe martillo. 
 5-Definir otros teclas para:
 	-Pausar partida
 6-Introducir Mario en cuadrado.
