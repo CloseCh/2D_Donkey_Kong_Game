@@ -24,7 +24,7 @@ MAPPLOT
 
             LEA     MAPDATA1,A0
             CLR.W   D2
-            MOVE.W  #BLCHEIGH/2,D4
+            MOVE.W  #(BLCHEIGH/2)+2,D4
             MOVE.W  #(SCRHEIGH/BLCHEIGH)-1,D6
             
 .CLOOP      CLR.W   D1
@@ -34,9 +34,9 @@ MAPPLOT
 .RLOOP      MOVE.B  (A0)+,D7 ; A0 APUNTA A LAS POSICIONES DEL MAPA MODIFICANDO EL FLAG Z 
             BTST.L  #1,D7
             BEQ     .BL1
-            ADD.W   #BLCWIDTH/2,D4  ;PARA DIBUJAR CORRECTAMENTE EL RECUADRO
+            ADD.W   #(BLCWIDTH/2)+2,D4  ;PARA DIBUJAR CORRECTAMENTE EL RECUADRO
             JSR     BL2PLOT
-            SUB.W   #BLCWIDTH/2,D4  ;PARA POSICIONAR CORRECTAMENTE LA COORDENADA
+            SUB.W   #(BLCWIDTH/2)+2,D4  ;PARA POSICIONAR CORRECTAMENTE LA COORDENADA
 
 .BL1        BTST.L  #0,D7
             BEQ     .NEXT
@@ -47,9 +47,9 @@ MAPPLOT
             ADD.W   #BLCWIDTH,D3
             DBRA.W  D5,.RLOOP
             ; AQUI SE BAJA A LA SIGUIENTE FILA, VOLVIEDO AL INICIO DE X Y BAJAR Y
-            ADD.W   #BLCWIDTH/2,D4  ;PARA POSICIONAR CORRECTAMENTE LA SIGUIENTE COORDENADA
+            ADD.W   #(BLCWIDTH/2)-2,D4  ;PARA POSICIONAR CORRECTAMENTE LA SIGUIENTE COORDENADA
             MOVE.W  D4,D2
-            ADD.W   #BLCWIDTH/2,D4
+            ADD.W   #(BLCWIDTH/2)+2,D4
             DBRA.W  D6,.CLOOP
 
 
@@ -120,6 +120,7 @@ MAPDATA1    DC.B    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
             DC.B    0,0,1,1,1,3,1,1,1,1,1,1,1,1,1,3,1,1,0,0
             DC.B    0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0
             DC.B    0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0
+
 
 *~Font name~Courier New~
 *~Font size~12~
