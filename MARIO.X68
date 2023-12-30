@@ -52,27 +52,7 @@ MAPLOT
 ; ---------------------------------------------------------------------------------------------
 
             MOVEM.L D0-D4,-(A7)
-            ; Draw a rectangle (DEBUG)
-            MOVE.B  #80,D0
-            MOVE.L  #$00000000,D1
-            TRAP    #15
-
-            MOVE.B  #81,D0
-            MOVE.L  #$0000FF00,D1
-            TRAP    #15
-
-            MOVE.B  #87,D0
-            MOVE.W  MAPOINTX,D1
-            MOVE.W  MAPOINTY,D2
-            MOVE.W  MAPOINTX,D3
-            MOVE.W  MAPOINTY,D4
-
-            SUB.W   #MAWIDHT,D1
-            SUB.W   #MAHEIGHT,D2
-            ADD.W   #MAWIDHT,D3
-            ADD.W   #MAHEIGHT,D4
-
-            TRAP    #15
+            JSR PLOT
 
             MOVEM.L (A7)+,D0-D4
             RTS
