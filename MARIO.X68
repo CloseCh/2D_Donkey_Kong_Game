@@ -12,7 +12,7 @@ MAINIT
             
             ; SET THE INIT POINT
             MOVE.W  #100,MAPOINTX
-            MOVE.W  #430,MAPOINTY
+            MOVE.W  #410,MAPOINTY
             
             RTS
 
