@@ -10,7 +10,8 @@ SCRFPS      EQU     100                  ; SCREEN FRAMES PER SECOND
 
 ; --- TRAP RELATED CONSTANTS ------------------------------------------------------------------
 TRAPSCR    EQU     1                   ; DOUBLE BUFFER TRAP NUMBER
-TRAPKEY    EQU     2                   ; DOUBLE BUFFER TRAP NUMBER
+TRAPKEY    EQU     2                   
+TRAPPLOT   EQU     3                    
 
 ; --- INTERRUPT NUMBERS -----------------------------------------------------------------------
 SCRINTN     EQU     1                   ; SCREEN TIMED INTERRUPT NUMBER

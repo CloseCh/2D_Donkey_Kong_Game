@@ -14,9 +14,11 @@ SYSINIT
             MOVE.L  #SCRPLOT,($80+TRAPSCR*4)
             ; INSTALL KEY TRAP
             MOVE.L  #KBDUPD,($80+TRAPKEY*4)
-
+            ; INSTALL PLOT TRAP
+            MOVE.L #PLOT,($80+TRAPPLOT*4)
             ; INSTALL INTERRUPTION FOR THE PLOT
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
+            
 
             JSR SCRINIT
             JSR KBDINIT

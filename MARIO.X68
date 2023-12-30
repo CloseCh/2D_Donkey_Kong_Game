@@ -51,11 +51,13 @@ MAPLOT
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
 
-            MOVEM.L D0-D4,-(A7)
-            JSR PLOT
+            MOVE.W #MAWIDHT,D0
+            MOVE.W #MAHEIGHT,D1
+            TRAP #TRAPPLOT
 
-            MOVEM.L (A7)+,D0-D4
+           
             RTS
+
 
 *~Font name~Courier New~
 *~Font size~12~

@@ -1,21 +1,32 @@
 
-SCRWIDTHX    EQU    30                    ; SCREEN WIDTH
-SCRHEIGHX    EQU    40                   ; SCREEN HEIGHT
+SCRWIDTHX    DS.W 1                    ; SCREEN WIDTH
+SCRHEIGHX    DS.W 1                   ; SCREEN HEIGHT
 TILWIDTH    EQU     1                      ; TILE WIDTH
 TILHEIGH    EQU     1                      ; TILE HEIGHT
 
+; ---------------------------------------------------------------------------------------------
 PLOT
+; INPUT     :WIDTH IN D0, HEIGHT IN D1
+; OUTPUT    :
+; MODIFIES  :
+; ---------------------------------------------------------------------------------------------
+        
         MOVEM.L D0-D6/A0,-(A7)
+        MOVE.W D0,SCRWIDTHX
+        MOVE.W D1,SCRHEIGHX
         LEA MAPDATA,A0
         ;DIBUJO DEL RECTANGULO
-        MOVE.B #87,D0
+        MOVE.W #87,D0
         CLR.W D2
         MOVE.W MAPOINTY,D4
-        MOVE.W  #(SCRHEIGHX/TILHEIGH)-1,D6
+
+        MOVE.W  (SCRHEIGHX),D6
+        SUB.W #1,D6
 
 .CLOOP  CLR.W   D1
         MOVE.W  MAPOINTX,D3
-        MOVE.W  #(SCRWIDTHX/TILWIDTH)-1,D5
+        MOVE.W  (SCRWIDTHX),D5
+        SUB.W #1,D5
 .RLOOP  TST.B   (A0)+
         BEQ     .NEXT
         JSR SELECCION
@@ -31,7 +42,7 @@ PLOT
      
     MOVEM.L (A7)+,D0-D6/A0
     
-    RTS
+    RTE
 
 SELECCION
      MOVEM.L D0-D6,-(A7)
