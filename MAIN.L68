@@ -1,6 +1,6 @@
-000018EA Starting Address
+000018F2 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 30/12/2023 16:29:06
+Created On: 30/12/2023 16:47:19
 
 00000000                             1  ; =============================================================================================
 00000000                             2  ; TITLE       : DONKEY-KONG CLASSIC 2D GAME
@@ -31,13 +31,13 @@ Created On: 30/12/2023 16:29:06
 00001016                            27          ;DIBUJO DEL RECTANGULO
 00001016  303C 0057                 28          MOVE.W #87,D0
 0000101A  4242                      29          CLR.W D2
-0000101C  3839 0000191C             30          MOVE.W MAPOINTY,D4
+0000101C  3839 00001924             30          MOVE.W MAPOINTY,D4
 00001022                            31  
 00001022  3C38 1002                 32          MOVE.W  (SCRHEIGHX),D6
 00001026  5346                      33          SUB.W #1,D6
 00001028                            34  
 00001028  4241                      35  .CLOOP  CLR.W   D1
-0000102A  3639 0000191A             36          MOVE.W  MAPOINTX,D3
+0000102A  3639 00001922             36          MOVE.W  MAPOINTX,D3
 00001030  3A38 1000                 37          MOVE.W  (SCRWIDTHX),D5
 00001034  5345                      38          SUB.W #1,D5
 00001036  4A18                      39  .RLOOP  TST.B   (A0)+
@@ -509,7 +509,7 @@ Created On: 30/12/2023 16:29:06
 0000165A                           505  ; OUTPUT    : NONE
 0000165A                           506  ; MODIFIES  : NONE
 0000165A                           507  ; ---------------------------------------------------------------------------------------------
-0000165A  5239 00001920            508              ADDQ.B  #1,(SCRINTCT)
+0000165A  5239 00001928            508              ADDQ.B  #1,(SCRINTCT)
 00001660                           509              
 00001660  4E73                     510              RTE
 00001662                           511  
@@ -521,8 +521,8 @@ Created On: 30/12/2023 16:29:06
 00001662                           517  ; MODIFIES  : NONE
 00001662                           518  ; ---------------------------------------------------------------------------------------------
 00001662                           519              
-00001662  4239 0000191E            520              CLR.B   (KBDVAL)
-00001668  4239 0000191F            521              CLR.B   (KBDEDGE)
+00001662  4239 00001926            520              CLR.B   (KBDVAL)
+00001668  4239 00001927            521              CLR.B   (KBDEDGE)
 0000166E  4E75                     522              RTS
 00001670                           523              
 00001670                           524  ; ---------------------------------------------------------------------------------------------
@@ -560,13 +560,13 @@ Created On: 30/12/2023 16:29:06
 0000168E  4EB9 000016B0            556              JSR     .PACK
 00001694                           557              
 00001694                           558              ; COMPUTE KBDEDGE
-00001694  1039 0000191E            559              MOVE.B  (KBDVAL),D0
+00001694  1039 00001926            559              MOVE.B  (KBDVAL),D0
 0000169A  4600                     560              NOT.B   D0
 0000169C  C002                     561              AND.B   D2,D0
-0000169E  13C0 0000191F            562              MOVE.B  D0,(KBDEDGE)
+0000169E  13C0 00001927            562              MOVE.B  D0,(KBDEDGE)
 000016A4                           563              
 000016A4                           564              ; STORE KBDVAL
-000016A4  13C2 0000191E            565              MOVE.B  D2,(KBDVAL)
+000016A4  13C2 00001926            565              MOVE.B  D2,(KBDVAL)
 000016AA                           566              
 000016AA  4CDF 000F                567              MOVEM.L (A7)+,D0-D3
 000016AE                           568              
@@ -751,8 +751,8 @@ Created On: 30/12/2023 16:29:06
 0000189E                           747  ; ---------------------------------------------------------------------------------------------
 0000189E                           748              
 0000189E                           749              ; SET THE INIT POINT
-0000189E  33FC 0064 0000191A       750              MOVE.W  #100,MAPOINTX
-000018A6  33FC 019A 0000191C       751              MOVE.W  #410,MAPOINTY
+0000189E  33FC 0064 00001922       750              MOVE.W  #100,MAPOINTX
+000018A6  33FC 019A 00001924       751              MOVE.W  #410,MAPOINTY
 000018AE                           752              
 000018AE  4E75                     753              RTS
 000018B0                           754  
@@ -767,16 +767,16 @@ Created On: 30/12/2023 16:29:06
 000018B0  3F00                     763              MOVE.W  D0,-(A7)
 000018B2                           764  
 000018B2                           765              ; UPDATE COORDINATE X
-000018B2  3039 0000191A            766              MOVE.W  (MAPOINTX),D0
+000018B2  3039 00001922            766              MOVE.W  (MAPOINTX),D0
 000018B8                           767  
-000018B8  0839 0000 0000191E       768              BTST.B  #0,(KBDVAL)
+000018B8  0839 0000 00001926       768              BTST.B  #0,(KBDVAL)
 000018C0  6700 0004                769              BEQ     .CHKRGHT                         ; PULSADO 'A' SALTAR
 000018C4  5540                     770              SUB.W   #MASPEED,D0
-000018C6  0839 0001 0000191E       771  .CHKRGHT    BTST.B  #1,(KBDVAL)
+000018C6  0839 0001 00001926       771  .CHKRGHT    BTST.B  #1,(KBDVAL)
 000018CE  6700 0004                772              BEQ     .CONT                           ; PULSADO 'DOWN' SALTAR
 000018D2  5440                     773              ADD.W   #MASPEED,D0
 000018D4                           774  .CONT
-000018D4  33C0 0000191A            775              MOVE.W  D0,(MAPOINTX)
+000018D4  33C0 00001922            775              MOVE.W  D0,(MAPOINTX)
 000018DA                           776  
 000018DA  301F                     777              MOVE.W (A7)+,D0
 000018DC  4E75                     778              RTS
@@ -790,96 +790,96 @@ Created On: 30/12/2023 16:29:06
 000018DE                           786  ; OUTPUT    :
 000018DE                           787  ; MODIFIES  :
 000018DE                           788  ; ---------------------------------------------------------------------------------------------
-000018DE                           789  
-000018DE  303C 001E                790              MOVE.W #MAWIDHT,D0
-000018E2  323C 0028                791              MOVE.W #MAHEIGHT,D1
-000018E6  4E43                     792              TRAP #TRAPPLOT
-000018E8                           793  
-000018E8                           794             
-000018E8  4E75                     795              RTS
-000018EA                           796  
-000018EA                           797  
-000018EA                           798  -------------------- end include --------------------
-000018EA                           799              ; INCLUDE "DONKEY_KONG.X68"
-000018EA                           800              ; INCLUDE "BARREL.X68"
-000018EA                           801              ; INCLUDE "PEACH.X68"
-000018EA                           802              ; INCLUDE "HAMMER.X68"
-000018EA                           803              
-000018EA                           804  START       
-000018EA                           805  
-000018EA                           806  ; --- INITIALIZATION --------------------------------------------------------------------------
-000018EA                           807              
-000018EA  007C 0700                808              ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
-000018EE  4EB8 15CE                809              JSR     SYSINIT
-000018F2                           810              ; JSR   PCHINIT
-000018F2  4EB8 189E                811              JSR     MAINIT
-000018F6                           812              ; JSR   DKINIT
-000018F6                           813              ; JSR   BRLINIT
-000018F6                           814              ; JSR   HMRINIT
-000018F6                           815              
-000018F6                           816  .LOOP
-000018F6                           817  
-000018F6                           818  ; --- UPDATE ----------------------------------------------------------------------------------
-000018F6                           819  
-000018F6                           820  ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
-000018F6                           821  
-000018F6  4E42                     822              TRAP    #TRAPKEY
-000018F8                           823  
-000018F8                           824  ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
-000018F8                           825              ; JSR   PCHUPD
-000018F8  4EB8 18B0                826              JSR     MAUPD
-000018FC                           827              ; JSR   DKUPD
-000018FC                           828              ; JSR   BRLUPD
-000018FC                           829              ; JSR   HMRUPD
-000018FC                           830  
-000018FC                           831  ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
-000018FC                           832  
-000018FC  4A39 00001920            833  .WINT       TST.B   (SCRINTCT)
-00001902  67F8                     834              BEQ     .WINT
-00001904  4239 00001920            835              CLR.B   (SCRINTCT)
-0000190A                           836  
-0000190A                           837  
-0000190A                           838  ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
-0000190A  4EB8 16C0                839              JSR     MAPPLOT
-0000190E                           840              ; JSR   PCHPLOT
-0000190E  4EB8 18DE                841              JSR     MAPLOT
-00001912                           842              ; JSR   DKPLOT
-00001912                           843              ; JSR   BRLPLOT
-00001912                           844              ; JSR   HMRPLOT
-00001912                           845  
-00001912  4E41                     846              TRAP    #TRAPSCR
-00001914                           847              
-00001914  60E0                     848              BRA     .LOOP
-00001916                           849              
-00001916  FFFF FFFF                850              SIMHALT
-0000191A                           851              
-0000191A                           852              INCLUDE "VARS.X68"
-0000191A                           853  ; =============================================================================================
-0000191A                           854  ; GAME VARIABLES
-0000191A                           855  ; =============================================================================================
-0000191A                           856  
-0000191A                           857  ; --- Mario point -----------------------------------------------------------------------------
-0000191A                           858  MAPOINTX     DS.W    1           ; MARIO X COORDINATE
-0000191C                           859  MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
-0000191E                           860  
-0000191E                           861  -------------------- end include --------------------
-0000191E                           862              INCLUDE "SYSVARS.X68"
-0000191E                           863  ; =============================================================================================
-0000191E                           864  ; SYSTEM VARIABLES
-0000191E                           865  ; =============================================================================================
-0000191E                           866  
-0000191E                           867  ; --- KEYBOARD RELATED VARIABLES --------------------------------------------------------------
-0000191E                           868  KBDVAL      DS.B    1                           ; KEY STATE (TECLA DE PULSO CONTINUO)
-0000191F                           869  KBDEDGE     DS.B    1                           ; KEY EDGE (TECLA DE UNICO PULSO)
-00001920                           870  
-00001920                           871  
-00001920                           872  ; --- TIMED INTERRUPT RELATED VARIABLES -------------------------------------------------------
-00001920                           873  SCRINTCT    DS.B    1                           ; INTERRUPT COUNTER
-00001922                           874              DS.W    0
-00001922                           875  
-00001922                           876  -------------------- end include --------------------
-00001922                           877  
-00001922                           878              END    START
+000018DE  48E7 C000                789              MOVEM.L D0-D1,-(A7) 
+000018E2  303C 001E                790              MOVE.W #MAWIDHT,D0
+000018E6  323C 0028                791              MOVE.W #MAHEIGHT,D1
+000018EA  4E43                     792              TRAP #TRAPPLOT
+000018EC  4CDF 0003                793              MOVEM.L (A7)+,D0-D1
+000018F0                           794             
+000018F0  4E75                     795              RTS
+000018F2                           796  
+000018F2                           797  
+000018F2                           798  -------------------- end include --------------------
+000018F2                           799              ; INCLUDE "DONKEY_KONG.X68"
+000018F2                           800              ; INCLUDE "BARREL.X68"
+000018F2                           801              ; INCLUDE "PEACH.X68"
+000018F2                           802              ; INCLUDE "HAMMER.X68"
+000018F2                           803              
+000018F2                           804  START       
+000018F2                           805  
+000018F2                           806  ; --- INITIALIZATION --------------------------------------------------------------------------
+000018F2                           807              
+000018F2  007C 0700                808              ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
+000018F6  4EB8 15CE                809              JSR     SYSINIT
+000018FA                           810              ; JSR   PCHINIT
+000018FA  4EB8 189E                811              JSR     MAINIT
+000018FE                           812              ; JSR   DKINIT
+000018FE                           813              ; JSR   BRLINIT
+000018FE                           814              ; JSR   HMRINIT
+000018FE                           815              
+000018FE                           816  .LOOP
+000018FE                           817  
+000018FE                           818  ; --- UPDATE ----------------------------------------------------------------------------------
+000018FE                           819  
+000018FE                           820  ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
+000018FE                           821  
+000018FE  4E42                     822              TRAP    #TRAPKEY
+00001900                           823  
+00001900                           824  ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
+00001900                           825              ; JSR   PCHUPD
+00001900  4EB8 18B0                826              JSR     MAUPD
+00001904                           827              ; JSR   DKUPD
+00001904                           828              ; JSR   BRLUPD
+00001904                           829              ; JSR   HMRUPD
+00001904                           830  
+00001904                           831  ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
+00001904                           832  
+00001904  4A39 00001928            833  .WINT       TST.B   (SCRINTCT)
+0000190A  67F8                     834              BEQ     .WINT
+0000190C  4239 00001928            835              CLR.B   (SCRINTCT)
+00001912                           836  
+00001912                           837  
+00001912                           838  ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
+00001912  4EB8 16C0                839              JSR     MAPPLOT
+00001916                           840              ; JSR   PCHPLOT
+00001916  4EB8 18DE                841              JSR     MAPLOT
+0000191A                           842              ; JSR   DKPLOT
+0000191A                           843              ; JSR   BRLPLOT
+0000191A                           844              ; JSR   HMRPLOT
+0000191A                           845  
+0000191A  4E41                     846              TRAP    #TRAPSCR
+0000191C                           847              
+0000191C  60E0                     848              BRA     .LOOP
+0000191E                           849              
+0000191E  FFFF FFFF                850              SIMHALT
+00001922                           851              
+00001922                           852              INCLUDE "VARS.X68"
+00001922                           853  ; =============================================================================================
+00001922                           854  ; GAME VARIABLES
+00001922                           855  ; =============================================================================================
+00001922                           856  
+00001922                           857  ; --- Mario point -----------------------------------------------------------------------------
+00001922                           858  MAPOINTX     DS.W    1           ; MARIO X COORDINATE
+00001924                           859  MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
+00001926                           860  
+00001926                           861  -------------------- end include --------------------
+00001926                           862              INCLUDE "SYSVARS.X68"
+00001926                           863  ; =============================================================================================
+00001926                           864  ; SYSTEM VARIABLES
+00001926                           865  ; =============================================================================================
+00001926                           866  
+00001926                           867  ; --- KEYBOARD RELATED VARIABLES --------------------------------------------------------------
+00001926                           868  KBDVAL      DS.B    1                           ; KEY STATE (TECLA DE PULSO CONTINUO)
+00001927                           869  KBDEDGE     DS.B    1                           ; KEY EDGE (TECLA DE UNICO PULSO)
+00001928                           870  
+00001928                           871  
+00001928                           872  ; --- TIMED INTERRUPT RELATED VARIABLES -------------------------------------------------------
+00001928                           873  SCRINTCT    DS.B    1                           ; INTERRUPT COUNTER
+0000192A                           874              DS.W    0
+0000192A                           875  
+0000192A                           876  -------------------- end include --------------------
+0000192A                           877  
+0000192A                           878              END    START
 
 No errors detected
 No warnings generated
@@ -908,7 +908,7 @@ DKWIDTH             0
 HMRHEIGH            0
 HMRWIDHT            0
 KBDDOWN             53
-KBDEDGE             191F
+KBDEDGE             1927
 KBDFIRE1            4D
 KBDFIRE2            4E
 KBDINIT             1662
@@ -920,14 +920,14 @@ KBDUP               57
 KBDUPD              1670
 KBDUPD:LOOP         16B4
 KBDUPD:PACK         16B0
-KBDVAL              191E
+KBDVAL              1926
 MAHEIGHT            28
 MAINIT              189E
 MAPDATA             111E
 MAPDATA1            1772
 MAPLOT              18DE
-MAPOINTX            191A
-MAPOINTY            191C
+MAPOINTX            1922
+MAPOINTY            1924
 MAPPLOT             16C0
 MAPPLOT:BL1         16F6
 MAPPLOT:CLOOP       16D4
@@ -953,16 +953,16 @@ SCRFPS              64
 SCRHEIGH            1E0
 SCRHEIGHX           1002
 SCRINIT             1602
-SCRINTCT            1920
+SCRINTCT            1928
 SCRINTN             1
 SCRPLOT             1640
 SCRTIM              165A
 SCRWIDTH            280
 SCRWIDTHX           1000
 SELECCION           105A
-START               18EA
-START:LOOP          18F6
-START:WINT          18FC
+START               18F2
+START:LOOP          18FE
+START:WINT          1904
 SYSINIT             15CE
 TILHEIGH            1
 TILWIDTH            1

@@ -50,11 +50,13 @@ MAPLOT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D1,-(A7) 
 
             MOVE.W #MAWIDHT,D0
             MOVE.W #MAHEIGHT,D1
             TRAP #TRAPPLOT
-
+            
+            MOVEM.L (A7)+,D0-D1
            
             RTS
 
