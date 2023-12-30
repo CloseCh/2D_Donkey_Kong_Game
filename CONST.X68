@@ -14,8 +14,8 @@ B1MCOL      EQU     $00D8171D
 
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
 MASPEED     EQU     2                       ; MARNITUDE OF THE X AND Y VEL
-MAWIDHT     EQU     8                      ; MARIO WIDHT
-MAHEIGHT    EQU     12                      ; MARIO HEIGHT
+MAWIDHT     EQU     30                      ; MARIO WIDHT
+MAHEIGHT    EQU     40                      ; MARIO HEIGHT
 
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
 
