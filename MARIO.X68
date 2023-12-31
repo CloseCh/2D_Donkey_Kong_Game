@@ -13,7 +13,7 @@ MAINIT
             ; SET THE INIT POINT
             MOVE.W  #100,MAPOINTX
             MOVE.W  #410,MAPOINTY
-            MOVE.L  #MPR,MAIMAGE
+            MOVE.W  #MPR,MAIMAGE
             RTS
 
 
@@ -32,11 +32,11 @@ MAUPD
             BTST.B  #0,(KBDVAL)
             BEQ     .CHKRGHT                         ; PULSADO 'A' SALTAR
             SUB.W   #MASPEED,D0
-            MOVE.L  #MRL,(MAIMAGE)
+            MOVE.W  #MRL,(MAIMAGE)
 .CHKRGHT    BTST.B  #1,(KBDVAL)
             BEQ     .CONT                           ; PULSADO 'DOWN' SALTAR
             ADD.W   #MASPEED,D0
-            MOVE.L  #MRR,(MAIMAGE)
+            MOVE.W  #MRR,(MAIMAGE)
 .CONT
             MOVE.W  D0,(MAPOINTX)
 
@@ -61,6 +61,7 @@ MAPLOT
             MOVEM.L (A7)+,D0-D1
            
             RTS
+
 
 
 *~Font name~Courier New~

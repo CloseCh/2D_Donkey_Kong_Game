@@ -14,7 +14,7 @@ PLOT
         MOVEM.L D0-D6/A0,-(A7)
         MOVE.W D0,SCRWIDTHX
         MOVE.W D1,SCRHEIGHX
-        MOVE.L (MAIMAGE) , A0
+        MOVE.W (MAIMAGE) , A0
         ;DIBUJO DEL RECTANGULO
         MOVE.W #87,D0
         CLR.W D2
