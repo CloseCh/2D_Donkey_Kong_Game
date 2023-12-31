@@ -32,11 +32,11 @@ MAUPD
             BTST.B  #0,(KBDVAL)
             BEQ     .CHKRGHT                         ; PULSADO 'A' SALTAR
             SUB.W   #MASPEED,D0
-            MOVE.L  #MRL,MAIMAGE
+            MOVE.L  #MRL,(MAIMAGE)
 .CHKRGHT    BTST.B  #1,(KBDVAL)
             BEQ     .CONT                           ; PULSADO 'DOWN' SALTAR
             ADD.W   #MASPEED,D0
-            MOVE.L  #MRR,MAIMAGE
+            MOVE.L  #MRR,(MAIMAGE)
 .CONT
             MOVE.W  D0,(MAPOINTX)
 

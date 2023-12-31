@@ -11,7 +11,7 @@ def cargar_paleta():
         3: (255, 228, 196),  # COLOR PIEL
         4: (255, 165, 0),   # NARANJA
         5: (255, 255, 255), # BLANCO
-        6: (255, 192, 203)  # ROSA
+        #6: (255, 192, 203)  # ROSA
     }
     return paleta
 
