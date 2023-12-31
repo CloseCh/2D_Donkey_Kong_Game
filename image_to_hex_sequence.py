@@ -1,4 +1,5 @@
 from PIL import Image
+import os
 import math
 
 def cargar_paleta():
@@ -10,7 +11,7 @@ def cargar_paleta():
         3: (255, 228, 196),  # COLOR PIEL
         4: (255, 165, 0),   # NARANJA
         5: (255, 255, 255), # BLANCO
-       #6: (255, 192, 203)  # ROSA
+        #6: (255, 192, 203)  # ROSA
     }
     return paleta
 
@@ -53,24 +54,48 @@ def generar_mapa_de_bits(imagen, paleta):
 
     return mapa_de_bits
 
-def imprimir_filas_en_formato(datos):
+def imprimir_filas_en_formato(datos, archivo=None):
     # Imprimir las filas en el formato especificado
     for fila in datos:
-        print(" DC.B " + ",".join(map(str, fila)))
+        if archivo:
+            archivo.write(" DC.B " + ",".join(map(str, fila)) + "\n")
+        else:
+            print(" DC.B " + ",".join(map(str, fila)))
 
-def main():
+def procesar_imagenes_y_guardar_txt(ruta_imagenes, carpeta_destino):
     # Cargar la paleta
     paleta = cargar_paleta()
 
-    # Cargar la imagen BMP
-    ruta_imagen = r"C:\Users\jaume\Documents\uni\any2\semestre1\Estructura de computadors II\PRACTICAFINAL\imagentrue\mrr.bmp"  # Reemplaza con la ruta de tu imagen BMP
-    imagen = Image.open(ruta_imagen)
+    # Crear la carpeta de destino si no existe
+    if not os.path.exists(carpeta_destino):
+        os.makedirs(carpeta_destino)
 
-    # Generar el mapa de bits
-    mapa_de_bits = generar_mapa_de_bits(imagen, paleta)
+    # Obtener la lista de archivos BMP en la carpeta de imágenes
+    archivos_bmp = [archivo for archivo in os.listdir(ruta_imagenes) if archivo.lower().endswith('.bmp')]
 
-    # Imprimir el mapa de bits en el formato deseado
-    imprimir_filas_en_formato(mapa_de_bits)
+    # Procesar cada archivo BMP
+    for archivo_bmp in archivos_bmp:
+        # Cargar la imagen BMP
+        ruta_imagen = os.path.join(ruta_imagenes, archivo_bmp)
+        imagen = Image.open(ruta_imagen)
+
+        # Generar el mapa de bits
+        mapa_de_bits = generar_mapa_de_bits(imagen, paleta)
+
+        # Crear el nombre del archivo TXT de salida
+        nombre_txt = os.path.splitext(archivo_bmp)[0] + ".txt"
+        ruta_txt = os.path.join(carpeta_destino, nombre_txt)
+
+        # Guardar el mapa de bits en el archivo TXT
+        with open(ruta_txt, 'w') as archivo_txt:
+            imprimir_filas_en_formato(mapa_de_bits, archivo_txt)
 
 if __name__ == "__main__":
-    main()
+    # Ruta de la carpeta que contiene las imágenes BMP
+    ruta_imagenes = "imagenes"
+
+    # Carpeta de destino para los archivos TXT
+    carpeta_destino = "IMAGESTEXT"
+
+    # Procesar imágenes y guardar archivos TXT
+    procesar_imagenes_y_guardar_txt(ruta_imagenes, carpeta_destino)
