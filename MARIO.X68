@@ -29,16 +29,32 @@ MAUPD
             ; UPDATE COORDINATE X
             MOVE.W  (MAPOINTX),D0
 
-            BTST.B  #0,(KBDVAL)
-            BEQ     .CHKRGHT                         ; PULSADO 'A' SALTAR
+            BTST.B  #0,(KBDVAL) ;SE HA PULSADO LA TECLA A?
+            BEQ     .CHKRGHT                         
             SUB.W   #MASPEED,D0
-            MOVE.L  #MRL,(MAIMAGE)
-.CHKRGHT    BTST.B  #1,(KBDVAL)
-            BEQ     .CONT                           ; PULSADO 'DOWN' SALTAR
+            CMP.L   #MRL,(MAIMAGE)
+            BEQ     .LEFT2
+            MOVE.L  #MRL,MAIMAGE
+            BRA     .FIN
+.LEFT2      MOVE.L  #MRL2,MAIMAGE      
+            BRA     .FIN
+.CHKRGHT    BTST.B  #1,(KBDVAL) ;SE HA PULSADO LA TECLA D?
+            BEQ     .CONT                           
             ADD.W   #MASPEED,D0
-            MOVE.L  #MRR,(MAIMAGE)
-.CONT
-            MOVE.W  D0,(MAPOINTX)
+
+
+            MOVE.L  #MRR,MAIMAGE
+            BRA     .FIN
+
+.CONT       ; NO SE HA PULSADO NINGUNA TECLA
+            CMP.L  #MRL,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA IZQUIERDA?
+            BNE    .IMGRGHT
+            MOVE.L #MPL,MAIMAGE
+            BRA    .FIN
+.IMGRGHT    CMP.L  #MRR,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA DERECHA?
+            BNE    .FIN
+            MOVE.L #MPR,MAIMAGE 
+.FIN        MOVE.W  D0,(MAPOINTX)
 
             MOVE.W (A7)+,D0
             RTS
