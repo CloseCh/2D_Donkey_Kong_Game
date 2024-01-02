@@ -6,8 +6,8 @@
 MAPOINTX     DS.W    1           ; MARIO X COORDINATE
 MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
 MAIMAGE      DS.L    1           ; CURRENT IMAGE MARIO
-
-
+MACONT       DS.B    1           ; COUNTER FOR CHANGE OF IMAGE
+             DS.W    0
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~
