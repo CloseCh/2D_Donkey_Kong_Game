@@ -19,10 +19,10 @@ MAHEIGHT    EQU     40                      ; MARIO HEIGHT
 MACONTN     EQU     3000                    ; COUNTER MARIO
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
 
-DKWIDTH     EQU     0                       ; DONKEY_KONG WIDHT
-DKHEIGHT    EQU     0                       ; DONKEY_KONG HEIGHT
-DKPOSX      EQU     0                       ; DONKEY_KONG X POSITION
-DKPOSY      EQU     0                       ; DONKEY_KONG Y POSITION
+DKWIDTH     EQU     90                       ; DONKEY_KONG WIDHT
+DKHEIGHT    EQU     70                       ; DONKEY_KONG HEIGHT
+DKPOSX      EQU     60                       ; DONKEY_KONG X POSITION
+DKPOSY      EQU     0                      ; DONKEY_KONG Y POSITION
 
 ; --- PEACH RELATED CONSTANTS ----------------------------------------------------
 

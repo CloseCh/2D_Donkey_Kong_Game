@@ -13,7 +13,7 @@
 			INCLUDE "SYSTEM.X68"
 			INCLUDE "MAP.X68"
 			INCLUDE "MARIO.X68"
-			; INCLUDE "DONKEY_KONG.X68"
+		    INCLUDE "DONKEY_KONG.X68"
 			; INCLUDE "BARREL.X68"
 			; INCLUDE "PEACH.X68"
 			; INCLUDE "HAMMER.X68"
@@ -26,7 +26,7 @@ START
 			JSR 	SYSINIT
 	   		; JSR 	PCHINIT
             JSR 	MAINIT
-            ; JSR 	DKINIT
+            JSR 	DKINIT
             ; JSR 	BRLINIT
 	    	; JSR 	HMRINIT
             
@@ -41,7 +41,7 @@ START
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
 			; JSR 	PCHUPD
             JSR 	MAUPD
-            ; JSR 	DKUPD
+            JSR 	DKUPD
 			; JSR 	BRLUPD
 			; JSR 	HMRUPD
 
@@ -56,7 +56,7 @@ START
 			JSR 	MAPPLOT
 			; JSR 	PCHPLOT
             JSR 	MAPLOT
-            ; JSR 	DKPLOT
+            JSR 	DKPLOT
             ; JSR 	BRLPLOT
 			; JSR 	HMRPLOT
 

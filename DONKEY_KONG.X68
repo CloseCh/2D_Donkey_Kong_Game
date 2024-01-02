@@ -9,6 +9,7 @@ DKINIT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVE.L #DKDL,DKIMAGE
             RTS
 
 
@@ -30,6 +31,17 @@ DKPLOT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D3/A0,-(A7) 
+
+            MOVE.W #DKWIDTH,D0
+            MOVE.W #DKHEIGHT,D1
+            MOVE.W #DKPOSX,D2
+            MOVE.W #DKPOSY,D3
+            MOVE.L DKIMAGE,A0
+            TRAP #TRAPPLOT
+            
+            MOVEM.L (A7)+,D0-D3/A0
+            
             RTS
 
 *~Font name~Courier New~

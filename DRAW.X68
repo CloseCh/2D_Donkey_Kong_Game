@@ -1,8 +1,10 @@
 
-SCRWIDTHX    DS.W 1                    ; SCREEN WIDTH
-SCRHEIGHX    DS.W 1                   ; SCREEN HEIGHT
-TILWIDTH    EQU     1                      ; TILE WIDTH
-TILHEIGH    EQU     1                      ; TILE HEIGHT
+SCRWIDTHX    DS.W    1                      ; SCREEN WIDTH
+SCRHEIGHX    DS.W    1                      ; SCREEN HEIGHT
+COORX        DS.W    1                      ; COORDENATE X
+COORY        DS.W    1                      ; COORDENATE Y
+TILWIDTH     EQU     1                      ; TILE WIDTH
+TILHEIGH     EQU     1                      ; TILE HEIGHT
 
 ; ---------------------------------------------------------------------------------------------
 PLOT
@@ -14,17 +16,18 @@ PLOT
         MOVEM.L D0-D6/A0,-(A7)
         MOVE.W D0,SCRWIDTHX
         MOVE.W D1,SCRHEIGHX
-        MOVE.L (MAIMAGE) , A0
+        MOVE.W D2,COORX
+        MOVE.W D3,COORY
         ;DIBUJO DEL RECTANGULO
         MOVE.W #87,D0
         CLR.W D2
-        MOVE.W MAPOINTY,D4
+        MOVE.W COORY,D4
 
         MOVE.W  (SCRHEIGHX),D6
         SUB.W #1,D6
 
 .CLOOP  CLR.W   D1
-        MOVE.W  MAPOINTX,D3
+        MOVE.W  COORX,D3
         MOVE.W  (SCRWIDTHX),D5
         SUB.W #1,D5
 .RLOOP  TST.B   (A0)+
