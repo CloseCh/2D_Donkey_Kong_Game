@@ -16,7 +16,7 @@ B1MCOL      EQU     $00D8171D
 MASPEED     EQU     2                       ; MARNITUDE OF THE X AND Y VEL
 MAWIDHT     EQU     30                      ; MARIO WIDHT
 MAHEIGHT    EQU     40                      ; MARIO HEIGHT
-
+MACONTN     EQU     3000                    ; COUNTER MARIO
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
 
 DKWIDTH     EQU     0                       ; DONKEY_KONG WIDHT
@@ -37,12 +37,11 @@ BRLWIDHT    EQU     0                       ; BARREL WIDHT
 BRLHEIGH    EQU     0                       ; BARREL HEIGHT
 BRLSPEED    EQU     0                       ; MAGNITUDE OF THE X AND Y VEL. 
 
-;---HAMMER RELATED CONSTANTS ----------------------------------------------------
+;---HAMMER RELATED CONSTANTS ------------------------------------------------------
 
 HMRWIDHT    EQU     0                      ; BARREL WIDHT
 HMRHEIGH    EQU     0                      ; BARREL HEIGHT
-
-
+      
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~

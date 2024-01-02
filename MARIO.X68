@@ -28,23 +28,39 @@ MAUPD
 
             ; UPDATE COORDINATE X
             MOVE.W  (MAPOINTX),D0
-
             BTST.B  #0,(KBDVAL) ;SE HA PULSADO LA TECLA A?
             BEQ     .CHKRGHT                         
             SUB.W   #MASPEED,D0
-            CMP.L   #MRL,(MAIMAGE)
-            BEQ     .LEFT2
-            MOVE.L  #MRL,MAIMAGE
-            BRA     .FIN
-.LEFT2      MOVE.L  #MRL2,MAIMAGE      
-            BRA     .FIN
+
+            CMP.W  #MACONTN/2,(MACONT)
+            BGT    .LEFT2
+            ADDQ.B #1,(MACONT)
+            MOVE.L #MRL,MAIMAGE
+            BRA    .FIN
+.LEFT2      ADDQ.B #1,(MACONT)
+            MOVE.L #MRL2,MAIMAGE
+            CMP.W  #MACONTN,(MACONT)
+            BLE    .FIN
+            CLR.W  (MACONT)
+            BRA    .FIN
+
 .CHKRGHT    BTST.B  #1,(KBDVAL) ;SE HA PULSADO LA TECLA D?
             BEQ     .CONT                           
             ADD.W   #MASPEED,D0
 
-
-            MOVE.L  #MRR,MAIMAGE
-            BRA     .FIN
+            CMP.W  #MACONTN/2,(MACONT)
+            BGT    .RIGHT2
+            ADDQ.B #1,(MACONT)
+            MOVE.L #MRR,MAIMAGE
+            BRA    .FIN
+.RIGHT2     ADDQ.B #1,(MACONT)
+            MOVE.L #MRR2,MAIMAGE
+            CMP.W  #MACONTN,(MACONT)
+            BLE    .FIN
+            CLR.W  (MACONT)
+            BRA    .FIN
+            
+            
 
 .CONT       ; NO SE HA PULSADO NINGUNA TECLA
             CMP.L  #MRL,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA IZQUIERDA?
@@ -52,8 +68,17 @@ MAUPD
             MOVE.L #MPL,MAIMAGE
             BRA    .FIN
 .IMGRGHT    CMP.L  #MRR,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA DERECHA?
-            BNE    .FIN
-            MOVE.L #MPR,MAIMAGE 
+            BNE    .IMGRGHT2
+            MOVE.L #MPR,MAIMAGE
+            BRA    .FIN
+.IMGRGHT2   CMP.L  #MRR2,(MAIMAGE)            
+            BNE    .IMGLEFT2
+            MOVE.L #MPR,MAIMAGE
+            BRA    .FIN
+.IMGLEFT2   CMP.L  #MRL2,(MAIMAGE)
+            BRA    .FIN
+            MOVE.L #MPL,MAIMAGE
+            
 .FIN        MOVE.W  D0,(MAPOINTX)
 
             MOVE.W (A7)+,D0
