@@ -75,7 +75,7 @@ MAUPD
             MOVE.L #MPR,MAIMAGE
             BRA    .FIN
 .IMGLEFT2   CMP.L  #MRL2,(MAIMAGE)
-            BRA    .FIN
+            BNE    .FIN
             MOVE.L #MPL,MAIMAGE
             
 .FIN        MOVE.W  D0,(MAPOINTX)

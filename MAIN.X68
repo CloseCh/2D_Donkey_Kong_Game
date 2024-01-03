@@ -56,7 +56,7 @@ START
 			JSR 	MAPPLOT
 			; JSR 	PCHPLOT
             JSR 	MAPLOT
-            JSR 	DKPLOT
+            ;JSR 	DKPLOT
             ; JSR 	BRLPLOT
 			; JSR 	HMRPLOT
 
@@ -70,6 +70,7 @@ START
 			INCLUDE "SYSVARS.X68"
 
 			END    START
+
 
 
 

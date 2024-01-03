@@ -48,65 +48,39 @@ PLOT
 
 SELECCION
      MOVEM.L D0-D6,-(A7)
-     MOVE.B #80,D0 ;TAREA PARA ELEGIR EL COLOR DEL "PEN"
-       
-        
-    
-        CMP.B #1,-(A0) ;COMPARA SI ES ROJO  
-        BNE NARANJA ;SINO ES AZUL
-        MOVE.L  #$000000FF,D1
-        TRAP    #15
-        MOVE.B  #81,D0 ; TAREA PARA ELEGIR EL RELLENO DEL RECTANGULO.
-        MOVE.L  #$000000FF,D1
-        TRAP    #15
-        BRA CONTINUE
+     MOVE.B #80, D0 ; TAREA PARA ELEGIR EL COLOR DEL "PEN"
+        CMP.B  #1, -(A0) ; COMPARA SI ES ROJO
+        BEQ    .ROJO
+        CMP.B  #2, (A0)
+        BEQ    .AZUL
+        CMP.B  #3, (A0)
+        BEQ    .CARNE
+        CMP.B  #4, (A0)
+        BEQ    .NARANJA
+        CMP.B  #5, (A0)
+        BEQ    .BLANCO
+        BRA    .ROSA
 
-AZUL    CMP.B #2,(A0)
-        BNE CARNE
-        MOVE.L  #$00FF0000,D1 
-        TRAP    #15
-        MOVE.B  #81,D0
-        MOVE.L  #$00FF0000,D1
-        TRAP    #15
-        BRA CONTINUE
-        
-CARNE   CMP.B #3,(A0)
-        BNE BLANCO
-        MOVE.L  #$00CADDFD,D1 
-        TRAP    #15
-        MOVE.B  #81,D0
-        MOVE.L  #$00CADDFD,D1
-        TRAP    #15
-        BRA CONTINUE
+.ROJO   MOVE.L  #$000000FF, D1
+        BRA     .CONTINUE
 
-NARANJA CMP.B #4,(A0)
-        BNE AZUL
-        MOVE.L  #$000080FF,D1 
-        TRAP    #15
-        MOVE.B  #81,D0
-        MOVE.L  #$000080FF,D1
-        TRAP    #15
-        BRA CONTINUE
+.AZUL   MOVE.L  #$00FF0000, D1
+        BRA     .CONTINUE
 
-BLANCO  CMP.B #5,(A0)
-        BNE ROSA
-        MOVE.L  #$00FFFFFF,D1 
-        TRAP    #15
-        MOVE.B  #81,D0
-        MOVE.L  #$00FFFFFF,D1
-        TRAP    #15
-        BRA CONTINUE
+.CARNE  MOVE.L  #$00CADDFD, D1
+        BRA     .CONTINUE
 
-ROSA    MOVE.L  #$00CB00FF,D1 
-        TRAP    #15
-        MOVE.B  #81,D0
-        MOVE.L  #$00CB00FF,D1
-        TRAP    #15
-        
+.NARANJA MOVE.L  #$000080FF, D1
+        BRA     .CONTINUE
 
-       
-CONTINUE
-    ADDA.L #1,A0
+.BLANCO MOVE.L  #$00FFFFFF, D1
+        BRA     .CONTINUE
+
+.ROSA   MOVE.L  #$00CB00FF, D1
+
+.CONTINUE
+        TRAP #15
+        ADDA.L #1, A0
     MOVEM.L (A7)+,D0-D6
 
     RTS
