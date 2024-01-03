@@ -3,8 +3,7 @@ SCRWIDTHX    DS.W    1                      ; SCREEN WIDTH
 SCRHEIGHX    DS.W    1                      ; SCREEN HEIGHT
 COORX        DS.W    1                      ; COORDENATE X
 COORY        DS.W    1                      ; COORDENATE Y
-TILWIDTH     EQU     1                      ; TILE WIDTH
-TILHEIGH     EQU     1                      ; TILE HEIGHT
+
 
 ; ---------------------------------------------------------------------------------------------
 PLOT
@@ -13,7 +12,7 @@ PLOT
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
         
-        MOVEM.L D0-D6/A0,-(A7)
+        MOVEM.W D0-D6/A0,-(A7)
         MOVE.W D0,SCRWIDTHX
         MOVE.W D1,SCRHEIGHX
         MOVE.W D2,COORX
@@ -36,14 +35,14 @@ PLOT
         TRAP    #15
                       
 .NEXT   MOVE.W  D3,D1
-        ADD.W   #TILWIDTH,D3
+        ADDQ.W   #1,D3
         DBRA.W  D5,.RLOOP
         MOVE.W  D4,D2
-        ADD.W   #TILHEIGH,D4
+        ADDQ.W   #1,D4
         DBRA.W  D6,.CLOOP
 
      
-    MOVEM.L (A7)+,D0-D6/A0
+    MOVEM.W (A7)+,D0-D6/A0
     
     RTE
 
@@ -54,7 +53,7 @@ SELECCION
         
     
         CMP.B #1,-(A0) ;COMPARA SI ES ROJO  
-        BNE AZUL ;SINO ES AZUL
+        BNE NARANJA ;SINO ES AZUL
         MOVE.L  #$000000FF,D1
         TRAP    #15
         MOVE.B  #81,D0 ; TAREA PARA ELEGIR EL RELLENO DEL RECTANGULO.
@@ -72,7 +71,7 @@ AZUL    CMP.B #2,(A0)
         BRA CONTINUE
         
 CARNE   CMP.B #3,(A0)
-        BNE NARANJA
+        BNE BLANCO
         MOVE.L  #$00CADDFD,D1 
         TRAP    #15
         MOVE.B  #81,D0
@@ -81,7 +80,7 @@ CARNE   CMP.B #3,(A0)
         BRA CONTINUE
 
 NARANJA CMP.B #4,(A0)
-        BNE BLANCO
+        BNE AZUL
         MOVE.L  #$000080FF,D1 
         TRAP    #15
         MOVE.B  #81,D0
@@ -112,6 +111,7 @@ CONTINUE
 
     RTS
     
+
 
 
 
