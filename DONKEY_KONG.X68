@@ -20,6 +20,19 @@ DKUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+           
+            CMP.W  #DKCONTN/2,(DKCONT)
+            BGT    .DKRIGHT
+            ADDQ.B #1,(DKCONT)
+            MOVE.L #DKDL,DKIMAGE
+            BRA    .FIN
+.DKRIGHT    ADDQ.B #1,(DKCONT)
+            MOVE.L #DKDR,DKIMAGE
+            CMP.W  #DKCONTN,(DKCONT)
+            BLE    .FIN
+            CLR.W  (DKCONT)
+            BRA    .FIN
+.FIN
             RTS
             
             
