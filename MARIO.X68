@@ -9,11 +9,10 @@ MAINIT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            
             ; SET THE INIT POINT
             MOVE.W  #100,MAPOINTX
             MOVE.W  #410,MAPOINTY
-            MOVE.L  #MPR,MAIMAGE
+            MOVE.L  #MPR,MAIMAGE      
             RTS
 
 
@@ -76,7 +75,7 @@ MAUPD
             MOVE.L #MPR,MAIMAGE
             BRA    .FIN
 .IMGLEFT2   CMP.L  #MRL2,(MAIMAGE)
-            BRA    .FIN
+            BNE    .FIN
             MOVE.L #MPL,MAIMAGE
             
 .FIN        MOVE.W  D0,(MAPOINTX)
@@ -93,13 +92,16 @@ MAPLOT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVEM.L D0-D1,-(A7) 
+            MOVEM.L D0-D3/A0,-(A7) 
 
             MOVE.W #MAWIDHT,D0
             MOVE.W #MAHEIGHT,D1
+            MOVE.W (MAPOINTX),D2
+            MOVE.W (MAPOINTY),D3
+            MOVE.L MAIMAGE,A0
             TRAP #TRAPPLOT
             
-            MOVEM.L (A7)+,D0-D1
+            MOVEM.L (A7)+,D0-D3/A0
            
             RTS
 
