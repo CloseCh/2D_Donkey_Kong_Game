@@ -21,8 +21,8 @@ MACONTN     EQU     2000                    ; COUNTER MARIO
 
 DKWIDTH     EQU     90                       ; DONKEY_KONG WIDHT
 DKHEIGHT    EQU     70                       ; DONKEY_KONG HEIGHT
-DKPOSX      EQU     60                       ; DONKEY_KONG X POSITION
-DKPOSY      EQU     0                      ; DONKEY_KONG Y POSITION
+DKPOSX      EQU     85                       ; DONKEY_KONG X POSITION
+DKPOSY      EQU     -5                      ; DONKEY_KONG Y POSITION
 DKCONTN     EQU     3000
 ; --- PEACH RELATED CONSTANTS ----------------------------------------------------
 
