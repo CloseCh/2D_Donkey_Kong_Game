@@ -11,7 +11,7 @@ MAINIT
 ; ---------------------------------------------------------------------------------------------
             ; SET THE INIT POINT
             MOVE.W  #100,MAPOINTX
-            MOVE.W  #400,MAPOINTY
+            MOVE.W  #440,MAPOINTY
 
             ; MARIO INITIAL LOOKS TO THE RIGHT
             MOVE.L  #MPR,MAIMAGE
@@ -155,6 +155,7 @@ MAPLOT
             MOVE.W  #MAHEIGHT,D1
             MOVE.W  (MAPOINTX),D2
             MOVE.W  (MAPOINTY),D3
+            SUB.W   #40,D3 ; 
             MOVE.L  MAIMAGE,A0
             TRAP    #TRAPPLOT
             
