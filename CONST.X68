@@ -7,19 +7,19 @@ BLCWIDTH    EQU     32                       ; BLOCK WIDTH
 BLCHEIGH    EQU     32                       ; BLOCK HEIGH
 
     ; --- BLOCK 1 -----------------------------------------------------------------------------
-B1LCOL      EQU     $00000000
-B1MCOL      EQU     $00D8171D
-
 B1SIZEH     EQU     18
 B1SIZEW     EQU     32
 
     ; --- BLOCK 2 -----------------------------------------------------------------------------
 
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
-MASPEED     EQU     10                       ; MARNITUDE OF THE X AND Y VEL
+MASPEED     EQU     2                      ; MARNITUDE OF THE X AND Y VEL
 MAWIDHT     EQU     30                      ; MARIO WIDHT
 MAHEIGHT    EQU     40                      ; MARIO HEIGHT
 MACONTN     EQU     2000                    ; COUNTER MARIO
+
+    ; --- MARIO COLISION CONSTANTS -----------------------------------------------
+MACOLW      EQU     24                      ; MARIO COLISION WIDHT
 
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
 
