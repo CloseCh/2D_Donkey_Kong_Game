@@ -13,7 +13,7 @@ B1SIZEW     EQU     32
     ; --- BLOCK 2 -----------------------------------------------------------------------------
 
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
-MASPEED     EQU     2                      ; MARNITUDE OF THE X AND Y VEL
+MASPEED     EQU     4                      ; MARNITUDE OF THE X AND Y VEL
 MAWIDHT     EQU     30                      ; MARIO WIDHT
 MAHEIGHT    EQU     40                      ; MARIO HEIGHT
 MACONTN     EQU     2000                    ; COUNTER MARIO
