@@ -165,8 +165,7 @@ KBDUPD
 .LOOP       LSL.L   #8,D1
             ROXL.B  #1,D2
             DBRA.W  D3,.LOOP
-            RTS
-
+            RTS       
 
 *~Font name~Courier New~
 *~Font size~12~

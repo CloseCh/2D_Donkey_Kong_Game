@@ -26,8 +26,9 @@ MACOLW      EQU     24                      ; MARIO COLISION WIDHT
 DKWIDTH     EQU     90                       ; DONKEY_KONG WIDHT
 DKHEIGHT    EQU     70                       ; DONKEY_KONG HEIGHT
 DKPOSX      EQU     85                       ; DONKEY_KONG X POSITION
-DKPOSY      EQU     -5                      ; DONKEY_KONG Y POSITION
-DKCONTN     EQU     3000
+DKPOSY      EQU     -5                       ; DONKEY_KONG Y POSITION
+DKCONTN     EQU     3000                     ; COUNTER FOR LEFT-RIGHT IMAGES
+DKCONTTN    EQU     18000                   ; COUNTER FOR THROWING IMAGE
 
 ; --- PEACH RELATED CONSTANTS ----------------------------------------------------
 
