@@ -10,8 +10,9 @@ MACONT       DS.B    1           ; COUNTER FOR CHANGES OF IMAGES
              DS.W    0
 ;--- Donkey kong variables ---------------------------------------------------------------------
 DKIMAGE      DS.L    1           ; CURRENT IMAGE DK
-DKCONT       DS.B    1           ; COUNTER FOR CHANGES OF IMAGES
-             DS.W    0
+DKCONTT      DS.W    1           ; COUNTER FOR THROWING BARRELS
+DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
+             
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~

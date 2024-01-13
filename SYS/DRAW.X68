@@ -7,7 +7,7 @@ COORY        DS.W    1                      ; COORDENATE Y
 
 ; ---------------------------------------------------------------------------------------------
 PLOT
-; INPUT     :WIDTH IN D0, HEIGHT IN D1
+; INPUT     :WIDTH IN D0, HEIGHT IN D1,COORDENATE X IN D2, COORDENATE X IN D3, ADDRESS IN A0
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
