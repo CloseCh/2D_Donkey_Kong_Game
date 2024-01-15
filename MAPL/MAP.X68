@@ -12,7 +12,7 @@ MAPPLOT
 
             MOVEM.L D0-D7/A0,-(A7)
 
-            LEA     MAPDATA1,A0 ;LEER EL DIRECCION DEL MAPA
+            LEA     MAPDATA2,A0 ;LEER EL DIRECCION DEL MAPA
             CLR.W   D2
 
             MOVE.W  #(BLCHEIGH/2)+2,D4
