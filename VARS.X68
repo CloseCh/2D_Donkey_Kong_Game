@@ -12,6 +12,9 @@ MACONT       DS.B    1           ; COUNTER FOR CHANGES OF IMAGES
 DKIMAGE      DS.L    1           ; CURRENT IMAGE DK
 DKCONTT      DS.W    1           ; COUNTER FOR THROWING BARRELS
 DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
+;--- barrel variables ---------------------------------------------------------------------
+BRLPOSX     DS.W    1           ; BARREL X COORDINATE
+BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
              
 *~Font name~Courier New~
 *~Font size~12~

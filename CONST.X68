@@ -39,9 +39,10 @@ PCHPOSY     EQU     0                       ; PEACH Y POSITION
 
 ; --- BARREL RELATED CONSTANTS ----------------------------------------------------
 
-BRLWIDHT    EQU     0                       ; BARREL WIDHT
-BRLHEIGH    EQU     0                       ; BARREL HEIGHT
-BRLSPEED    EQU     0                       ; MAGNITUDE OF THE X AND Y VEL. 
+BRLRAD      EQU     11
+BRLSPEED    EQU     0                       ; MAGNITUDE OF THE X AND Y VEL.
+BRLPCOL     EQU     $00000080               ; BARREL COLOR 
+BRLFCOL     EQU     $000000FF
 
 ;---HAMMER RELATED CONSTANTS ------------------------------------------------------
 

@@ -16,7 +16,7 @@
 			INCLUDE "CHARACTERS/MARIO.X68"
 		    INCLUDE "CHARACTERS/DONKEY_KONG.X68"
 			; INCLUDE "CHARACTERS/PEACH.X68"
-			; INCLUDE "ITEM/BARREL.X68"
+			INCLUDE "ITEM/BARREL.X68"
 			; INCLUDE "ITEM/HAMMER.X68"
 			
 START		
@@ -28,7 +28,7 @@ START
 	   		; JSR 	PCHINIT
             JSR 	MAINIT
             JSR 	DKINIT
-            ; JSR 	BRLINIT
+            JSR 	BRLINIT
 	    	; JSR 	HMRINIT
             
 .LOOP
@@ -43,7 +43,7 @@ START
 			; JSR 	PCHUPD
             JSR 	MAUPD
             JSR 	DKUPD
-			; JSR 	BRLUPD
+			JSR 	BRLUPD
 			; JSR 	HMRUPD
 
 ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
@@ -58,7 +58,7 @@ START
 			; JSR 	PCHPLOT
             JSR 	MAPLOT
             JSR 	DKPLOT
-            ; JSR 	BRLPLOT
+            JSR 	BRLPLOT
 			; JSR 	HMRPLOT
 
 			
