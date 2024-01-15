@@ -8,11 +8,16 @@ MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
 MAIMAGE      DS.L    1           ; CURRENT IMAGE MARIO
 MACONT       DS.B    1           ; COUNTER FOR CHANGES OF IMAGES
              DS.W    0
-;--- Donkey kong variables ---------------------------------------------------------------------
+;--- Donkey kong variables --------------------------------------------------------------------
 DKIMAGE      DS.L    1           ; CURRENT IMAGE DK
 DKCONTT      DS.W    1           ; COUNTER FOR THROWING BARRELS
 DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
-;--- barrel variables ---------------------------------------------------------------------
+
+;--- Peach variables --------------------------------------------------------------------------
+PCHIMAGE      DS.L    1           ; CURRENT IMAGE PEACH
+
+
+;--- barrel variables -------------------------------------------------------------------------
 BRLPOSX     DS.W    1           ; BARREL X COORDINATE
 BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
              

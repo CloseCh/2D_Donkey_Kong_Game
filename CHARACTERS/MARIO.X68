@@ -151,7 +151,7 @@ MAPLOT
 ; ---------------------------------------------------------------------------------------------
             MOVEM.L D0-D3/A0,-(A7) 
 
-            MOVE.W  #MAWIDHT,D0
+            MOVE.W  #MAWIDTH,D0
             MOVE.W  #MAHEIGHT,D1
             MOVE.W  (MAPOINTX),D2
             MOVE.W  (MAPOINTY),D3
