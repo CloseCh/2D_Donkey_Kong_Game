@@ -6,7 +6,7 @@
 MAPOINTX     DS.W    1           ; MARIO X COORDINATE
 MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
 MAIMAGE      DS.L    1           ; CURRENT IMAGE MARIO
-MACONT       DS.B    1           ; COUNTER FOR CHANGES OF IMAGES
+MACONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
              DS.W    0
 ;--- DONKEY KONG VARIABLES --------------------------------------------------------------------
 DKIMAGE      DS.L    1           ; CURRENT IMAGE DK
@@ -26,6 +26,7 @@ BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
 HMRPOSX     DS.W    1           ; HAMMER X COORDINATE
 HMRPOSY     DS.W    1           ; HAMMER Y COORDINATE
 HMRCONT     DS.W    1           ; COUNTER FOR HAMMER             
+
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~

@@ -12,6 +12,7 @@ SCRFPS      EQU     150                 ; SCREEN FRAMES PER SECOND
 TRAPSCR     EQU     1                   ; DOUBLE BUFFER TRAP NUMBER
 TRAPKEY     EQU     2                   
 TRAPPLOT    EQU     3                    
+TRNMREAD    EQU     4                   ; MOUSE READ TRAP NUMBER
 
 ; --- INTERRUPT NUMBERS -----------------------------------------------------------------------
 SCRINTN     EQU     1                   ; SCREEN TIMED INTERRUPT NUMBER

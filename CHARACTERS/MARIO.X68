@@ -11,7 +11,7 @@ MAINIT
 ; ---------------------------------------------------------------------------------------------
             ; SET THE INIT POINT
             MOVE.W  #100,MAPOINTX
-            MOVE.W  #440,MAPOINTY
+            MOVE.W  #300,MAPOINTY
 
             ; MARIO INITIAL LOOKS TO THE RIGHT
             MOVE.L  #MPR,MAIMAGE
@@ -20,7 +20,8 @@ MAINIT
 
 ; ---------------------------------------------------------------------------------------------
 MAUPD
-; UPDATE MARIO.
+; UPDATE MARIO. COLISIONES, SALTOS, CAMINAR.
+; MOVIMIENTOS : SUBIR/BAJAR ESCALERAS, MOVIMIENTOS LATERALES.
 ; INPUT     :
 ; OUTPUT    :
 ; MODIFIES  :
@@ -29,17 +30,17 @@ MAUPD
 
             ; OBTENER POSICION DE MARIO EN EL MAPA, INTRODUCIR EN D0
             LEA     MAPDATA1,A0      ; OBTENER DIRECCION DEL MAPA
-            CLR.L   D0               
-            CLR.L   D1               
-            CLR.L   D2               
-            CLR.L   D3               
+            CLR.L   D0
+            CLR.L   D1
+            CLR.L   D2
+            CLR.L   D3
                 ; OBTENER COORDENADA Y EN D0 Y COORDENADA X EN D1
             MOVE.W  (MAPOINTY),D0
             MOVE.W  (MAPOINTX),D1
                 ; DIVISION POR 32
             LSR.W   #5,D0
             LSR.W   #5,D1
-                ; D2-3 GUARDAR CONTENIDO PARA DESPUES LAS COLISIONES
+                ; SALVAR DATOS
             MOVE.W  D0,D2
             MOVE.W  D1,D3
                 ; MULTIPLICAR Y SUMAR
@@ -48,36 +49,40 @@ MAUPD
             LSL.W   #2,D0
             ADD.W   D1,D0
 
-            ; PARA CAMINAR Y SALTAR
+            ; PARA CAMINAR
             ; MIRAMOS COLISION CON (A0,D0) 
             MOVE.B  (A0,D0),D7
-                ; VERIFICACION DE BLOQUE
-            BTST.L  #0,D7
-            BEQ     .NEXT        ; VER SI EXISTE BLOQUE
             BTST.L  #1,D7
-            BNE     .NEXT        ; SI ES EL BLOQUE ESCALERA SALTAR.
-                ; REALIZACIÓN DE CALCULOS
-                ; POSICION EN Y
+            BNE     .NEXT           ; VER SI YA ESTA PISANDO BLOQUE
+            ; VER SI DEBAJO HAY BLOQUE
             MOVE.W  D2,D0
-            LSL.W   #5,D0       ; OBTENER PUNTO MEDIO DE MARIO EN Y
-            
-            ADDQ.W  #1,D2       ; SUMAR 1 POR EL BLOQUE
-            LSL.W   #5,D2       ; PUNTO MEDIO DE BLOQUE EN Y
-            
-                ; INCREMENTAMOS VALORES PARA VER COLISION
-            ADD.W   #(MAHEIGHT/2),D0
-            ADD.W   #(B1SIZEH/2),D2
+            MOVE.W  D3,D1
+            LSL.W   #2,D0
+            ADD.W   D0,D1
+            LSL.W   #2,D0
+            ADD.W   D1,D0
+
+            MOVE.B  (A0,D0),D7
+            BEQ     .SUBEXE         ; SI NO SALTAR
+            ; SI ES UNA EXCALERA SALTAR
+            BTST.L  #1,D7
+            BNE     .SUBEXE
+
+            ; REALIZACIÓN DE CALCULOS DE COLISION EN EJE Y
+            ADDQ.W  #1,D2
+            LSL.W   #5,D2
+            MOVE.W  (MAPOINTY),D0
+
                 ; SI ES MENOR O IGUAL COLISIÓN.
-            SUB.W   D0,D2
-            BLS     .NEXT
+            SUB.W   D2,D0
+            BLS     .NEXT ; El salto se pondra aqui 88888888888888888888888888 Me apetece p**** m* u** t***
                 ; DECREMENTAR PUNTO DE MARIO EN MASPEED
-            ADDQ.W  #MASPEED,(MAPOINTY)
-            
+.SUBEXE     ADDQ.W  #MASPEED,(MAPOINTY)
 
 
 
-            ; UPDATE COORDINATE X
-.NEXT       MOVE.W  (MAPOINTX),D0
+.NEXT       ; UPDATE COORDINATE X
+            MOVE.W  (MAPOINTX),D0
             BTST.B  #0,(KBDVAL)         ; SE HA PULSADO LA TECLA A?
             BEQ     .CHKRGHT            ; NO SE HA PULSADO TECLA A SALTA
             SUB.W   #MASPEED,D0
@@ -125,7 +130,7 @@ MAUPD
             MOVE.L #MPR,MAIMAGE
             BRA    .FIN
 
-.IMGRGHT2   CMP.L  #MRR2,(MAIMAGE)            
+.IMGRGHT2   CMP.L  #MRR2,(MAIMAGE)
             BNE    .IMGLEFT2
             MOVE.L #MPR,MAIMAGE
             BRA    .FIN
@@ -139,8 +144,6 @@ MAUPD
 
             MOVEM.L (A7)+,D0-D3/A0
             RTS
-            
-            
             
 ; ---------------------------------------------------------------------------------------------
 MAPLOT
@@ -162,8 +165,6 @@ MAPLOT
             MOVEM.L (A7)+,D0-D3/A0
            
             RTS
-
-
 
 *~Font name~Courier New~
 *~Font size~12~
