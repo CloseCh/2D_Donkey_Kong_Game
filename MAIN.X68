@@ -1,4 +1,4 @@
-d; =============================================================================================
+; =============================================================================================
 ; TITLE       : DONKEY-KONG CLASSIC 2D GAME
 ; DESCRIPTION : JUEGO DEL DONKEY-KONG
 ; AUTHOR      : JAUME, WEIYU
@@ -83,6 +83,7 @@ START
 			INCLUDE "SYS/SYSVARS.X68"
 
 			END    START
+
 
 
 
