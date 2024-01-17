@@ -1,8 +1,13 @@
 ; =============================================================================================
 ; GAME CONSTANTS
 ; =============================================================================================
+; --- STAR BUTTON -----------------------------------------------------------------------------
+BUTPOSX     EQU     320                       ; STAR BUTTON POSITION IN X
+BUTPOSY     EQU     240                       ; STAR BUTTON POSITION IN Y
+BUTWIDTH    EQU     100
+BUTHEIGH    EQU     50
 
-; --- Map Constants ---------------------------------------------------------------------------
+; --- MAP CONTANTS ----------------------------------------------------------------------------
 BLCWIDTH    EQU     32                       ; BLOCK WIDTH
 BLCHEIGH    EQU     32                       ; BLOCK HEIGH
 
@@ -13,8 +18,10 @@ B1SIZEW     EQU     32
     ; --- BLOCK 2 -----------------------------------------------------------------------------
 
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
-MASPEED     EQU     2                      ; MARNITUDE OF THE X AND Y VEL
-MAWIDTH     EQU     30                      ; MARIO WIDTH
+
+MASPEED     EQU     4                      ; MARNITUDE OF THE X AND Y VEL
+MAWIDHT     EQU     30                      ; MARIO WIDHT
+
 MAHEIGHT    EQU     40                      ; MARIO HEIGHT
 
  ; --- MARIO COLISION CONSTANTS -----------------------------------------------
