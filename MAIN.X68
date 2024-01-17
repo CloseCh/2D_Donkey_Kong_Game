@@ -1,4 +1,4 @@
-; =============================================================================================
+d; =============================================================================================
 ; TITLE       : DONKEY-KONG CLASSIC 2D GAME
 ; DESCRIPTION : JUEGO DEL DONKEY-KONG
 ; AUTHOR      : JAUME, WEIYU
@@ -18,7 +18,6 @@
 			INCLUDE "CHARACTERS/PEACH.X68"
 			INCLUDE "ITEM/BARREL.X68"
 			INCLUDE "ITEM/HAMMER.X68"
-			INCLUDE "PINI.X68"
 			
 START
 
@@ -31,20 +30,14 @@ START
       		JSR 	DKINIT
       		JSR 	BRLINIT
 	    	JSR 	HMRINIT
-			JSR 	PINIT
 
 			
 
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
-.INILOOP    TRAP    #TRNMREAD
-			BTST.L  #0,D0
-			BNE 	.START
-			JSR     PUPD
-			JSR 	PPLOT
-			TRAP	#TRAPSCR
-            BRA     .INILOOP
+; .INILOOP    
 
-.START		CLR.L	D0
+
+            ; BRA     .INILOOP
 
 .LOOP
 
