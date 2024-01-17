@@ -45,7 +45,8 @@ START
 .START		CLR.L	D0
 
 .LOOP
-
+			MOVE.B #SNDMUSIC,D7
+		    TRAP #TRAPSND
 ; --- UPDATE ----------------------------------------------------------------------------------
 
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
@@ -53,8 +54,6 @@ START
 			TRAP    #TRAPKEY
     
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
-		    MOVE.B #SNDMUSIC,D7
-		    TRAP #TRAPSND
 		    
             JSR 	PCHUPD
             JSR 	MAUPD
