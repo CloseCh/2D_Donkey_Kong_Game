@@ -22,17 +22,17 @@ PCHUPD
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             
-            CMP.W   #PCHCONTN/2,(PCHCONT)
+            CMP.W   #CONT/2,(PCHCONT)
             BGT     .NEXTSTEP
             ADDQ.B  #1,(PCHCONT)
-            SUBQ.W  #5,(PCHPOSY)
+            SUBQ.W  #4,(PCHPOSY)
             BRA     .FIN
 
-.NEXTSTEP   ADDQ.B #1,(PCHCONT)
-            ADDQ.W #5,(PCHPOSY)
-            CMP.W  #PCHCONTN,(PCHCONT)
-            BLE    .FIN
-            CLR.W  (PCHCONT)
+.NEXTSTEP   ADDQ.B  #1,(PCHCONT)
+            ADDQ.W  #4,(PCHPOSY)
+            CMP.W   #CONT,(PCHCONT)
+            BLE     .FIN
+            CLR.W   (PCHCONT)
 
 .FIN
             RTS

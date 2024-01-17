@@ -16,9 +16,8 @@ B1SIZEW     EQU     32
 MASPEED     EQU     2                      ; MARNITUDE OF THE X AND Y VEL
 MAWIDTH     EQU     30                      ; MARIO WIDTH
 MAHEIGHT    EQU     40                      ; MARIO HEIGHT
-MACONTN     EQU     2000                    ; COUNTER MARIO
 
-    ; --- MARIO COLISION CONSTANTS -----------------------------------------------
+ ; --- MARIO COLISION CONSTANTS -----------------------------------------------
 MACOLW      EQU     24                      ; MARIO COLISION WIDHT
 
 ; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
@@ -27,7 +26,6 @@ DKWIDTH     EQU     90                       ; DONKEY_KONG WIDTH
 DKHEIGHT    EQU     70                       ; DONKEY_KONG HEIGHT
 DKPOSX      EQU     85                       ; DONKEY_KONG X POSITION
 DKPOSY      EQU     -5                       ; DONKEY_KONG Y POSITION
-DKCONTN     EQU     2000                     ; COUNTER FOR LEFT-RIGHT IMAGES
 DKCONTTN    EQU     18000                   ; COUNTER FOR THROWING IMAGE
 
 ; --- PEACH RELATED CONSTANTS ----------------------------------------------------
@@ -35,7 +33,7 @@ DKCONTTN    EQU     18000                   ; COUNTER FOR THROWING IMAGE
 PCHWIDTH    EQU     90                       ; PEACH WIDTH
 PCHHEIGH    EQU     70                       ; PEACH HEIGHT
 PCHPOSX     EQU     380                      ; PEACH X POSITION
-PCHCONTN    EQU     2000                     ; COUNTER FOR JUMP PCH
+
 
 ; --- BARREL RELATED CONSTANTS ----------------------------------------------------
 
@@ -48,6 +46,8 @@ BRLFCOL     EQU     $000000FF
 
 HMRWIDTH    EQU     30                     ; BARREL WIDTH
 HMRHEIGH    EQU     40                      ; BARREL HEIGHT
+
+CONT        EQU     2000
       
 *~Font name~Courier New~
 *~Font size~12~

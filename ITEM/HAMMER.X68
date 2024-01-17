@@ -21,6 +21,21 @@ HMRUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            CMP.W   #CONT/2,(HMRCONT)
+            BGT     .NEXTSTEP
+            ADDQ.B  #1,(HMRCONT)
+            SUBQ.W  #1,(HMRPOSY)
+            BRA     .FIN
+
+.NEXTSTEP   ADDQ.B #1,(HMRCONT)
+            ADDQ.W #1,(HMRPOSY)
+            CMP.W  #CONT,(HMRCONT)
+            BLE    .FIN
+            CLR.W  (HMRCONT)
+
+.FIN
+            RTS
+            
             RTS
             
             

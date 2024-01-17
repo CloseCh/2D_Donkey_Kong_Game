@@ -24,7 +24,8 @@ BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
 
 ;--- HAMMER VARIABLES -------------------------------------------------------------------------
 HMRPOSX     DS.W    1           ; HAMMER X COORDINATE
-HMRPOSY     DS.W    1           ; HAMMER Y COORDINATE             
+HMRPOSY     DS.W    1           ; HAMMER Y COORDINATE
+HMRCONT     DS.W    1           ; COUNTER FOR HAMMER             
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~
