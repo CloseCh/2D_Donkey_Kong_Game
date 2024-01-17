@@ -19,7 +19,7 @@ SYSINIT
             MOVE.L  #PLOT,($80+TRAPPLOT*4)
             ; INSTALL MOUSE TRAP
             JSR     MOUINIT
-            MOVE.L  #PLOT,($80+TRNMREAD*4)
+            MOVE.L  #MOUREAD,($80+TRNMREAD*4)
             ; INSTALL SOUND TRAP
             JSR     SNDINIT
             MOVE.L  #SNDPLAY,($80+TRAPSND*4)

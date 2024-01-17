@@ -11,7 +11,7 @@ MAINIT
 ; ---------------------------------------------------------------------------------------------
             ; SET THE INIT POINT
             MOVE.W  #100,MAPOINTX
-            MOVE.W  #300,MAPOINTY
+            MOVE.W  #440,MAPOINTY
             MOVE.W  #0,MACONTRO
             MOVE.W  #0,MACONTJP
             ; MARIO INITIAL LOOKS TO THE RIGHT

@@ -18,7 +18,7 @@
 			INCLUDE "CHARACTERS/PEACH.X68"
 			INCLUDE "ITEM/BARREL.X68"
 			INCLUDE "ITEM/HAMMER.X68"
-			
+			INCLUDE "PINI.X68"
 START
 
 ; --- INITIALIZATION --------------------------------------------------------------------------
@@ -34,10 +34,15 @@ START
 			
 
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
-; .INILOOP    
+.INILOOP    TRAP    #TRNMREAD
+			BTST.L  #0,D0
+			BNE 	.START
+			JSR     PUPD
+			JSR 	PPLOT
+			TRAP	#TRAPSCR
+            BRA     .INILOOP
 
-
-            ; BRA     .INILOOP
+.START		CLR.L	D0
 
 .LOOP
 
