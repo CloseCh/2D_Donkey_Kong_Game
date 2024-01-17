@@ -18,7 +18,6 @@
 			INCLUDE "CHARACTERS/PEACH.X68"
 			INCLUDE "ITEM/BARREL.X68"
 			INCLUDE "ITEM/HAMMER.X68"
-			INCLUDE "PINI.X68"
 			
 START
 
@@ -29,20 +28,16 @@ START
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
       		JSR 	DKINIT
-      		; JSR 	BRLINIT
-	    	; JSR 	HMRINIT
-			JSR 	PINIT
+      		JSR 	BRLINIT
+	    	JSR 	HMRINIT
+
+			
 
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
-.INILOOP    TRAP    #TRNMREAD
-			BTST.L  #0,D0
-			BNE 	.START
-			JSR     PUPD
-			JSR 	PPLOT
-			TRAP	#TRAPSCR
-            BRA     .INILOOP
+; .INILOOP    
 
-.START		CLR.L	D0
+
+            ; BRA     .INILOOP
 
 .LOOP
 
@@ -51,9 +46,12 @@ START
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
 
 			TRAP    #TRAPKEY
-
+    
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
-			JSR 	PCHUPD
+		    MOVE.B #SNDMUSIC,D7
+		    TRAP #TRAPSND
+		    
+            JSR 	PCHUPD
             JSR 	MAUPD
             JSR 	DKUPD
 			JSR 	BRLUPD
@@ -85,6 +83,8 @@ START
 			INCLUDE "SYS/SYSVARS.X68"
 
 			END    START
+
+
 
 
 
