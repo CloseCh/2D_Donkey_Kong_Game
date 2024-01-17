@@ -1,6 +1,6 @@
 00013902 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 17/01/2024 11:49:13
+Created On: 17/01/2024 11:56:47
 
 00000000                             1  ; =============================================================================================
 00000000                             2  ; TITLE       : DONKEY-KONG CLASSIC 2D GAME
@@ -11037,8 +11037,8 @@ Created On: 17/01/2024 11:49:13
 00013048                         11033  -------------------- end include --------------------
 00013048                         11034              INCLUDE "SYS/DRAW.X68"
 00013048                         11035  
-00013048                         11036  SCRWIDTHX    DS.W    1                      ; SCREEN WIDTH
-0001304A                         11037  SCRHEIGHX    DS.W    1                      ; SCREEN HEIGHT
+00013048                         11036  WIDTH        DS.W    1                      ; WIDTH
+0001304A                         11037  HEIGHT       DS.W    1                      ; HEIGHT
 0001304C                         11038  COORX        DS.W    1                      ; COORDENATE X
 0001304E                         11039  COORY        DS.W    1                      ; COORDENATE Y
 00013050                         11040  
@@ -11051,8 +11051,8 @@ Created On: 17/01/2024 11:49:13
 00013050                         11047  ; ---------------------------------------------------------------------------------------------
 00013050                         11048  
 00013050  48A7 FE80              11049              MOVEM.W D0-D6/A0,-(A7)
-00013054  33C0 00013048          11050              MOVE.W  D0,SCRWIDTHX
-0001305A  33C1 0001304A          11051              MOVE.W  D1,SCRHEIGHX
+00013054  33C0 00013048          11050              MOVE.W  D0,WIDTH
+0001305A  33C1 0001304A          11051              MOVE.W  D1,HEIGHT
 00013060  33C2 0001304C          11052              MOVE.W  D2,COORX
 00013066  33C3 0001304E          11053              MOVE.W  D3,COORY
 0001306C                         11054              ;DIBUJO DEL RECTANGULO
@@ -11060,12 +11060,12 @@ Created On: 17/01/2024 11:49:13
 00013070  4242                   11056              CLR.W   D2
 00013072  3839 0001304E          11057              MOVE.W  COORY,D4
 00013078                         11058  
-00013078  3C39 0001304A          11059              MOVE.W  (SCRHEIGHX),D6
+00013078  3C39 0001304A          11059              MOVE.W  (HEIGHT),D6
 0001307E  5346                   11060              SUB.W   #1,D6
 00013080                         11061  
 00013080  4241                   11062  .CLOOP      CLR.W   D1
 00013082  3639 0001304C          11063              MOVE.W  COORX,D3
-00013088  3A39 00013048          11064              MOVE.W  (SCRWIDTHX),D5
+00013088  3A39 00013048          11064              MOVE.W  (WIDTH),D5
 0001308E  5345                   11065              SUB.W   #1,D5
 00013090  4A18                   11066  .RLOOP      TST.B   (A0)+
 00013092  6700 000A              11067              BEQ     .NEXT
@@ -11087,7 +11087,7 @@ Created On: 17/01/2024 11:49:13
 000130B4                         11083  SELECCION
 000130B4  48E7 FE00              11084              MOVEM.L D0-D6,-(A7)
 000130B8  103C 0050              11085              MOVE.B  #80, D0 ; TAREA PARA ELEGIR EL COLOR DEL "PEN"
-000130BC  0C20 0001              11086              CMP.B   #1, -(A0) ; COMPARA SI ES ROJO
+000130BC  0C20 0001              11086              CMP.B   #1, -(A0) 
 000130C0  6700 0026              11087              BEQ     .ROJO
 000130C4  0C10 0002              11088              CMP.B   #2, (A0)
 000130C8  6700 0028              11089              BEQ     .AZUL
@@ -11784,13 +11784,13 @@ Created On: 17/01/2024 11:49:13
 000137CC                         11780  ; MODIFIES  :
 000137CC                         11781  ; ---------------------------------------------------------------------------------------------
 000137CC                         11782              
-000137CC  0C79 03E8 0001399A     11783              CMP.W   #CONT/2,(PCHCONT)
+000137CC  0C79 03E8 0001399A     11783              CMP.W   #CONT/2,(PCHCONT) ;SI ES MENOR PEACH SUBE
 000137D4  6E00 0012              11784              BGT     .NEXTSTEP
 000137D8  5239 0001399A          11785              ADDQ.B  #1,(PCHCONT)
 000137DE  5979 0001399C          11786              SUBQ.W  #4,(PCHPOSY)
 000137E4  6000 0020              11787              BRA     .FIN
 000137E8                         11788  
-000137E8  5239 0001399A          11789  .NEXTSTEP   ADDQ.B  #1,(PCHCONT)
+000137E8  5239 0001399A          11789  .NEXTSTEP   ADDQ.B  #1,(PCHCONT) ; PEACH BAJA
 000137EE  5879 0001399C          11790              ADDQ.W  #4,(PCHPOSY)
 000137F4  0C79 07D0 0001399A     11791              CMP.W   #CONT,(PCHCONT)
 000137FC  6F00 0008              11792              BLE     .FIN
@@ -12095,6 +12095,7 @@ DKUPD:DKTHROW       13772
 DKUPD:FIN           1378E
 DKWIDTH             5A
 HAMMER              8B0C
+HEIGHT              1304A
 HMRCONT             139A6
 HMRHEIGH            28
 HMRINIT             13888
@@ -12176,14 +12177,12 @@ PWML                FF10
 PWMR                117AC
 SCRFPS              96
 SCRHEIGH            1E0
-SCRHEIGHX           1304A
 SCRINIT             1315E
 SCRINTCT            139AA
 SCRINTN             1
 SCRPLOT             1319C
 SCRTIM              131B6
 SCRWIDTH            280
-SCRWIDTHX           13048
 SELECCION           130B4
 SELECCION:AZUL      130F2
 SELECCION:BLANCO    13110
@@ -12199,3 +12198,4 @@ SYSINIT             1312A
 TRAPKEY             2
 TRAPPLOT            3
 TRAPSCR             1
+WIDTH               13048

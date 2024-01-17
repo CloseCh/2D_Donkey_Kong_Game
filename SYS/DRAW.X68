@@ -1,6 +1,6 @@
 
-SCRWIDTHX    DS.W    1                      ; SCREEN WIDTH
-SCRHEIGHX    DS.W    1                      ; SCREEN HEIGHT
+WIDTH        DS.W    1                      ; WIDTH
+HEIGHT       DS.W    1                      ; HEIGHT
 COORX        DS.W    1                      ; COORDENATE X
 COORY        DS.W    1                      ; COORDENATE Y
 
@@ -13,8 +13,8 @@ PLOT
 ; ---------------------------------------------------------------------------------------------
 
             MOVEM.W D0-D6/A0,-(A7)
-            MOVE.W  D0,SCRWIDTHX
-            MOVE.W  D1,SCRHEIGHX
+            MOVE.W  D0,WIDTH
+            MOVE.W  D1,HEIGHT
             MOVE.W  D2,COORX
             MOVE.W  D3,COORY
             ;DIBUJO DEL RECTANGULO
@@ -22,12 +22,12 @@ PLOT
             CLR.W   D2
             MOVE.W  COORY,D4
 
-            MOVE.W  (SCRHEIGHX),D6
+            MOVE.W  (HEIGHT),D6
             SUB.W   #1,D6
 
 .CLOOP      CLR.W   D1
             MOVE.W  COORX,D3
-            MOVE.W  (SCRWIDTHX),D5
+            MOVE.W  (WIDTH),D5
             SUB.W   #1,D5
 .RLOOP      TST.B   (A0)+
             BEQ     .NEXT
@@ -49,7 +49,7 @@ PLOT
 SELECCION
             MOVEM.L D0-D6,-(A7)
             MOVE.B  #80, D0 ; TAREA PARA ELEGIR EL COLOR DEL "PEN"
-            CMP.B   #1, -(A0) ; COMPARA SI ES ROJO
+            CMP.B   #1, -(A0) 
             BEQ     .ROJO
             CMP.B   #2, (A0)
             BEQ     .AZUL
