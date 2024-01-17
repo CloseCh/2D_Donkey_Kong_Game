@@ -28,8 +28,10 @@ START
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
       		JSR 	DKINIT
-      		; JSR 	BRLINIT
-	    	; JSR 	HMRINIT
+      		JSR 	BRLINIT
+	    	JSR 	HMRINIT
+
+			
 
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
 ; .INILOOP    
@@ -44,9 +46,12 @@ START
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
 
 			TRAP    #TRAPKEY
-
+    
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
-			JSR 	PCHUPD
+		    MOVE.B #SNDMUSIC,D7
+		    TRAP #TRAPSND
+		    
+            JSR 	PCHUPD
             JSR 	MAUPD
             JSR 	DKUPD
 			JSR 	BRLUPD
@@ -78,6 +83,7 @@ START
 			INCLUDE "SYS/SYSVARS.X68"
 
 			END    START
+
 
 
 

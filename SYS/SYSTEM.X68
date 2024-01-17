@@ -20,7 +20,9 @@ SYSINIT
             ; INSTALL MOUSE TRAP
             JSR     MOUINIT
             MOVE.L  #PLOT,($80+TRNMREAD*4)
-            
+            ; INSTALL SOUND TRAP
+            JSR     SNDINIT
+            MOVE.L  #SNDPLAY,($80+TRAPSND*4)
             ; INSTALL INTERRUPTION FOR THE PLOT
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
 
@@ -31,6 +33,40 @@ SYSINIT
             ANDI.W  #$D8FF,(A7)
             RTE
 
+; ------------------------------------------------------------------------------
+SNDINIT
+; SOUND SYSTEM INIT
+; INPUT    : NONE
+; OUTPUT   : NONE
+; MODIFIES : NONE
+; ------------------------------------------------------------------------------
+            MOVEM.L D0-D1/A0-A1,-(A7)
+            CLR.B   D1
+            LEA     .SNDLIST,A0
+.LOOP       MOVE.L  (A0)+,D0
+            BEQ     .DONE
+            MOVE.L  D0,A1
+            MOVE.B  #71,D0
+            TRAP    #15
+            ADDQ.B  #1,D1
+            BRA     .LOOP
+.DONE       MOVEM.L (A7)+,D0-D1/A0-A1
+            RTS
+.SNDMUSIC   DC.B    'SND/music.wav',0
+.SNDLIST    DC.L    .SNDMUSIC,0           
+; ------------------------------------------------------------------------------
+SNDPLAY
+; PLAY SOUND
+; INPUT    : D7 SOUND ID
+; OUTPUT   : NONE
+; MODIFIES : NONE
+; ------------------------------------------------------------------------------
+            MOVEM.W D0-D1,-(A7)
+            MOVE.B  #72,D0
+            MOVE.B  D7,D1
+            TRAP    #15
+            MOVEM.W (A7)+,D0-D1
+            RTE
 ; ---------------------------------------------------------------------------------------------
 SCRINIT
 ; INIT SCREEN. SET SCREEN RESOLUTION, SET WINDOWED MODE, CREAR SCREEN.

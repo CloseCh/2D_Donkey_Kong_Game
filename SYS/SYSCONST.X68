@@ -13,6 +13,7 @@ TRAPSCR     EQU     1                   ; DOUBLE BUFFER TRAP NUMBER
 TRAPKEY     EQU     2                   
 TRAPPLOT    EQU     3                    
 TRNMREAD    EQU     4                   ; MOUSE READ TRAP NUMBER
+TRAPSND     EQU     5
 
 ; --- INTERRUPT NUMBERS -----------------------------------------------------------------------
 SCRINTN     EQU     1                   ; SCREEN TIMED INTERRUPT NUMBER
@@ -28,7 +29,9 @@ KBDPAUSE    EQU     'P'                 ; PAUSE KEY
 KBDFIRE1    EQU     'M'                 ; WAIT ASIGNATION
 KBDFIRE2    EQU     'N'                 ; WAIT ASIGNATION
 
+; --- SOUND IDENTIFIERS --------------------------------------------------------
 
+SNDMUSIC     EQU     0
 
 *~Font name~Courier New~
 *~Font size~12~
