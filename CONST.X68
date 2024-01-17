@@ -2,8 +2,8 @@
 ; GAME CONSTANTS
 ; =============================================================================================
 ; --- STAR BUTTON -----------------------------------------------------------------------------
-BUTPOSX     EQU     320                       ; STAR BUTTON POSITION IN X
-BUTPOSY     EQU     240                       ; STAR BUTTON POSITION IN Y
+BUTPOSX     EQU     220                       ; STAR BUTTON POSITION IN X
+BUTPOSY     EQU     295                       ; STAR BUTTON POSITION IN Y
 BUTWIDTH    EQU     100
 BUTHEIGH    EQU     50
 
