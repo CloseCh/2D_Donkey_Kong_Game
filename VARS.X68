@@ -14,8 +14,9 @@ DKCONTT      DS.W    1           ; COUNTER FOR THROWING BARRELS
 DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
 
 ;--- Peach variables --------------------------------------------------------------------------
-PCHIMAGE      DS.L    1           ; CURRENT IMAGE PEACH
-
+PCHIMAGE     DS.L    1           ; CURRENT IMAGE PEACH
+PCHCONT      DS.W    1           ; COUNTER 
+PCHPOSY      DS.W    1           ; PEACH Y COORDINATE
 
 ;--- barrel variables -------------------------------------------------------------------------
 BRLPOSX     DS.W    1           ; BARREL X COORDINATE

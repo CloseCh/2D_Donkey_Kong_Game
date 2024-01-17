@@ -27,15 +27,15 @@ DKWIDTH     EQU     90                       ; DONKEY_KONG WIDTH
 DKHEIGHT    EQU     70                       ; DONKEY_KONG HEIGHT
 DKPOSX      EQU     85                       ; DONKEY_KONG X POSITION
 DKPOSY      EQU     -5                       ; DONKEY_KONG Y POSITION
-DKCONTN     EQU     3000                     ; COUNTER FOR LEFT-RIGHT IMAGES
+DKCONTN     EQU     2000                     ; COUNTER FOR LEFT-RIGHT IMAGES
 DKCONTTN    EQU     18000                   ; COUNTER FOR THROWING IMAGE
 
 ; --- PEACH RELATED CONSTANTS ----------------------------------------------------
 
 PCHWIDTH    EQU     90                       ; PEACH WIDTH
 PCHHEIGH    EQU     70                       ; PEACH HEIGHT
-PCHPOSX     EQU     410                       ; PEACH X POSITION
-PCHPOSY     EQU     -5                       ; PEACH Y POSITION
+PCHPOSX     EQU     380                      ; PEACH X POSITION
+PCHCONTN    EQU     2000                     ; COUNTER FOR JUMP PCH
 
 ; --- BARREL RELATED CONSTANTS ----------------------------------------------------
 
