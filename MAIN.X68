@@ -28,14 +28,14 @@ START
 	   	JSR 	PCHINIT
       JSR 	MAINIT
       JSR 	DKINIT
-      ; JSR 	BRLINIT
-	    ; JSR 	HMRINIT
+      JSR 	BRLINIT
+	  JSR 	HMRINIT
 
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
-.INILOOP    
+      ;.INILOOP    
 
 
-            BRA     .INILOOP
+       ;  BRA     .INILOOP
 
 .LOOP
 

@@ -20,8 +20,7 @@ B1SIZEW     EQU     32
 ; --- MARIO RELATED CONSTANTS ----------------------------------------------------
 
 MASPEED     EQU     4                      ; MARNITUDE OF THE X AND Y VEL
-MAWIDHT     EQU     30                      ; MARIO WIDHT
-
+MAWIDTH     EQU     30                      ; MARIO WIDHT
 MAHEIGHT    EQU     40                      ; MARIO HEIGHT
 
  ; --- MARIO COLISION CONSTANTS -----------------------------------------------
