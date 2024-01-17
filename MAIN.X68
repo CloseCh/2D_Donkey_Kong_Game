@@ -19,7 +19,7 @@
 			; INCLUDE "ITEM/BARREL.X68"
 			; INCLUDE "ITEM/HAMMER.X68"
 			
-START		
+START
 
 ; --- INITIALIZATION --------------------------------------------------------------------------
             
@@ -30,7 +30,12 @@ START
             JSR 	DKINIT
             ; JSR 	BRLINIT
 	    	; JSR 	HMRINIT
-            
+
+; --- PANTALLA INICIAL ------------------------------------------------------------------------
+.INILOOP    
+
+
+            BRA     .INILOOP
 .LOOP
 
 ; --- UPDATE ----------------------------------------------------------------------------------

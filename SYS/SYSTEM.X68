@@ -13,17 +13,20 @@ SYSINIT
             ; INSTALL SCREEN PLOT TRAP
             MOVE.L  #SCRPLOT,($80+TRAPSCR*4)
             ; INSTALL KEY TRAP
+            JSR     KBDINIT
             MOVE.L  #KBDUPD,($80+TRAPKEY*4)
             ; INSTALL PLOT TRAP
             MOVE.L  #PLOT,($80+TRAPPLOT*4)
+            ; INSTALL MOUSE TRAP
+            JSR     MOUINIT
+            MOVE.L  #PLOT,($80+TRNMREAD*4)
+            
             ; INSTALL INTERRUPTION FOR THE PLOT
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
-            
 
             JSR     SCRINIT
-            JSR     KBDINIT
             
-            ; PASAR A MODO USUARIO
+            ; SWITCH TO USER
             MOVE.W  SR,-(A7)
             ANDI.W  #$D8FF,(A7)
             RTE
@@ -166,6 +169,37 @@ KBDUPD
             ROXL.B  #1,D2
             DBRA.W  D3,.LOOP
             RTS
+
+; ------------------------------------------------------------------------------
+MOUINIT
+; INITS MOUSE
+; INPUT    : NONE
+; OUTPUT   : NONE
+; MODIFIES : NONE
+; ------------------------------------------------------------------------------
+            CLR.L   (MOUPOSY)
+            CLR.W   (MOUBUT)
+            RTS
+
+; ------------------------------------------------------------------------------
+MOUREAD
+; READS MOUSE
+; INPUT    : NONE
+; OUTPUT   : NONE
+; MODIFIES : NONE
+; ------------------------------------------------------------------------------
+            MOVEM.L D0-D1,-(A7)
+            MOVE.B  #61,D0
+            CLR.B   D1
+            TRAP    #15
+            MOVE.L  D1,(MOUPOSY)
+            MOVE.B  (MOUBUT),D1
+            MOVE.B  D0,(MOUBUT)
+            NOT.B   D1
+            AND.B   D1,D0
+            MOVE.B  D0,(MOUEDGE)
+            MOVEM.L (A7)+,D0-D1
+            RTE
 
 
 *~Font name~Courier New~

@@ -20,7 +20,8 @@ MAINIT
 
 ; ---------------------------------------------------------------------------------------------
 MAUPD
-; UPDATE MARIO.
+; UPDATE MARIO. COLISIONES, SALTOS, CAMINAR.
+; MOVIMIENTOS : SUBIR/BAJAR ESCALERAS, MOVIMIENTOS LATERALES.
 ; INPUT     :
 ; OUTPUT    :
 ; MODIFIES  :
@@ -74,7 +75,7 @@ MAUPD
 
                 ; SI ES MENOR O IGUAL COLISIÓN.
             SUB.W   D2,D0
-            BLS     .NEXT
+            BLS     .NEXT ; El salto se pondra aqui 88888888888888888888888888 Me apetece p**** m* u** t***
                 ; DECREMENTAR PUNTO DE MARIO EN MASPEED
 .SUBEXE     ADDQ.W  #MASPEED,(MAPOINTY)
 
