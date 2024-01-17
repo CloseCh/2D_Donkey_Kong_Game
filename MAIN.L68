@@ -1,6 +1,6 @@
-00013862 Starting Address
+000138A0 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 17/01/2024 9:50:46
+Created On: 17/01/2024 10:39:47
 
 00000000                             1  ; =============================================================================================
 00000000                             2  ; TITLE       : DONKEY-KONG CLASSIC 2D GAME
@@ -10998,8 +10998,8 @@ Created On: 17/01/2024 9:50:46
 00013048                         10994  
 00013048                         10995  ;---HAMMER RELATED CONSTANTS ------------------------------------------------------
 00013048                         10996  
-00013048  =00000000              10997  HMRWIDHT    EQU     0                      ; BARREL WIDHT
-00013048  =00000000              10998  HMRHEIGH    EQU     0                      ; BARREL HEIGHT
+00013048  =0000001E              10997  HMRWIDTH    EQU     30                     ; BARREL WIDTH
+00013048  =00000028              10998  HMRHEIGH    EQU     40                      ; BARREL HEIGHT
 00013048                         10999        
 00013048                         11000  -------------------- end include --------------------
 00013048                         11001              INCLUDE "SYS/SYSCONST.X68"
@@ -11229,7 +11229,7 @@ Created On: 17/01/2024 9:50:46
 000131B6                         11225  ; OUTPUT    : NONE
 000131B6                         11226  ; MODIFIES  : NONE
 000131B6                         11227  ; ---------------------------------------------------------------------------------------------
-000131B6  5239 000138F2          11228              ADDQ.B  #1,(SCRINTCT)
+000131B6  5239 00013946          11228              ADDQ.B  #1,(SCRINTCT)
 000131BC                         11229              
 000131BC  4E73                   11230              RTE
 000131BE                         11231  
@@ -11241,8 +11241,8 @@ Created On: 17/01/2024 9:50:46
 000131BE                         11237  ; MODIFIES  : NONE
 000131BE                         11238  ; ---------------------------------------------------------------------------------------------
 000131BE                         11239              
-000131BE  4239 000138F0          11240              CLR.B   (KBDVAL)
-000131C4  4239 000138F1          11241              CLR.B   (KBDEDGE)
+000131BE  4239 00013944          11240              CLR.B   (KBDVAL)
+000131C4  4239 00013945          11241              CLR.B   (KBDEDGE)
 000131CA  4E75                   11242              RTS
 000131CC                         11243              
 000131CC                         11244  ; ---------------------------------------------------------------------------------------------
@@ -11280,13 +11280,13 @@ Created On: 17/01/2024 9:50:46
 000131EA  4EB9 0001320C          11276              JSR     .PACK
 000131F0                         11277              
 000131F0                         11278              ; COMPUTE KBDEDGE
-000131F0  1039 000138F0          11279              MOVE.B  (KBDVAL),D0
+000131F0  1039 00013944          11279              MOVE.B  (KBDVAL),D0
 000131F6  4600                   11280              NOT.B   D0
 000131F8  C002                   11281              AND.B   D2,D0
-000131FA  13C0 000138F1          11282              MOVE.B  D0,(KBDEDGE)
+000131FA  13C0 00013945          11282              MOVE.B  D0,(KBDEDGE)
 00013200                         11283              
 00013200                         11284              ; STORE KBDVAL
-00013200  13C2 000138F0          11285              MOVE.B  D2,(KBDVAL)
+00013200  13C2 00013944          11285              MOVE.B  D2,(KBDVAL)
 00013206                         11286              
 00013206  4CDF 000F              11287              MOVEM.L (A7)+,D0-D3
 0001320A                         11288              
@@ -11514,11 +11514,11 @@ Created On: 17/01/2024 9:50:46
 00013524                         11510  ; MODIFIES  :
 00013524                         11511  ; ---------------------------------------------------------------------------------------------
 00013524                         11512              ; SET THE INIT POINT
-00013524  33FC 0064 000138D2     11513              MOVE.W  #100,MAPOINTX
-0001352C  33FC 01B8 000138D4     11514              MOVE.W  #440,MAPOINTY
+00013524  33FC 0064 00013922     11513              MOVE.W  #100,MAPOINTX
+0001352C  33FC 01B8 00013924     11514              MOVE.W  #440,MAPOINTY
 00013534                         11515  
 00013534                         11516              ; MARIO INITIAL LOOKS TO THE RIGHT
-00013534  23FC 00009DCC 000138D6 11517              MOVE.L  #MPR,MAIMAGE
+00013534  23FC 00009DCC 00013926 11517              MOVE.L  #MPR,MAIMAGE
 0001353E  4E75                   11518              RTS
 00013540                         11519  
 00013540                         11520  
@@ -11538,8 +11538,8 @@ Created On: 17/01/2024 9:50:46
 0001354E  4282                   11534              CLR.L   D2               
 00013550  4283                   11535              CLR.L   D3               
 00013552                         11536                  ; OBTENER COORDENADA Y EN D0 Y COORDENADA X EN D1
-00013552  3039 000138D4          11537              MOVE.W  (MAPOINTY),D0
-00013558  3239 000138D2          11538              MOVE.W  (MAPOINTX),D1
+00013552  3039 00013924          11537              MOVE.W  (MAPOINTY),D0
+00013558  3239 00013922          11538              MOVE.W  (MAPOINTX),D1
 0001355E                         11539                  ; DIVISION POR 32
 0001355E  EA48                   11540              LSR.W   #5,D0
 00013560  EA49                   11541              LSR.W   #5,D1
@@ -11575,71 +11575,71 @@ Created On: 17/01/2024 9:50:46
 00013592  9440                   11571              SUB.W   D0,D2
 00013594  6300 0008              11572              BLS     .NEXT
 00013598                         11573                  ; DECREMENTAR PUNTO DE MARIO EN MASPEED
-00013598  5479 000138D4          11574              ADDQ.W  #MASPEED,(MAPOINTY)
+00013598  5479 00013924          11574              ADDQ.W  #MASPEED,(MAPOINTY)
 0001359E                         11575              
 0001359E                         11576  
 0001359E                         11577  
 0001359E                         11578  
 0001359E                         11579              ; UPDATE COORDINATE X
-0001359E  3039 000138D2          11580  .NEXT       MOVE.W  (MAPOINTX),D0
-000135A4  0839 0000 000138F0     11581              BTST.B  #0,(KBDVAL)         ; SE HA PULSADO LA TECLA A?
+0001359E  3039 00013922          11580  .NEXT       MOVE.W  (MAPOINTX),D0
+000135A4  0839 0000 00013944     11581              BTST.B  #0,(KBDVAL)         ; SE HA PULSADO LA TECLA A?
 000135AC  6700 004A              11582              BEQ     .CHKRGHT            ; NO SE HA PULSADO TECLA A SALTA
 000135B0  5540                   11583              SUB.W   #MASPEED,D0
 000135B2                         11584  
-000135B2  0C79 03E8 000138DA     11585              CMP.W  #MACONTN/2,(MACONT)
+000135B2  0C79 03E8 0001392A     11585              CMP.W  #MACONTN/2,(MACONT)
 000135BA  6E00 0016              11586              BGT    .LEFT
-000135BE  5239 000138DA          11587              ADDQ.B #1,(MACONT)
-000135C4  23FC 0000A27C 000138D6 11588              MOVE.L #MRL,MAIMAGE         ; INTRODUCE IMAGEN MARIO IZQUIERDA
+000135BE  5239 0001392A          11587              ADDQ.B #1,(MACONT)
+000135C4  23FC 0000A27C 00013926 11588              MOVE.L #MRL,MAIMAGE         ; INTRODUCE IMAGEN MARIO IZQUIERDA
 000135CE  6000 00E8              11589              BRA    .FIN
 000135D2                         11590  
-000135D2  5239 000138DA          11591  .LEFT       ADDQ.B #1,(MACONT)
-000135D8  23FC 0000A72C 000138D6 11592              MOVE.L #MRL2,MAIMAGE
-000135E2  0C79 07D0 000138DA     11593              CMP.W  #MACONTN,(MACONT)
+000135D2  5239 0001392A          11591  .LEFT       ADDQ.B #1,(MACONT)
+000135D8  23FC 0000A72C 00013926 11592              MOVE.L #MRL2,MAIMAGE
+000135E2  0C79 07D0 0001392A     11593              CMP.W  #MACONTN,(MACONT)
 000135EA  6F00 00CC              11594              BLE    .FIN
-000135EE  4279 000138DA          11595              CLR.W  (MACONT)
+000135EE  4279 0001392A          11595              CLR.W  (MACONT)
 000135F4  6000 00C2              11596              BRA    .FIN
 000135F8                         11597  
-000135F8  0839 0001 000138F0     11598  .CHKRGHT    BTST.B  #1,(KBDVAL)         ; SE HA PULSADO LA TECLA D?
+000135F8  0839 0001 00013944     11598  .CHKRGHT    BTST.B  #1,(KBDVAL)         ; SE HA PULSADO LA TECLA D?
 00013600  6700 004A              11599              BEQ     .CONT               ; NO SE HA PULSADO TECLA D SALTA
 00013604  5440                   11600              ADD.W   #MASPEED,D0
 00013606                         11601  
-00013606  0C79 03E8 000138DA     11602              CMP.W  #MACONTN/2,(MACONT)
+00013606  0C79 03E8 0001392A     11602              CMP.W  #MACONTN/2,(MACONT)
 0001360E  6E00 0016              11603              BGT    .RIGHT
-00013612  5239 000138DA          11604              ADDQ.B #1,(MACONT)
-00013618  23FC 0000ABDC 000138D6 11605              MOVE.L #MRR,MAIMAGE         ; INTRODUCE IMAGEN MARIO DERECHA
+00013612  5239 0001392A          11604              ADDQ.B #1,(MACONT)
+00013618  23FC 0000ABDC 00013926 11605              MOVE.L #MRR,MAIMAGE         ; INTRODUCE IMAGEN MARIO DERECHA
 00013622  6000 0094              11606              BRA    .FIN
 00013626                         11607  
-00013626  5239 000138DA          11608  .RIGHT      ADDQ.B #1,(MACONT)
-0001362C  23FC 0000B08C 000138D6 11609              MOVE.L #MRR2,MAIMAGE
-00013636  0C79 07D0 000138DA     11610              CMP.W  #MACONTN,(MACONT)
+00013626  5239 0001392A          11608  .RIGHT      ADDQ.B #1,(MACONT)
+0001362C  23FC 0000B08C 00013926 11609              MOVE.L #MRR2,MAIMAGE
+00013636  0C79 07D0 0001392A     11610              CMP.W  #MACONTN,(MACONT)
 0001363E  6F00 0078              11611              BLE    .FIN
-00013642  4279 000138DA          11612              CLR.W  (MACONT)
+00013642  4279 0001392A          11612              CLR.W  (MACONT)
 00013648  6000 006E              11613              BRA    .FIN
 0001364C                         11614              
 0001364C                         11615              
 0001364C                         11616  
 0001364C                         11617  .CONT       ; NO SE HA PULSADO NINGUNA TECLA
-0001364C  0CB9 0000A27C 000138D6 11618              CMP.L  #MRL,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA IZQUIERDA?
+0001364C  0CB9 0000A27C 00013926 11618              CMP.L  #MRL,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA IZQUIERDA?
 00013656  6600 0010              11619              BNE    .IMGRGHT
-0001365A  23FC 0000991C 000138D6 11620              MOVE.L #MPL,MAIMAGE
+0001365A  23FC 0000991C 00013926 11620              MOVE.L #MPL,MAIMAGE
 00013664  6000 0052              11621              BRA    .FIN
 00013668                         11622  
-00013668  0CB9 0000ABDC 000138D6 11623  .IMGRGHT    CMP.L  #MRR,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA DERECHA?
+00013668  0CB9 0000ABDC 00013926 11623  .IMGRGHT    CMP.L  #MRR,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA DERECHA?
 00013672  6600 0010              11624              BNE    .IMGRGHT2
-00013676  23FC 00009DCC 000138D6 11625              MOVE.L #MPR,MAIMAGE
+00013676  23FC 00009DCC 00013926 11625              MOVE.L #MPR,MAIMAGE
 00013680  6000 0036              11626              BRA    .FIN
 00013684                         11627  
-00013684  0CB9 0000B08C 000138D6 11628  .IMGRGHT2   CMP.L  #MRR2,(MAIMAGE)            
+00013684  0CB9 0000B08C 00013926 11628  .IMGRGHT2   CMP.L  #MRR2,(MAIMAGE)            
 0001368E  6600 0010              11629              BNE    .IMGLEFT2
-00013692  23FC 00009DCC 000138D6 11630              MOVE.L #MPR,MAIMAGE
+00013692  23FC 00009DCC 00013926 11630              MOVE.L #MPR,MAIMAGE
 0001369C  6000 001A              11631              BRA    .FIN
 000136A0                         11632  
-000136A0  0CB9 0000A72C 000138D6 11633  .IMGLEFT2   CMP.L  #MRL2,(MAIMAGE)
+000136A0  0CB9 0000A72C 00013926 11633  .IMGLEFT2   CMP.L  #MRL2,(MAIMAGE)
 000136AA  6600 000C              11634              BNE    .FIN
 000136AE                         11635  
-000136AE  23FC 0000991C 000138D6 11636              MOVE.L #MPL,MAIMAGE
+000136AE  23FC 0000991C 00013926 11636              MOVE.L #MPL,MAIMAGE
 000136B8                         11637              
-000136B8  33C0 000138D2          11638  .FIN        MOVE.W  D0,(MAPOINTX)
+000136B8  33C0 00013922          11638  .FIN        MOVE.W  D0,(MAPOINTX)
 000136BE                         11639  
 000136BE  4CDF 010F              11640              MOVEM.L (A7)+,D0-D3/A0
 000136C2  4E75                   11641              RTS
@@ -11657,10 +11657,10 @@ Created On: 17/01/2024 9:50:46
 000136C8                         11653  
 000136C8  303C 001E              11654              MOVE.W  #MAWIDTH,D0
 000136CC  323C 0028              11655              MOVE.W  #MAHEIGHT,D1
-000136D0  3439 000138D2          11656              MOVE.W  (MAPOINTX),D2
-000136D6  3639 000138D4          11657              MOVE.W  (MAPOINTY),D3
+000136D0  3439 00013922          11656              MOVE.W  (MAPOINTX),D2
+000136D6  3639 00013924          11657              MOVE.W  (MAPOINTY),D3
 000136DC  0443 0028              11658              SUB.W   #40,D3 ; 
-000136E0  2079 000138D6          11659              MOVE.L  MAIMAGE,A0
+000136E0  2079 00013926          11659              MOVE.L  MAIMAGE,A0
 000136E6  4E43                   11660              TRAP    #TRAPPLOT
 000136E8                         11661              
 000136E8  4CDF 010F              11662              MOVEM.L (A7)+,D0-D3/A0
@@ -11682,7 +11682,7 @@ Created On: 17/01/2024 9:50:46
 000136EE                         11678  ; OUTPUT    :
 000136EE                         11679  ; MODIFIES  :
 000136EE                         11680  ; ---------------------------------------------------------------------------------------------
-000136EE  23FC 00001000 000138DC 11681              MOVE.L #DKDL,DKIMAGE
+000136EE  23FC 00001000 0001392C 11681              MOVE.L #DKDL,DKIMAGE
 000136F8  4E75                   11682              RTS
 000136FA                         11683  
 000136FA                         11684  
@@ -11693,27 +11693,27 @@ Created On: 17/01/2024 9:50:46
 000136FA                         11689  ; OUTPUT    :
 000136FA                         11690  ; MODIFIES  :
 000136FA                         11691  ; ---------------------------------------------------------------------------------------------
-000136FA  0C79 2328 000138E0     11692              CMP.W  #DKCONTTN/2,(DKCONTT)
+000136FA  0C79 2328 00013930     11692              CMP.W  #DKCONTTN/2,(DKCONTT)
 00013702  6E00 0048              11693              BGT    .DKTHROW
-00013706  0C79 03E8 000138E2     11694              CMP.W  #DKCONTN/2,(DKCONT)
+00013706  0C79 03E8 00013932     11694              CMP.W  #DKCONTN/2,(DKCONT)
 0001370E  6E00 0016              11695              BGT    .DKRIGHT
-00013712  5239 000138E2          11696              ADDQ.B #1,(DKCONT)
-00013718  23FC 00001000 000138DC 11697              MOVE.L #DKDL,DKIMAGE
+00013712  5239 00013932          11696              ADDQ.B #1,(DKCONT)
+00013718  23FC 00001000 0001392C 11697              MOVE.L #DKDL,DKIMAGE
 00013722  6000 0044              11698              BRA    .FIN
 00013726                         11699  
-00013726  5239 000138E2          11700  .DKRIGHT    ADDQ.B #1,(DKCONT)
-0001372C  23FC 0000289C 000138DC 11701              MOVE.L #DKDR,DKIMAGE
-00013736  0C79 07D0 000138E2     11702              CMP.W  #DKCONTN,(DKCONT)
+00013726  5239 00013932          11700  .DKRIGHT    ADDQ.B #1,(DKCONT)
+0001372C  23FC 0000289C 0001392C 11701              MOVE.L #DKDR,DKIMAGE
+00013736  0C79 07D0 00013932     11702              CMP.W  #DKCONTN,(DKCONT)
 0001373E  6F00 0028              11703              BLE    .FIN
-00013742  4279 000138E2          11704              CLR.W  (DKCONT)
+00013742  4279 00013932          11704              CLR.W  (DKCONT)
 00013748  6000 001E              11705              BRA    .FIN
 0001374C                         11706  
-0001374C  23FC 00007270 000138DC 11707  .DKTHROW    MOVE.L #DKTR,DKIMAGE
-00013756  0C79 2EE0 000138E0     11708              CMP.W  #DKCONTTN-6000,(DKCONTT)
+0001374C  23FC 00007270 0001392C 11707  .DKTHROW    MOVE.L #DKTR,DKIMAGE
+00013756  0C79 2EE0 00013930     11708              CMP.W  #DKCONTTN-6000,(DKCONTT)
 0001375E  6F00 0008              11709              BLE   .FIN
-00013762  4279 000138E0          11710              CLR.W  (DKCONTT)
+00013762  4279 00013930          11710              CLR.W  (DKCONTT)
 00013768                         11711  
-00013768  5239 000138E0          11712  .FIN        ADDQ.B #1,(DKCONTT)
+00013768  5239 00013930          11712  .FIN        ADDQ.B #1,(DKCONTT)
 0001376E  4E75                   11713              RTS
 00013770                         11714              
 00013770                         11715              
@@ -11731,7 +11731,7 @@ Created On: 17/01/2024 9:50:46
 00013778  323C 0046              11727              MOVE.W #DKHEIGHT,D1
 0001377C  343C 0055              11728              MOVE.W #DKPOSX,D2
 00013780  363C FFFB              11729              MOVE.W #DKPOSY,D3
-00013784  2079 000138DC          11730              MOVE.L DKIMAGE,A0
+00013784  2079 0001392C          11730              MOVE.L DKIMAGE,A0
 0001378A  4E43                   11731              TRAP #TRAPPLOT
 0001378C                         11732              
 0001378C  4CDF 010F              11733              MOVEM.L (A7)+,D0-D3/A0
@@ -11751,8 +11751,8 @@ Created On: 17/01/2024 9:50:46
 00013792                         11747  ; OUTPUT    :
 00013792                         11748  ; MODIFIES  :
 00013792                         11749  ; ---------------------------------------------------------------------------------------------
-00013792  33FC FFFD 000138EA     11750              MOVE.W #-3,PCHPOSY
-0001379A  23FC 0000B53C 000138E4 11751              MOVE.L #PHELP,PCHIMAGE
+00013792  33FC FFFD 0001393A     11750              MOVE.W #-3,PCHPOSY
+0001379A  23FC 0000B53C 00013934 11751              MOVE.L #PHELP,PCHIMAGE
 000137A4  4E75                   11752              RTS
 000137A6                         11753  
 000137A6                         11754  
@@ -11764,17 +11764,17 @@ Created On: 17/01/2024 9:50:46
 000137A6                         11760  ; MODIFIES  :
 000137A6                         11761  ; ---------------------------------------------------------------------------------------------
 000137A6                         11762              
-000137A6  0C79 03E8 000138E8     11763              CMP.W   #PCHCONTN/2,(PCHCONT)
+000137A6  0C79 03E8 00013938     11763              CMP.W   #PCHCONTN/2,(PCHCONT)
 000137AE  6E00 0012              11764              BGT     .NEXTSTEP
-000137B2  5239 000138E8          11765              ADDQ.B  #1,(PCHCONT)
-000137B8  5B79 000138EA          11766              SUBQ.W  #5,(PCHPOSY)
+000137B2  5239 00013938          11765              ADDQ.B  #1,(PCHCONT)
+000137B8  5B79 0001393A          11766              SUBQ.W  #5,(PCHPOSY)
 000137BE  6000 0020              11767              BRA     .FIN
 000137C2                         11768  
-000137C2  5239 000138E8          11769  .NEXTSTEP   ADDQ.B #1,(PCHCONT)
-000137C8  5A79 000138EA          11770              ADDQ.W #5,(PCHPOSY)
-000137CE  0C79 07D0 000138E8     11771              CMP.W  #PCHCONTN,(PCHCONT)
+000137C2  5239 00013938          11769  .NEXTSTEP   ADDQ.B #1,(PCHCONT)
+000137C8  5A79 0001393A          11770              ADDQ.W #5,(PCHPOSY)
+000137CE  0C79 07D0 00013938     11771              CMP.W  #PCHCONTN,(PCHCONT)
 000137D6  6F00 0008              11772              BLE    .FIN
-000137DA  4279 000138E8          11773              CLR.W  (PCHCONT)
+000137DA  4279 00013938          11773              CLR.W  (PCHCONT)
 000137E0                         11774  
 000137E0                         11775  .FIN
 000137E0  4E75                   11776              RTS
@@ -11793,8 +11793,8 @@ Created On: 17/01/2024 9:50:46
 000137E6  303C 005A              11789              MOVE.W #PCHWIDTH,D0
 000137EA  323C 0046              11790              MOVE.W #PCHHEIGH,D1
 000137EE  343C 017C              11791              MOVE.W #PCHPOSX,D2
-000137F2  3639 000138EA          11792              MOVE.W (PCHPOSY),D3
-000137F8  2079 000138E4          11793              MOVE.L PCHIMAGE,A0
+000137F2  3639 0001393A          11792              MOVE.W (PCHPOSY),D3
+000137F8  2079 00013934          11793              MOVE.L PCHIMAGE,A0
 000137FE  4E43                   11794              TRAP #TRAPPLOT
 00013800                         11795              
 00013800  4CDF 010F              11796              MOVEM.L (A7)+,D0-D3/A0
@@ -11814,8 +11814,8 @@ Created On: 17/01/2024 9:50:46
 00013806                         11810  ; OUTPUT    :
 00013806                         11811  ; MODIFIES  :
 00013806                         11812  ; ---------------------------------------------------------------------------------------------
-00013806  33FC 00BE 000138EC     11813              MOVE.W  #190,BRLPOSX
-0001380E  33FC 0032 000138EE     11814              MOVE.W  #50,BRLPOSY
+00013806  33FC 00BE 0001393C     11813              MOVE.W  #190,BRLPOSX
+0001380E  33FC 0032 0001393E     11814              MOVE.W  #50,BRLPOSY
 00013816  4E75                   11815              RTS
 00013818                         11816  
 00013818                         11817  
@@ -11850,9 +11850,9 @@ Created On: 17/01/2024 9:50:46
 00013834  4E4F                   11846              TRAP    #15
 00013836                         11847              
 00013836                         11848              ; DEFINE COORDINATES
-00013836  3239 000138EC          11849              MOVE.W  (BRLPOSX),D1
+00013836  3239 0001393C          11849              MOVE.W  (BRLPOSX),D1
 0001383C  0441 000B              11850              SUB.W   #BRLRAD,D1
-00013840  3439 000138EE          11851              MOVE.W  (BRLPOSY),D2
+00013840  3439 0001393E          11851              MOVE.W  (BRLPOSY),D2
 00013846  0442 000B              11852              SUB.W   #BRLRAD,D2
 0001384A  3601                   11853              MOVE.W  D1,D3
 0001384C  0643 0016              11854              ADD.W   #2*BRLRAD,D3
@@ -11868,100 +11868,151 @@ Created On: 17/01/2024 9:50:46
 00013860  4E75                   11864              RTS
 00013862                         11865  
 00013862                         11866  -------------------- end include --------------------
-00013862                         11867              ; INCLUDE "ITEM/HAMMER.X68"
-00013862                         11868              
-00013862                         11869  START       
-00013862                         11870  
-00013862                         11871  ; --- INITIALIZATION --------------------------------------------------------------------------
-00013862                         11872              
-00013862  007C 0700              11873              ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
-00013866  4EB9 0001312A          11874              JSR     SYSINIT
-0001386C  4EB9 00013792          11875              JSR     PCHINIT
-00013872  4EB9 00013524          11876              JSR     MAINIT
-00013878  4EB9 000136EE          11877              JSR     DKINIT
-0001387E  4EB9 00013806          11878              JSR     BRLINIT
-00013884                         11879              ; JSR   HMRINIT
-00013884                         11880              
-00013884                         11881  .LOOP
-00013884                         11882  
-00013884                         11883  ; --- UPDATE ----------------------------------------------------------------------------------
-00013884                         11884  
-00013884                         11885  ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
-00013884                         11886  
-00013884  4E42                   11887              TRAP    #TRAPKEY
-00013886                         11888  
-00013886                         11889  ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
-00013886  4EB9 000137A6          11890              JSR     PCHUPD
-0001388C  4EB9 00013540          11891              JSR     MAUPD
-00013892  4EB9 000136FA          11892              JSR     DKUPD
-00013898  4EB9 00013818          11893              JSR     BRLUPD
-0001389E                         11894              ; JSR   HMRUPD
-0001389E                         11895  
-0001389E                         11896  ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
-0001389E                         11897  
-0001389E  4A39 000138F2          11898  .WINT       TST.B   (SCRINTCT)
-000138A4  67F8                   11899              BEQ     .WINT
-000138A6  4239 000138F2          11900              CLR.B   (SCRINTCT)
-000138AC                         11901  
-000138AC                         11902  
-000138AC                         11903  ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
-000138AC  4EB9 00013472          11904              JSR     MAPPLOT
-000138B2  4EB9 000137E2          11905              JSR     PCHPLOT
-000138B8  4EB9 000136C4          11906              JSR     MAPLOT
-000138BE  4EB9 00013770          11907              JSR     DKPLOT
-000138C4  4EB9 0001381A          11908              JSR     BRLPLOT
-000138CA                         11909              ; JSR   HMRPLOT
-000138CA                         11910  
-000138CA                         11911              
-000138CA  4E41                   11912              TRAP    #TRAPSCR
-000138CC                         11913              
-000138CC  60B6                   11914              BRA     .LOOP
-000138CE                         11915              
-000138CE  FFFF FFFF              11916              SIMHALT
-000138D2                         11917              
-000138D2                         11918              INCLUDE "VARS.X68"
-000138D2                         11919  ; =============================================================================================
-000138D2                         11920  ; GAME VARIABLES
-000138D2                         11921  ; =============================================================================================
-000138D2                         11922  
-000138D2                         11923  ; --- Mario variables --------------------------------------------------------------------------
-000138D2                         11924  MAPOINTX     DS.W    1           ; MARIO X COORDINATE
-000138D4                         11925  MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
-000138D6                         11926  MAIMAGE      DS.L    1           ; CURRENT IMAGE MARIO
-000138DA                         11927  MACONT       DS.B    1           ; COUNTER FOR CHANGES OF IMAGES
-000138DC                         11928               DS.W    0
-000138DC                         11929  ;--- Donkey kong variables --------------------------------------------------------------------
-000138DC                         11930  DKIMAGE      DS.L    1           ; CURRENT IMAGE DK
-000138E0                         11931  DKCONTT      DS.W    1           ; COUNTER FOR THROWING BARRELS
-000138E2                         11932  DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
-000138E4                         11933  
-000138E4                         11934  ;--- Peach variables --------------------------------------------------------------------------
-000138E4                         11935  PCHIMAGE     DS.L    1           ; CURRENT IMAGE PEACH
-000138E8                         11936  PCHCONT      DS.W    1           ; COUNTER 
-000138EA                         11937  PCHPOSY      DS.W    1           ; PEACH Y COORDINATE
-000138EC                         11938  
-000138EC                         11939  ;--- barrel variables -------------------------------------------------------------------------
-000138EC                         11940  BRLPOSX     DS.W    1           ; BARREL X COORDINATE
-000138EE                         11941  BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
-000138F0                         11942               
-000138F0                         11943  -------------------- end include --------------------
-000138F0                         11944              INCLUDE "SYS/SYSVARS.X68"
-000138F0                         11945  ; =============================================================================================
-000138F0                         11946  ; SYSTEM VARIABLES
-000138F0                         11947  ; =============================================================================================
-000138F0                         11948  
-000138F0                         11949  ; --- KEYBOARD RELATED VARIABLES --------------------------------------------------------------
-000138F0                         11950  KBDVAL      DS.B    1                           ; KEY STATE (TECLA DE PULSO CONTINUO)
-000138F1                         11951  KBDEDGE     DS.B    1                           ; KEY EDGE (TECLA DE UNICO PULSO)
-000138F2                         11952  
-000138F2                         11953  
-000138F2                         11954  ; --- TIMED INTERRUPT RELATED VARIABLES -------------------------------------------------------
-000138F2                         11955  SCRINTCT    DS.B    1                           ; INTERRUPT COUNTER
-000138F4                         11956              DS.W    0
-000138F4                         11957  
-000138F4                         11958  -------------------- end include --------------------
-000138F4                         11959  
-000138F4                         11960              END    START
+00013862                         11867              INCLUDE "ITEM/HAMMER.X68"
+00013862                         11868  ; =============================================================================================
+00013862                         11869  ; HAMMER MANAGEMENT
+00013862                         11870  ; =============================================================================================
+00013862                         11871  
+00013862                         11872  ; ---------------------------------------------------------------------------------------------
+00013862                         11873  HMRINIT
+00013862                         11874  ; INITIALIZE HAMMER.
+00013862                         11875  ; INPUT     :
+00013862                         11876  ; OUTPUT    :
+00013862                         11877  ; MODIFIES  :
+00013862                         11878  ; ---------------------------------------------------------------------------------------------
+00013862  33FC 01E0 00013940     11879              MOVE.W #480,HMRPOSX
+0001386A  33FC 013E 00013942     11880              MOVE.W #318,HMRPOSY
+00013872  4E75                   11881              RTS
+00013874                         11882  
+00013874                         11883  
+00013874                         11884  ; ---------------------------------------------------------------------------------------------
+00013874                         11885  HMRUPD
+00013874                         11886  ; UPDATE HAMMER.
+00013874                         11887  ; INPUT     :
+00013874                         11888  ; OUTPUT    :
+00013874                         11889  ; MODIFIES  :
+00013874                         11890  ; ---------------------------------------------------------------------------------------------
+00013874  4E75                   11891              RTS
+00013876                         11892              
+00013876                         11893              
+00013876                         11894              
+00013876                         11895  ; ---------------------------------------------------------------------------------------------
+00013876                         11896  HMRPLOT
+00013876                         11897  ; PLOT THE HAMMER.
+00013876                         11898  ; INPUT     :
+00013876                         11899  ; OUTPUT    :
+00013876                         11900  ; MODIFIES  :
+00013876                         11901  ; ---------------------------------------------------------------------------------------------
+00013876  48E7 F080              11902              MOVEM.L D0-D3/A0,-(A7)
+0001387A                         11903  
+0001387A  303C 001E              11904              MOVE.W  #HMRWIDTH,D0
+0001387E  323C 0028              11905              MOVE.W  #HMRHEIGH,D1
+00013882  3439 00013940          11906              MOVE.W  (HMRPOSX),D2
+00013888  3639 00013942          11907              MOVE.W  (HMRPOSY),D3
+0001388E  0443 0028              11908              SUB.W   #40,D3  
+00013892  41F9 00008B0C          11909              LEA     HAMMER,A0
+00013898  4E43                   11910              TRAP    #TRAPPLOT
+0001389A                         11911              
+0001389A  4CDF 010F              11912              MOVEM.L (A7)+,D0-D3/A0
+0001389E  4E75                   11913              RTS
+000138A0                         11914  
+000138A0                         11915  -------------------- end include --------------------
+000138A0                         11916              
+000138A0                         11917  START       
+000138A0                         11918  
+000138A0                         11919  ; --- INITIALIZATION --------------------------------------------------------------------------
+000138A0                         11920              
+000138A0  007C 0700              11921              ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
+000138A4  4EB9 0001312A          11922              JSR     SYSINIT
+000138AA  4EB9 00013792          11923              JSR     PCHINIT
+000138B0  4EB9 00013524          11924              JSR     MAINIT
+000138B6  4EB9 000136EE          11925              JSR     DKINIT
+000138BC  4EB9 00013806          11926              JSR     BRLINIT
+000138C2  4EB9 00013862          11927              JSR     HMRINIT
+000138C8                         11928              
+000138C8                         11929  .LOOP
+000138C8                         11930  
+000138C8                         11931  ; --- UPDATE ----------------------------------------------------------------------------------
+000138C8                         11932  
+000138C8                         11933  ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
+000138C8                         11934  
+000138C8  4E42                   11935              TRAP    #TRAPKEY
+000138CA                         11936  
+000138CA                         11937  ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
+000138CA  4EB9 000137A6          11938              JSR     PCHUPD
+000138D0  4EB9 00013540          11939              JSR     MAUPD
+000138D6  4EB9 000136FA          11940              JSR     DKUPD
+000138DC  4EB9 00013818          11941              JSR     BRLUPD
+000138E2  4EB9 00013874          11942              JSR     HMRUPD
+000138E8                         11943  
+000138E8                         11944  ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
+000138E8                         11945  
+000138E8  4A39 00013946          11946  .WINT       TST.B   (SCRINTCT)
+000138EE  67F8                   11947              BEQ     .WINT
+000138F0  4239 00013946          11948              CLR.B   (SCRINTCT)
+000138F6                         11949  
+000138F6                         11950  
+000138F6                         11951  ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
+000138F6  4EB9 00013472          11952              JSR     MAPPLOT
+000138FC  4EB9 000137E2          11953              JSR     PCHPLOT
+00013902  4EB9 000136C4          11954              JSR     MAPLOT
+00013908  4EB9 00013770          11955              JSR     DKPLOT
+0001390E  4EB9 0001381A          11956              JSR     BRLPLOT
+00013914  4EB9 00013876          11957              JSR     HMRPLOT
+0001391A                         11958  
+0001391A                         11959              
+0001391A  4E41                   11960              TRAP    #TRAPSCR
+0001391C                         11961              
+0001391C  60AA                   11962              BRA     .LOOP
+0001391E                         11963              
+0001391E  FFFF FFFF              11964              SIMHALT
+00013922                         11965              
+00013922                         11966              INCLUDE "VARS.X68"
+00013922                         11967  ; =============================================================================================
+00013922                         11968  ; GAME VARIABLES
+00013922                         11969  ; =============================================================================================
+00013922                         11970  
+00013922                         11971  ; --- Mario variables --------------------------------------------------------------------------
+00013922                         11972  MAPOINTX     DS.W    1           ; MARIO X COORDINATE
+00013924                         11973  MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
+00013926                         11974  MAIMAGE      DS.L    1           ; CURRENT IMAGE MARIO
+0001392A                         11975  MACONT       DS.B    1           ; COUNTER FOR CHANGES OF IMAGES
+0001392C                         11976               DS.W    0
+0001392C                         11977  ;--- Donkey kong variables --------------------------------------------------------------------
+0001392C                         11978  DKIMAGE      DS.L    1           ; CURRENT IMAGE DK
+00013930                         11979  DKCONTT      DS.W    1           ; COUNTER FOR THROWING BARRELS
+00013932                         11980  DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
+00013934                         11981  
+00013934                         11982  ;--- Peach variables --------------------------------------------------------------------------
+00013934                         11983  PCHIMAGE     DS.L    1           ; CURRENT IMAGE PEACH
+00013938                         11984  PCHCONT      DS.W    1           ; COUNTER 
+0001393A                         11985  PCHPOSY      DS.W    1           ; PEACH Y COORDINATE
+0001393C                         11986  
+0001393C                         11987  ;--- barrel variables -------------------------------------------------------------------------
+0001393C                         11988  BRLPOSX     DS.W    1           ; BARREL X COORDINATE
+0001393E                         11989  BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
+00013940                         11990  
+00013940                         11991  ;--- HAMMER VARIABLES -------------------------------------------------------------------------
+00013940                         11992  HMRPOSX     DS.W    1           ; HAMMER X COORDINATE
+00013942                         11993  HMRPOSY     DS.W    1           ; HAMMER Y COORDINATE             
+00013942                         11994  -------------------- end include --------------------
+00013944                         11995              INCLUDE "SYS/SYSVARS.X68"
+00013944                         11996  ; =============================================================================================
+00013944                         11997  ; SYSTEM VARIABLES
+00013944                         11998  ; =============================================================================================
+00013944                         11999  
+00013944                         12000  ; --- KEYBOARD RELATED VARIABLES --------------------------------------------------------------
+00013944                         12001  KBDVAL      DS.B    1                           ; KEY STATE (TECLA DE PULSO CONTINUO)
+00013945                         12002  KBDEDGE     DS.B    1                           ; KEY EDGE (TECLA DE UNICO PULSO)
+00013946                         12003  
+00013946                         12004  
+00013946                         12005  ; --- TIMED INTERRUPT RELATED VARIABLES -------------------------------------------------------
+00013946                         12006  SCRINTCT    DS.B    1                           ; INTERRUPT COUNTER
+00013948                         12007              DS.W    0
+00013948                         12008  
+00013948                         12009  -------------------- end include --------------------
+00013948                         12010  
+00013948                         12011              END    START
 
 No errors detected
 No warnings generated
@@ -11980,22 +12031,22 @@ BRLFCOL             FF
 BRLINIT             13806
 BRLPCOL             80
 BRLPLOT             1381A
-BRLPOSX             138EC
-BRLPOSY             138EE
+BRLPOSX             1393C
+BRLPOSY             1393E
 BRLRAD              B
 BRLSPEED            0
 BRLUPD              13818
 COORX               1304C
 COORY               1304E
-DKCONT              138E2
+DKCONT              13932
 DKCONTN             7D0
-DKCONTT             138E0
+DKCONTT             13930
 DKCONTTN            4650
 DKDL                1000
 DKDR                289C
 DKDW                4138
 DKHEIGHT            46
-DKIMAGE             138DC
+DKIMAGE             1392C
 DKINIT              136EE
 DKPLOT              13770
 DKPOSX              55
@@ -12008,10 +12059,15 @@ DKUPD:DKTHROW       1374C
 DKUPD:FIN           13768
 DKWIDTH             5A
 HAMMER              8B0C
-HMRHEIGH            0
-HMRWIDHT            0
+HMRHEIGH            28
+HMRINIT             13862
+HMRPLOT             13876
+HMRPOSX             13940
+HMRPOSY             13942
+HMRUPD              13874
+HMRWIDTH            1E
 KBDDOWN             53
-KBDEDGE             138F1
+KBDEDGE             13945
 KBDFIRE1            4D
 KBDFIRE2            4E
 KBDINIT             131BE
@@ -12023,18 +12079,18 @@ KBDUP               57
 KBDUPD              131CC
 KBDUPD:LOOP         13210
 KBDUPD:PACK         1320C
-KBDVAL              138F0
+KBDVAL              13944
 MACOLW              18
-MACONT              138DA
+MACONT              1392A
 MACONTN             7D0
 MAHEIGHT            28
-MAIMAGE             138D6
+MAIMAGE             13926
 MAINIT              13524
 MAPDATA1            1321A
 MAPDATA2            13346
 MAPLOT              136C4
-MAPOINTX            138D2
-MAPOINTY            138D4
+MAPOINTX            13922
+MAPOINTY            13924
 MAPPLOT             13472
 MAPPLOT:BL1         134A8
 MAPPLOT:CLOOP       13486
@@ -12060,14 +12116,14 @@ MRL                 A27C
 MRL2                A72C
 MRR                 ABDC
 MRR2                B08C
-PCHCONT             138E8
+PCHCONT             13938
 PCHCONTN            7D0
 PCHHEIGH            46
-PCHIMAGE            138E4
+PCHIMAGE            13934
 PCHINIT             13792
 PCHPLOT             137E2
 PCHPOSX             17C
-PCHPOSY             138EA
+PCHPOSY             1393A
 PCHUPD              137A6
 PCHUPD:FIN          137E0
 PCHUPD:NEXTSTEP     137C2
@@ -12085,7 +12141,7 @@ SCRFPS              96
 SCRHEIGH            1E0
 SCRHEIGHX           1304A
 SCRINIT             1315E
-SCRINTCT            138F2
+SCRINTCT            13946
 SCRINTN             1
 SCRPLOT             1319C
 SCRTIM              131B6
@@ -12099,9 +12155,9 @@ SELECCION:CONTINUE  13120
 SELECCION:NARANJA   13106
 SELECCION:ROJO      130E8
 SELECCION:ROSA      1311A
-START               13862
-START:LOOP          13884
-START:WINT          1389E
+START               138A0
+START:LOOP          138C8
+START:WINT          138E8
 SYSINIT             1312A
 TRAPKEY             2
 TRAPPLOT            3

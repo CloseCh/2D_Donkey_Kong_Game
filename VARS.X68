@@ -21,7 +21,10 @@ PCHPOSY      DS.W    1           ; PEACH Y COORDINATE
 ;--- barrel variables -------------------------------------------------------------------------
 BRLPOSX     DS.W    1           ; BARREL X COORDINATE
 BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
-             
+
+;--- HAMMER VARIABLES -------------------------------------------------------------------------
+HMRPOSX     DS.W    1           ; HAMMER X COORDINATE
+HMRPOSY     DS.W    1           ; HAMMER Y COORDINATE             
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~

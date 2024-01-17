@@ -9,6 +9,8 @@ HMRINIT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVE.W #480,HMRPOSX
+            MOVE.W #318,HMRPOSY
             RTS
 
 
@@ -30,6 +32,17 @@ HMRPLOT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D3/A0,-(A7)
+
+            MOVE.W  #HMRWIDTH,D0
+            MOVE.W  #HMRHEIGH,D1
+            MOVE.W  (HMRPOSX),D2
+            MOVE.W  (HMRPOSY),D3
+            SUB.W   #40,D3  
+            LEA     HAMMER,A0
+            TRAP    #TRAPPLOT
+            
+            MOVEM.L (A7)+,D0-D3/A0
             RTS
 
 *~Font name~Courier New~

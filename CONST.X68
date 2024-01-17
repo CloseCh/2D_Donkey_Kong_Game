@@ -46,8 +46,8 @@ BRLFCOL     EQU     $000000FF
 
 ;---HAMMER RELATED CONSTANTS ------------------------------------------------------
 
-HMRWIDHT    EQU     0                      ; BARREL WIDHT
-HMRHEIGH    EQU     0                      ; BARREL HEIGHT
+HMRWIDTH    EQU     30                     ; BARREL WIDTH
+HMRHEIGH    EQU     40                      ; BARREL HEIGHT
       
 *~Font name~Courier New~
 *~Font size~12~
