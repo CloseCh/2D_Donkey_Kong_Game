@@ -14,11 +14,10 @@
 			INCLUDE "MAPL/MAPDATA.X68"
 			INCLUDE "MAPL/MAP.X68"
 			INCLUDE "CHARACTERS/MARIO.X68"
-		    INCLUDE "CHARACTERS/DONKEY_KONG.X68"
+		  	INCLUDE "CHARACTERS/DONKEY_KONG.X68"
 			INCLUDE "CHARACTERS/PEACH.X68"
 			INCLUDE "ITEM/BARREL.X68"
 			INCLUDE "ITEM/HAMMER.X68"
-			INCLUDE "PINI.X68"
 			
 START
 
@@ -26,17 +25,17 @@ START
             
 			ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
 			JSR 	SYSINIT
-	   	JSR 	PCHINIT
-      JSR 	MAINIT
-      JSR 	DKINIT
-      JSR 	BRLINIT
-	  JSR 	HMRINIT
+	   		JSR 	PCHINIT
+      		JSR 	MAINIT
+      		JSR 	DKINIT
+      		; JSR 	BRLINIT
+	    	; JSR 	HMRINIT
 
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
-.INILOOP    
-		JSR PPLOT
-		TRAP	#TRAPSCR
-        BRA     .INILOOP
+; .INILOOP    
+
+
+            ; BRA     .INILOOP
 
 .LOOP
 

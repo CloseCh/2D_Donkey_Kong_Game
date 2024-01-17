@@ -23,7 +23,7 @@ KBDLEFT     EQU     'A'                 ; MOVE LEFT KEY
 KBDRIGHT    EQU     'D'                 ; MOVE RIGHT KEY
 KBDUP       EQU     'W'                 ; MOVE UP KEY
 KBDDOWN     EQU     'S'                 ; MOVE DOWN KEY
-KBDSPACE    EQU     $20                 ; SPACE KEY
+KBDSPACE    EQU     ' '                 ; SPACE KEY
 KBDPAUSE    EQU     'P'                 ; PAUSE KEY
 KBDFIRE1    EQU     'M'                 ; WAIT ASIGNATION
 KBDFIRE2    EQU     'N'                 ; WAIT ASIGNATION
