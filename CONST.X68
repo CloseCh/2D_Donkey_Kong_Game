@@ -21,7 +21,7 @@ B1SIZEW     EQU     32
 
 MASPEED     EQU     8                      ; MARNITUDE OF THE X AND Y VEL
 MAWIDTH     EQU     30                      ; MARIO WIDHT
-MAJUMPT     EQU     6                      ; WHEN MARIO JUMP, X TIME TO UP THE COORDINATE
+MAJUMPT     EQU     4                      ; WHEN MARIO JUMP, X TIME TO UP THE COORDINATE
 MAHEIGHT    EQU     40                      ; MARIO HEIGHT
 
  ; --- MARIO COLISION CONSTANTS -----------------------------------------------
