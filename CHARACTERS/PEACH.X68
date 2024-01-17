@@ -22,13 +22,13 @@ PCHUPD
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             
-            CMP.W   #CONT/2,(PCHCONT)
+            CMP.W   #CONT/2,(PCHCONT) ;SI ES MENOR PEACH SUBE
             BGT     .NEXTSTEP
             ADDQ.B  #1,(PCHCONT)
             SUBQ.W  #4,(PCHPOSY)
             BRA     .FIN
 
-.NEXTSTEP   ADDQ.B  #1,(PCHCONT)
+.NEXTSTEP   ADDQ.B  #1,(PCHCONT) ; PEACH BAJA
             ADDQ.W  #4,(PCHPOSY)
             CMP.W   #CONT,(PCHCONT)
             BLE     .FIN
