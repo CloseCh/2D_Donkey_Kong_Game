@@ -19,7 +19,7 @@ SYSINIT
             MOVE.L  #PLOT,($80+TRAPPLOT*4)
             ; INSTALL MOUSE TRAP
             JSR     MOUINIT
-            MOVE.L  #PLOT,($80+TRNMREAD*4)
+            MOVE.L  #MOUREAD,($80+TRNMREAD*4)
             
             ; INSTALL INTERRUPTION FOR THE PLOT
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
