@@ -168,6 +168,7 @@ KBDUPD
 .LOOP       LSL.L   #8,D1
             ROXL.B  #1,D2
             DBRA.W  D3,.LOOP
+
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -200,6 +201,7 @@ MOUREAD
             MOVE.B  D0,(MOUEDGE)
             MOVEM.L (A7)+,D0-D1
             RTE
+
 
 
 *~Font name~Courier New~

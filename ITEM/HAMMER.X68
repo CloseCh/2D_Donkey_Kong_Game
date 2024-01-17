@@ -9,6 +9,8 @@ HMRINIT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVE.W #480,HMRPOSX
+            MOVE.W #318,HMRPOSY
             RTS
 
 
@@ -19,6 +21,21 @@ HMRUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            CMP.W   #CONT/2,(HMRCONT)
+            BGT     .NEXTSTEP
+            ADDQ.B  #1,(HMRCONT)
+            SUBQ.W  #1,(HMRPOSY)
+            BRA     .FIN
+
+.NEXTSTEP   ADDQ.B #1,(HMRCONT)
+            ADDQ.W #1,(HMRPOSY)
+            CMP.W  #CONT,(HMRCONT)
+            BLE    .FIN
+            CLR.W  (HMRCONT)
+
+.FIN
+            RTS
+            
             RTS
             
             
@@ -30,6 +47,17 @@ HMRPLOT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D3/A0,-(A7)
+
+            MOVE.W  #HMRWIDTH,D0
+            MOVE.W  #HMRHEIGH,D1
+            MOVE.W  (HMRPOSX),D2
+            MOVE.W  (HMRPOSY),D3
+            SUB.W   #40,D3  
+            LEA     HAMMER,A0
+            TRAP    #TRAPPLOT
+            
+            MOVEM.L (A7)+,D0-D3/A0
             RTS
 
 *~Font name~Courier New~

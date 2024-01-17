@@ -14,10 +14,10 @@
 			INCLUDE "MAPL/MAPDATA.X68"
 			INCLUDE "MAPL/MAP.X68"
 			INCLUDE "CHARACTERS/MARIO.X68"
-		    INCLUDE "CHARACTERS/DONKEY_KONG.X68"
-			; INCLUDE "CHARACTERS/PEACH.X68"
-			; INCLUDE "ITEM/BARREL.X68"
-			; INCLUDE "ITEM/HAMMER.X68"
+		  INCLUDE "CHARACTERS/DONKEY_KONG.X68"
+			INCLUDE "CHARACTERS/PEACH.X68"
+			INCLUDE "ITEM/BARREL.X68"
+			INCLUDE "ITEM/HAMMER.X68"
 			
 START
 
@@ -25,17 +25,18 @@ START
             
 			ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
 			JSR 	SYSINIT
-	   		; JSR 	PCHINIT
-            JSR 	MAINIT
-            JSR 	DKINIT
-            ; JSR 	BRLINIT
-	    	; JSR 	HMRINIT
+	   	JSR 	PCHINIT
+      JSR 	MAINIT
+      JSR 	DKINIT
+      ; JSR 	BRLINIT
+	    ; JSR 	HMRINIT
 
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
 .INILOOP    
 
 
             BRA     .INILOOP
+
 .LOOP
 
 ; --- UPDATE ----------------------------------------------------------------------------------
@@ -45,11 +46,11 @@ START
 			TRAP    #TRAPKEY
 
 ; UPDATE GAME LOGIC --- PARTE DE CALCULOS LOGICOS MODIFICANDO LOS DATOS EN MEMORIA
-			; JSR 	PCHUPD
+			JSR 	PCHUPD
             JSR 	MAUPD
             JSR 	DKUPD
-			; JSR 	BRLUPD
-			; JSR 	HMRUPD
+			JSR 	BRLUPD
+			JSR 	HMRUPD
 
 ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
 
@@ -60,11 +61,11 @@ START
 
 ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
 			JSR 	MAPPLOT
-			; JSR 	PCHPLOT
+			JSR 	PCHPLOT
             JSR 	MAPLOT
             JSR 	DKPLOT
-            ; JSR 	BRLPLOT
-			; JSR 	HMRPLOT
+            JSR 	BRLPLOT
+			JSR 	HMRPLOT
 
 			
 			TRAP	#TRAPSCR

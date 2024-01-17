@@ -12,7 +12,7 @@ MAPPLOT
 
             MOVEM.L D0-D7/A0,-(A7)
 
-            LEA     MAPDATA1,A0 ;LEER EL DIRECCION DEL MAPA
+            LEA     MAPDATA2,A0 ;LEER EL DIRECCION DEL MAPA
             CLR.W   D2
 
             MOVE.W  #(BLCHEIGH/2)+2,D4
@@ -79,7 +79,7 @@ BL2PLOT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
-            MOVEM.L D0-D1/D5,-(A7)
+            MOVEM.L D0-D5,-(A7)
             MOVE.L  D1,D5
             ; SE DEFINE COLORES
             MOVE.B  #80,D0
@@ -90,11 +90,31 @@ BL2PLOT
             MOVE.L  #$00FF0000,D1
             TRAP    #15
 
+
+            ; PALO IZQUIERDO DE LA ESCALERA    
             MOVE.L  D5,D1
+            SUB.W   #28,D3
             MOVE.B  #87,D0
             TRAP    #15
-            MOVEM.L (A7)+,D0-D1/D5
+
+            ;PALO DERECHO DE LA ESCALERA
+            ADD.W   #20,D1
+            ADD.W   #20,D3
+            TRAP    #15
+
+            ;ESCALONES INTERMEDIOS
+            SUB.W  #20,D1
+            SUB.W  #10,D4
+            ADD.W  #22,D2
+            TRAP   #15
+
+            SUB.W  #16,D2
+            SUB.W  #16,D4
+            TRAP   #15
+
+            MOVEM.L (A7)+,D0-D5
             RTS
+
 
 
 
