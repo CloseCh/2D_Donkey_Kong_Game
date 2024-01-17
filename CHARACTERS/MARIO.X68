@@ -33,6 +33,9 @@ MAUPD
             JSR     MAJMP
             BTST.L  #2,D6
             BNE     .NCOLINF            ; SUBIENDO COORDENADAS NO VER COLISION INFERIOR.
+            JSR     MASTAIRS
+            BTST.L  #5,D6
+            BNE     .NCOLINF            ; EN ESCALERA NO VER COLISION INFERIOR.
             JSR     MACOLINF
             
 
@@ -71,8 +74,7 @@ MAUPD
             BLE     .FIN
             CLR.W   (MACONT)
             BRA     .FIN
-            
-            
+
 
 .CONT       ; NO SE HA PULSADO NINGUNA TECLA
             CMP.L   #MRL,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA IZQUIERDA?
@@ -109,7 +111,7 @@ MAJMPINI
 ; ---------------------------------------------------------------------------------------------
             ; SE HA PULSADO EL ESPACIO?
             BTST.B  #4,(KBDVAL)
-            BEQ     .END        ; NO SE PUEDE SALTAR
+            BEQ     .END        ; NO, SE PUEDE SALTAR
             MOVE.W  #MAJUMPT,(MACONTJP)
             ADDQ.W  #6,(MACONTRO)
 .END
@@ -123,29 +125,102 @@ MAJMP
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             MOVE.L  D0,-(A7)
-             
             MOVE.W  (MACONTRO),D0
             BTST.L  #1,D0
             BEQ     .END    ; FINALIZAR SI NO ESTA SALTANDO.
-            SUBQ.W  #MASPEED-3,(MAPOINTY)
+            SUBQ.W  #MASPEED,(MAPOINTY)
             SUBQ.W  #1,(MACONTJP)
             BNE     .END
             MOVE.W  #1,(MACONTRO)
 
-            
 .END        MOVE.L  (A7)+,D0
-            RTS
 
+            RTS
 ; ---------------------------------------------------------------------------------------------
 MASTAIRS
-; SUBIR ESCALERAS
+; SUBIR/BAJAR ESCALERAS
 ; INPUT     :
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D4/A0,-(A7)
+            MOVE.L  D7,-(A7)
+
+            MOVE.W  (MACONTRO),D7
+            BTST.L  #0,D7
+            BNE     .END
+
+            LEA     MAPDATA2,A0      ; OBTENER DIRECCION DEL MAPA
+            CLR.L   D0
+            CLR.L   D1
+            CLR.L   D2
+            CLR.L   D3
+            CLR.L   D4
+                ; OBTENER COORDENADA Y EN D0 Y COORDENADA X EN D1
+            MOVE.W  (MAPOINTY),D0
+            MOVE.W  (MAPOINTX),D1
+            ADD.W   #15,D1
+            SUB.W   #10,D0
+                ; DIVISION POR 32
+            LSR.W   #5,D0
+            LSR.W   #5,D1
+                ; SALVAR DATOS
+            MOVE.W  D0,D2
+            ADDQ.W  #1,D2
+            MOVE.W  D1,D3
+                ; MULTIPLICAR Y SUMAR
+            LSL.W   #2,D0
+            ADD.W   D0,D1
+            LSL.W   #2,D0
+            ADD.W   D1,D0
+
+            ; VER SI DEBAJO HAY BLOQUE ME ASEGURA QUE NO CAMINA SOBRE UNA ESCALERA
+            LSL.W   #2,D2
+            ADD.W   D2,D3
+            LSL.W   #2,D2
+            ADD.W   D3,D2
+            
+            MOVE.B  (A0,D2),D7
+            BTST.L  #1,D7
+            BEQ     .BITIN0         ; TRATAMIENTO DISTINTO SEGUN EL BLOQUE INFERIOR
+
+            ORI.W    #$10,(MACONTRO)    ; ES POSIBLE BAJAR
+
+            BTST.L  #0,D7
+            BNE     .MOVIM
+            ORI.W    #$08,(MACONTRO)    ; ES POSIBLE BAJAR
+            MOVE.W  D4,(MACONTRO)
+            BRA     .MOVIM
+
+.BITIN0     MOVE.B  (A0,D0),D7
+            BTST.L  #1,D7
+            BEQ     .MOVIM
+            ORI.W    #$08,(MACONTRO)
+
+
+.MOVIM      MOVE.W  (MACONTRO),D7
+            BTST.L  #3,D7
+            BEQ     .ENDW
+            ; SE HA PULSADO EL W?
+            BTST.B  #2,(KBDVAL)
+            BEQ     .ENDW        ; NO, SE PUEDE SALTAR
+            ORI.W    #$20,(MACONTRO)
+            SUBQ.W  #MASPEED,(MAPOINTY)
+            BRA     .END
+
+            ; SE HA PULSADO EL S?
+.ENDW       BTST.L  #4,D7
+            BEQ     .END
+            BTST.B  #3,(KBDVAL)
+            BEQ     .END        ; NO, SE PUEDE SALTAR
+            ORI.W    #$20,(MACONTRO)
+            ADDQ.W  #MASPEED,(MAPOINTY)
+
+.END        AND.W   #$07,(MACONTRO)
+            MOVE.L  (A7)+,D7
+            MOVEM.L (A7)+,D0-D4/A0
 
             RTS
-
 ; ---------------------------------------------------------------------------------------------
 MACOLINF
 ; COLISION INFERIOR DE MARIO.
@@ -154,7 +229,8 @@ MACOLINF
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             MOVEM.L D0-D3/A0,-(A7)
-
+            MOVE.L  D7,-(A7)
+            AND.W    #%00011110,(MACONTRO)
             ; OBTENER POSICION DE MARIO EN EL MAPA, INTRODUCIR EN D0
             LEA     MAPDATA2,A0      ; OBTENER DIRECCION DEL MAPA
             CLR.L   D0
@@ -164,6 +240,7 @@ MACOLINF
                 ; OBTENER COORDENADA Y EN D0 Y COORDENADA X EN D1
             MOVE.W  (MAPOINTY),D0
             MOVE.W  (MAPOINTX),D1
+            ADD.W   #15,D1
                 ; DIVISION POR 32
             LSR.W   #5,D0
             LSR.W   #5,D1
@@ -179,9 +256,10 @@ MACOLINF
             ; PARA CAMINAR
             ; MIRAMOS COLISION CON (A0,D0) 
             MOVE.B  (A0,D0),D7
-            BTST.L  #1,D7
-            BNE     .END2           ; VER SI YA ESTA PISANDO BLOQUE
-            ; VER SI DEBAJO HAY BLOQUE
+            BTST.L  #0,D7
+            BNE     .END1           ; VER SI YA ESTA PISANDO BLOQUE
+
+            ; VER SI DEBAJO HAY BLOQUE ME ASEGURA QUE NO CAMINA SOBRE UNA ESCALERA
             MOVE.W  D2,D0
             MOVE.W  D3,D1
             LSL.W   #2,D0
@@ -204,15 +282,17 @@ MACOLINF
             SUB.W   D2,D0
             BLS     .END1
                 ; DECREMENTAR PUNTO DE MARIO EN MASPEED
-.SUBEXE     ADDQ.W  #MASPEED,(MAPOINTY)
-            BRA     .END2
-
+.SUBEXE     OR.W    #%00000001,(MACONTRO)
+            ADDQ.W  #MASPEED,(MAPOINTY)
+            BRA     .ENDN
+            ; VER SI ES POSIBLE SALTAR
 .END1       JSR     MAJMPINI
 
-.END2       MOVEM.L (A7)+,D0-D3/A0
+.ENDN       MOVE.L  (A7)+,D7
+            MOVEM.L (A7)+,D0-D3/A0
+
 
             RTS
-
 ; ---------------------------------------------------------------------------------------------
 MAPLOT
 ; PLOT THE MARIO.
