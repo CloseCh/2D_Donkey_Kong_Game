@@ -44,10 +44,11 @@ PCHPOSX     EQU     380                      ; PEACH X POSITION
 
 ; --- BARREL RELATED CONSTANTS ----------------------------------------------------
 
-BRLRAD      EQU     11
-BRLSPEED    EQU     0                       ; MAGNITUDE OF THE X AND Y VEL.
-BRLPCOL     EQU     $00000080               ; BARREL COLOR 
-BRLFCOL     EQU     $000000FF
+BRLRAD      EQU     11                      ; BARREL RAD
+BRLSPEED    EQU     5                       ; BARREL SPEED
+BRLPCOL     EQU     $00000080               ; BARREL PEN COLOR 
+BRLFCOL     EQU     $000000FF               ; BARREL FILL COLOR
+BRLCONTN    EQU     110                    ; BARREL CONTADOR
 
 ;---HAMMER RELATED CONSTANTS ------------------------------------------------------
 
@@ -56,6 +57,7 @@ HMRHEIGH    EQU     40                      ; BARREL HEIGHT
 
 CONT        EQU     2000
       
+
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~
