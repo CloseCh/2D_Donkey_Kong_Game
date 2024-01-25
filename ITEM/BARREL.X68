@@ -9,7 +9,8 @@ BRLINIT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVE.W  #190,BRLPOSX
+          
+            MOVE.W  #210,BRLPOSX
             MOVE.W  #50,BRLPOSY
             RTS
 
@@ -21,6 +22,11 @@ BRLUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVE.L D0,-(A7)
+            MOVE.L (BRLSPEED),D0
+            ADD.L D0,(BRLPOSY)
+            ADD.L #BRLACC,(BRLSPEED)        
+            MOVE.L (A7)+,D0
             RTS
             
             
@@ -61,6 +67,8 @@ BRLPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
+
 
 *~Font name~Courier New~
 *~Font size~12~
