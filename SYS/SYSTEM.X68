@@ -13,21 +13,21 @@ SYSINIT
             ; INSTALL SCREEN PLOT TRAP
             MOVE.L  #SCRPLOT,($80+TRAPSCR*4)
             ; INSTALL KEY TRAP
-            JSR     KBDINIT
             MOVE.L  #KBDUPD,($80+TRAPKEY*4)
             ; INSTALL PLOT TRAP
             MOVE.L  #PLOT,($80+TRAPPLOT*4)
             ; INSTALL MOUSE TRAP
-            JSR     MOUINIT
             MOVE.L  #MOUREAD,($80+TRNMREAD*4)
             ; INSTALL SOUND TRAP
-            JSR     SNDINIT
             MOVE.L  #SNDPLAY,($80+TRAPSND*4)
             ; INSTALL INTERRUPTION FOR THE PLOT
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
 
             JSR     SCRINIT
-            
+            JSR     KBDINIT
+            JSR     MOUINIT
+            JSR     SNDINIT
+            JSR     DMMINIT
             ; SWITCH TO USER
             MOVE.W  SR,-(A7)
             ANDI.W  #$D8FF,(A7)
