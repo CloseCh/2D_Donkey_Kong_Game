@@ -10,11 +10,9 @@ BRLINIT
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
           
-            MOVE.W  #210,BRLPOSX
-            MOVE.W  #50,BRLPOSY
+            MOVE.W  #210,(BRLPOSX)
+            MOVE.W  #50,(BRLPOSY)
             RTS
-
-
 ; ---------------------------------------------------------------------------------------------
 BRLUPD
 ; UPDATE BARREL.
@@ -22,14 +20,36 @@ BRLUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVE.L D0,-(A7)
-            MOVE.L (BRLSPEED),D0
-            ADD.L D0,(BRLPOSY)
-            ADD.L #BRLACC,(BRLSPEED)        
-            MOVE.L (A7)+,D0
+            MOVEM.L D0-D1/A1,-(A7)
+            ADDQ.W #1,(BRLCONT)
+            CMP.W  #BRLCONTN/8,(BRLCONT)
+            BGE    .NOCAIDA
+            MOVE.W  #0,(BRLVELX)
+            MOVE.W #BRLSPEED,(BRLVELY)
+            BRA .FIN
+
+.NOCAIDA    CMP.W #BRLCONTN/8,(BRLCONT)
+            BNE   .CONTINUA
+            JSR UTLRAND
+            AND.L #$00000004,D0
+            LEA   .VELVEC,A1
+            MOVE.L (A1,D0),(BRLVELX)
+.CONTINUA   
+            CMP.W #BRLCONTN,(BRLCONT)
+            BLE   .FIN
+            CLR.W (BRLCONT)
+.FIN
+            MOVE.W (BRLPOSY),D0
+            MOVE.W (BRLPOSX),D1
+            ADD.W  (BRLVELY),D0
+            ADD.W  (BRLVELX),D1
+            MOVE.W D0,(BRLPOSY)
+            MOVE.W D1,(BRLPOSX)
+            MOVEM.L (A7)+,D0-D1/A1
             RTS
             
-            
+.VELVEC     DC.W  -BRLSPEED,0  ;0,2
+            DC.W   BRLSPEED,0  ;4,6            
             
 ; ---------------------------------------------------------------------------------------------
 BRLPLOT
@@ -67,6 +87,7 @@ BRLPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
 
 
 
