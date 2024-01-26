@@ -20,6 +20,7 @@ DKUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D2/A1-A3,-(A7)
             CMP.W  #DKCONTTN/2,(DKCONTT)
             BGT    .DKTHROW
             CMP.W  #CONT/2,(DKCONT)
@@ -39,8 +40,14 @@ DKUPD
             CMP.W  #DKCONTTN-6000,(DKCONTT)
             BLE   .FIN
             CLR.W  (DKCONTT)
+            LEA    BRLINIT,A1
+            LEA    BRLUPD,A2
+            LEA    BRLPLOT,A3
+            MOVE.L #1,D0
+            JSR    AGLADD
 
 .FIN        ADDQ.B #1,(DKCONTT)
+            MOVEM.L (A7)+,D0-D2/A1-A3
             RTS
             
             

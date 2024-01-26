@@ -1,48 +1,53 @@
 ; =============================================================================================
-; BARREL MANAGEMENT
+; BARREL MANAGEMENT (AGENT)
+; BRLPOSX (W)  (A0)
+; BRLPOSY (W) 2(A0)
+; BRLVELX (W) 4(A0)
+; BRLVELY (W) 6(A0)
+; BRLCONT (W) 8(A0)
 ; =============================================================================================
 
 ; ---------------------------------------------------------------------------------------------
 BRLINIT
 ; INITIALIZE BARREL.
-; INPUT     :
+; INPUT     : A0 POINTER TO THE INSTANCE VARIABLES
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
           
-            MOVE.W  #210,(BRLPOSX)
-            MOVE.W  #50,(BRLPOSY)
+            MOVE.W  #210,(A0)
+            MOVE.W  #50,2(A0)
             RTS
 ; ---------------------------------------------------------------------------------------------
 BRLUPD
 ; UPDATE BARREL.
-; INPUT     :
+; INPUT     : A0 POINTER TO THE INSTANCE VARIABLES
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             MOVEM.L D0-D1/A1,-(A7)
-            ADDQ.W #1,(BRLCONT)
-            CMP.W  #BRLCONTN/8,(BRLCONT)
+            ADDQ.W #1,8(A0)
+            CMP.W  #BRLCONTN/8,8(A0)
             BGE    .NOCAIDA
-            MOVE.W  #0,(BRLVELX)
-            MOVE.W #BRLSPEED,(BRLVELY)
+            MOVE.W  #0,4(A0)
+            MOVE.W #BRLSPEED,6(A0)
             BRA .FIN
 
-.NOCAIDA    CMP.W #BRLCONTN/8,(BRLCONT)
+.NOCAIDA    CMP.W #BRLCONTN/8,8(A0)
             BNE   .CONTINUA
             JSR UTLRAND
             AND.L #$00000004,D0
             LEA   .VELVEC,A1
-            MOVE.L (A1,D0),(BRLVELX)
+            MOVE.L (A1,D0),4(A0)
 .CONTINUA   
-            CMP.W #BRLCONTN,(BRLCONT)
+            CMP.W #BRLCONTN,8(A0)
             BLE   .FIN
-            CLR.W (BRLCONT)
+            CLR.W 8(A0)
 .FIN
-            MOVE.W (BRLPOSX),D0
-            MOVE.W (BRLPOSY),D1
-            ADD.W  (BRLVELX),D0
-            ADD.W  (BRLVELY),D1
+            MOVE.W  (A0),D0
+            MOVE.W 2(A0),D1
+            ADD.W  4(A0),D0
+            ADD.W  6(A0),D1
 
             ; CHECK HORIZONTAL COLLISIONS
             CMP.W   #SCRWIDTH-BRLRAD-2*BLCWIDTH,D0
@@ -52,18 +57,18 @@ BRLUPD
             BRA     .DONE
 
             ; RIGHT SIDE COLLISION
-.COLRGT     NEG.W   (BRLVELX)
+.COLRGT     NEG.W   4(A0)
             MOVE.W  #SCRWIDTH-BRLRAD-2*BLCWIDTH,D0
             BRA     .DONE
             
             ; LEFT SIDE COLLISION
-.COLLFT     NEG.W   (BRLVELX)
+.COLLFT     NEG.W   4(A0)
             MOVE.W  #BRLRAD+2*BLCWIDTH,D0
             BRA     .DONE
 
 
-.DONE       MOVE.W D0,(BRLPOSX)
-            MOVE.W D1,(BRLPOSY)
+.DONE       MOVE.W D0,(A0)
+            MOVE.W D1,2(A0)
             MOVEM.L (A7)+,D0-D1/A1
             RTS
             
@@ -73,7 +78,7 @@ BRLUPD
 ; ---------------------------------------------------------------------------------------------
 BRLPLOT
 ; PLOT THE BARREL.
-; INPUT     :
+; INPUT     : A0 POINTER TO THE INSTANCE VARIABLES
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
@@ -90,9 +95,9 @@ BRLPLOT
             TRAP    #15
             
             ; DEFINE COORDINATES
-            MOVE.W  (BRLPOSX),D1
+            MOVE.W  (A0),D1
             SUB.W   #BRLRAD,D1
-            MOVE.W  (BRLPOSY),D2
+            MOVE.W  2(A0),D2
             SUB.W   #BRLRAD,D2
             MOVE.W  D1,D3
             ADD.W   #2*BRLRAD,D3
