@@ -39,12 +39,31 @@ BRLUPD
             BLE   .FIN
             CLR.W (BRLCONT)
 .FIN
-            MOVE.W (BRLPOSY),D0
-            MOVE.W (BRLPOSX),D1
-            ADD.W  (BRLVELY),D0
-            ADD.W  (BRLVELX),D1
-            MOVE.W D0,(BRLPOSY)
-            MOVE.W D1,(BRLPOSX)
+            MOVE.W (BRLPOSX),D0
+            MOVE.W (BRLPOSY),D1
+            ADD.W  (BRLVELX),D0
+            ADD.W  (BRLVELY),D1
+
+            ; CHECK HORIZONTAL COLLISIONS
+            CMP.W   #SCRWIDTH-BRLRAD-2*BLCWIDTH,D0
+            BGT     .COLRGT
+            CMP.W   #BRLRAD+2*BLCWIDTH,D0
+            BLT     .COLLFT
+            BRA     .DONE
+
+            ; RIGHT SIDE COLLISION
+.COLRGT     NEG.W   (BRLVELX)
+            MOVE.W  #SCRWIDTH-BRLRAD-2*BLCWIDTH,D0
+            BRA     .DONE
+            
+            ; LEFT SIDE COLLISION
+.COLLFT     NEG.W   (BRLVELX)
+            MOVE.W  #BRLRAD+2*BLCWIDTH,D0
+            BRA     .DONE
+
+
+.DONE       MOVE.W D0,(BRLPOSX)
+            MOVE.W D1,(BRLPOSY)
             MOVEM.L (A7)+,D0-D1/A1
             RTS
             
