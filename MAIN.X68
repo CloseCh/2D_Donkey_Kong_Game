@@ -33,7 +33,7 @@ START
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
       		JSR 	DKINIT
-      		JSR 	BRLINIT
+
 	    	JSR 	HMRINIT
 
 			
@@ -63,7 +63,7 @@ START
             JSR 	PCHUPD
             JSR 	MAUPD
             JSR 	DKUPD
-			JSR 	BRLUPD
+			JSR     AGLUPD
 			JSR 	HMRUPD
 
 ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
@@ -78,7 +78,7 @@ START
 			JSR 	PCHPLOT
             JSR 	MAPLOT
             JSR 	DKPLOT
-            JSR 	BRLPLOT
+			JSR     AGLPLOT
 			JSR 	HMRPLOT
 
 			

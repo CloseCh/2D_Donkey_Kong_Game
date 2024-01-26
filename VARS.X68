@@ -27,10 +27,7 @@ PCHCONT      DS.W    1           ; COUNTER
 PCHPOSY      DS.W    1           ; PEACH Y COORDINATE
 
 ;--- barrel variables -------------------------------------------------------------------------
-BRLPOSX     DS.W    1           ; BARREL X COORDINATE
-BRLPOSY     DS.W    1           ; BARREL Y COORDINATE
-BRLVELX     DS.W    1           ; BARREL VELOCITY X
-BRLVELY     DS.W    1           ; BARREL VELOCITY Y
+
 BRLCONT     DS.W    1           ; BARREL CONTADOR CAIDA
 ;--- HAMMER VARIABLES -------------------------------------------------------------------------
 HMRPOSX     DS.W    1           ; HAMMER X COORDINATE
