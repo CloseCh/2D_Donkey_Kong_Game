@@ -33,7 +33,6 @@ START
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
       		JSR 	DKINIT
-
 	    	JSR 	HMRINIT
 
 			

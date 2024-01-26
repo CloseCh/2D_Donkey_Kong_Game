@@ -22,10 +22,9 @@ PUPD
 ; ---------------------------------------------------------------------------------------------
             BTST.B  #0,(MOUEDGE)
             BEQ     .END
-
             MOVE.W  #1,D0
-
-.END        RTS
+.END        
+            RTS
 
 
 
@@ -36,11 +35,11 @@ PPLOT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVEM.L D0-D3/A1,-(A7)
+            MOVEM.L D0-D3/A0-A1,-(A7)
 
             MOVE.B  #21,D0
             MOVE.L  #$00FFFFFF,D1
-            MOVE.L  #$05120011,D2
+            MOVE.L  #$06090002,D2
             TRAP    #15    
 
             ; SET PEN COLOR
@@ -65,7 +64,7 @@ PPLOT
 
             ; SET SECOND LINE POSITION
             MOVE.B  #11,D0
-            MOVE.W  #$040C,D1
+            MOVE.W  #$060C,D1
             TRAP    #15
 
             ; PRINT SECOND LINE
@@ -73,10 +72,24 @@ PPLOT
             MOVE.B  #14,D0
             TRAP    #15
 
-            MOVEM.L (A7)+,D0-D3/A1
+            ;PRINT DONKEY KONG
+            MOVE.W #DKWIDTH,D0
+            MOVE.W #DKHEIGHT,D1
+            MOVE.W #380,D2
+            MOVE.W #-40,D3
+            LEA    DKDW,A0
+            TRAP   #TRAPPLOT
+
+            MOVE.W #PCHWIDTH,D0
+            MOVE.W #PCHHEIGH,D1
+            MOVE.W #80,D2
+            MOVE.W #280,D3
+            LEA    PWMR,A0
+            TRAP   #TRAPPLOT
+            MOVEM.L (A7)+,D0-D3/A0-A1
             RTS
 
-.TXT1       DC.B    'CLICK IZQUIERDO ',0
+.TXT1       DC.B   'CLICK IZQUIERDO ',0
 .TXT2       DC.B    'PARA INICIAR PARTIDA',0
 
 
