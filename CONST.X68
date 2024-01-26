@@ -46,8 +46,8 @@ PCHPOSX     EQU     380                      ; PEACH X POSITION
 
 BRLRAD      EQU     11                      ; BARREL RAD
 BRLSPEED    EQU     5                       ; BARREL SPEED
-BRLPCOL     EQU     $00000080               ; BARREL PEN COLOR 
-BRLFCOL     EQU     $000000FF               ; BARREL FILL COLOR
+BRLPCOL     EQU     $00003266              ; BARREL PEN COLOR 
+BRLFCOL     EQU     $00013278               ; BARREL FILL COLOR
 BRLCONTN    EQU     115                    ; BARREL CONTADOR
 
 ;---HAMMER RELATED CONSTANTS ------------------------------------------------------
