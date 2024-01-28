@@ -44,7 +44,7 @@ PCHPOSX     EQU     380                      ; PEACH X POSITION
 
 ; --- BARREL RELATED CONSTANTS ----------------------------------------------------
 
-BRLRAD      EQU     11                      ; BARREL RAD
+BRLRAD      EQU     9                      ; BARREL RAD
 BRLSPEED    EQU     5                       ; BARREL SPEED
 BRLPCOL     EQU     $00003266              ; BARREL PEN COLOR 
 BRLFCOL     EQU     $00013278               ; BARREL FILL COLOR
