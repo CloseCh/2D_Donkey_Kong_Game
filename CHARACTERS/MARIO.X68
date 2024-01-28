@@ -11,7 +11,7 @@ MAINIT
 ; ---------------------------------------------------------------------------------------------
             ; SET THE INIT POINT
             MOVE.W  #100,MAPOINTX 
-            MOVE.W  #100,MAPOINTY ;440
+            MOVE.W  #440,MAPOINTY ;440
             MOVE.W  #0,MACONTRO
             MOVE.W  #0,MACONTJP
             ; MARIO INITIAL LOOKS TO THE RIGHT
@@ -99,10 +99,9 @@ MAUPD
             
 .FIN        MOVE.W  D0,(MAPOINTX)
             MOVE.W  (MAPOINTY),D0
-            CMP.W   #BLCHEIGH*2+40,D0
+            CMP.W   #BLCHEIGH*2,D0
             BGT     .NOGANA
-            
-.BUCLE      
+                  
             ; PRINT SPRITE
             MOVE.W #PCHWIDTH,D0
             MOVE.W #PCHHEIGH,D1
@@ -143,9 +142,9 @@ MAUPD
             LEA     .TEXT,A1
             MOVE.B  #14,D0
             TRAP    #15
-            
+            TRAP   #TRAPSCR
+            SIMHALT
            
-           BRA      .BUCLE
 .NOGANA            
             MOVEM.L (A7)+,D0-D6/A0
             RTS
