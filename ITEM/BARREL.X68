@@ -25,7 +25,7 @@ BRLUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVEM.L D0-D1/A1,-(A7)
+            MOVEM.L D0-D4/A1,-(A7)
             ADDQ.W #1,8(A0)
             CMP.W  #BRLCONTN/8,8(A0)
             BGE    .NOCAIDA
@@ -54,22 +54,46 @@ BRLUPD
             BGT     .COLRGT
             CMP.W   #BRLRAD+2*BLCWIDTH,D0
             BLT     .COLLFT
-            BRA     .DONE
+            BRA     .CHKMARIO
 
             ; RIGHT SIDE COLLISION
 .COLRGT     NEG.W   4(A0)
             MOVE.W  #SCRWIDTH-BRLRAD-2*BLCWIDTH,D0
-            BRA     .DONE
+            BRA     .CHKMARIO
             
             ; LEFT SIDE COLLISION
 .COLLFT     NEG.W   4(A0)
             MOVE.W  #BRLRAD+2*BLCWIDTH,D0
-            BRA     .DONE
+            BRA     .CHKMARIO
 
+.CHKMARIO   ;CHECK MARIO COLLISIONS (EL PUNTO ESTA ABAJO A LA IZQUIERDA Y LO PONEMOS AL CENTRO)
+            MOVE.W   (MAPOINTX),D2 ; MIRAR SI COLISIONAN EN X
+            ADD.W    #MAWIDTH/2,D2
+            SUB.W    D0,D2
+            BPL      .ISPOS
+            NEG.W    D2
+.ISPOS      CMP.W    #MAWIDTH/2+BRLRAD/3,D2
+            BGT      .DONE
+            MOVE.W   (MAPOINTY),D2  ;MIRAR SI COLISIONAN EN Y
+            SUB.W     #MAHEIGHT/2,D2
+            SUB.W    D1,D2
+            BPL      .ISPOS2
+            NEG.W    D2
+.ISPOS2     CMP.W    #MAHEIGHT/2+BRLRAD/3,D2
+            BGT      .DONE
 
+            ;MARIO COLLISION
+            JSR   AGLKILL
+            MOVE.W #100,(MAPOINTX)
+            MOVE.W #440,(MAPOINTY)
+            CLR.W  (MACONT)
+            CLR.W  (MACONTJP)
+            CLR.W  (MACONTRO)
+            CLR.W  8(A0)
+            
 .DONE       MOVE.W D0,(A0)
             MOVE.W D1,2(A0)
-            MOVEM.L (A7)+,D0-D1/A1
+            MOVEM.L (A7)+,D0-D4/A1
             RTS
             
 .VELVEC     DC.W  -BRLSPEED,0  ;0,2
