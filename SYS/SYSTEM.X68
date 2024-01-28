@@ -238,8 +238,6 @@ MOUREAD
             MOVEM.L (A7)+,D0-D1
             RTE
 
-
-
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~

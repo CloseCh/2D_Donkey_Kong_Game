@@ -10,8 +10,8 @@ MAINIT
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             ; SET THE INIT POINT
-            MOVE.W  #100,MAPOINTX
-            MOVE.W  #440,MAPOINTY
+            MOVE.W  #100,MAPOINTX 
+            MOVE.W  #440,MAPOINTY ;440
             MOVE.W  #0,MACONTRO
             MOVE.W  #0,MACONTJP
             ; MARIO INITIAL LOOKS TO THE RIGHT
@@ -98,10 +98,57 @@ MAUPD
             MOVE.L  #MPL,MAIMAGE
             
 .FIN        MOVE.W  D0,(MAPOINTX)
+            MOVE.W  (MAPOINTY),D0
+            CMP.W   #BLCHEIGH*2,D0
+            BGT     .NOGANA
+                  
+            ; PRINT SPRITE
+            MOVE.W #PCHWIDTH,D0
+            MOVE.W #PCHHEIGH,D1
+            MOVE.W #SCRWIDTH/2-PCHWIDTH,D2
+            MOVE.W #280,D3
+            LEA    PWMR,A0
+            TRAP   #TRAPPLOT
+            ; PRINT DONKEY KONG
+            MOVE.W #DKWIDTH,D0
+            MOVE.W #DKHEIGHT,D1
+            MOVE.W #380,D2
+            MOVE.W #280,D3
+            LEA    DKDW,A0
+            TRAP   #TRAPPLOT
 
+            MOVE.B  #92,D0
+            MOVE.W  #2,D1
+            TRAP    #15
+
+            MOVE.B #94,D0
+            TRAP   #15
+            ;FORMAT
+            MOVE.B  #21,D0
+            MOVE.L  #$00FFFFFF,D1
+            MOVE.L  #$06290001,D2
+            TRAP    #15  
+            ; SET BACKGROUND COLOR
+            MOVE.B  #81,D0
+            MOVE.L  #$00000000,D1
+            TRAP    #15
+
+            ; SET FIRST LINE POSITION
+            MOVE.B  #11,D0
+            MOVE.W  #$0302,D1
+            TRAP    #15
+            
+             ; PRINT FIRST LINE
+            LEA     .TEXT,A1
+            MOVE.B  #14,D0
+            TRAP    #15
+            TRAP   #TRAPSCR
+            SIMHALT
+           
+.NOGANA            
             MOVEM.L (A7)+,D0-D6/A0
             RTS
-
+.TEXT       DC.B   'HAS GANADO!!!',0
 ; ---------------------------------------------------------------------------------------------
 MAJMPINI
 ; INICIAR SALTO DE MARIO
