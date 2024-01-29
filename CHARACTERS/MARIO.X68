@@ -33,12 +33,13 @@ MAUPD
             JSR     MAJMP
             BTST.L  #2,D6
             BNE     .NCOLINF            ; SUBIENDO COORDENADAS NO VER COLISION INFERIOR.
+
             JSR     MASTAIRS
-            BTST.L  #5,D6
-            BNE     .NCOLINF            ; EN ESCALERA NO VER COLISION INFERIOR.
+            BTST.L  #3,D6
+            BNE     .NOGANA             ; EN ESCALERA SALTAR OTROS MOVIMIENTOS
+
             JSR     MACOLINF
             
-
             ; UPDATE COORDINATE X
 .NCOLINF    MOVE.W  (MAPOINTX),D0
             BTST.B  #0,(KBDVAL)         ; SE HA PULSADO LA TECLA A?
@@ -190,82 +191,105 @@ MASTAIRS
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVEM.L D0-D4/A0,-(A7)
+            MOVEM.L D0-D2/A0,-(A7)
             MOVE.L  D7,-(A7)
-
-            MOVE.W  (MACONTRO),D7
-            BTST.L  #0,D7
-            BNE     .END
+            CLR.L   D7
 
             LEA     MAPDATA2,A0      ; OBTENER DIRECCION DEL MAPA
             CLR.L   D0
             CLR.L   D1
             CLR.L   D2
-            CLR.L   D3
-            CLR.L   D4
                 ; OBTENER COORDENADA Y EN D0 Y COORDENADA X EN D1
             MOVE.W  (MAPOINTY),D0
             MOVE.W  (MAPOINTX),D1
+
+            ; SI YA ESTA SUBIENDO ESCALERA SALTAR ESTA COMPROBACION
+            MOVE.W  (MACONTRO),D7
+            BTST.L  #3,D7
+            BNE     .FINFT
+            ; FASE 1 DE COMPROBACIONES
+                ; SE HA PULSADO TECLA W?
+            BTST.B  #2,(KBDVAL)
+            BEQ     .FINF1
+                ; SE HA PULSADO, PASO 2 - VERIFICAR BLOQUE ACTUAL
+                ; AJUSTANDO COORDENADAS
             ADD.W   #15,D1
             SUB.W   #10,D0
-                ; DIVISION POR 32
-            LSR.W   #5,D0
-            LSR.W   #5,D1
-                ; SALVAR DATOS
-            MOVE.W  D0,D2
-            ADDQ.W  #1,D2
-            MOVE.W  D1,D3
-                ; MULTIPLICAR Y SUMAR
-            LSL.W   #2,D0
-            ADD.W   D0,D1
-            LSL.W   #2,D0
-            ADD.W   D1,D0
+                ; REALIZAR CALCULOS
+            JSR     MASIDE
+                ; OBTENER DATOS DEL BLOQUE
+            MOVE.B  (A0,D0),D2
+            BTST.L  #1,D2
+            BEQ     .END
+                ; ES POSIBLE SUBIR, CAMBIAR ESTADO DE BITS
+            BSET.L  #3,D7
+            MOVE.W  D7,(MACONTRO)
 
-            ; VER SI DEBAJO HAY BLOQUE ME ASEGURA QUE NO CAMINA SOBRE UNA ESCALERA
-            LSL.W   #2,D2
-            ADD.W   D2,D3
-            LSL.W   #2,D2
-            ADD.W   D3,D2
-            
-            MOVE.B  (A0,D2),D7
-            BTST.L  #1,D7
-            BEQ     .BITIN0         ; TRATAMIENTO DISTINTO SEGUN EL BLOQUE INFERIOR
-
-            ORI.W    #$10,(MACONTRO)    ; ES POSIBLE BAJAR
-
-            BTST.L  #0,D7
-            BNE     .MOVIM
-            ORI.W    #$08,(MACONTRO)    ; ES POSIBLE BAJAR
-            MOVE.W  D4,(MACONTRO)
-            BRA     .MOVIM
-
-.BITIN0     MOVE.B  (A0,D0),D7
-            BTST.L  #1,D7
-            BEQ     .MOVIM
-            ORI.W    #$08,(MACONTRO)
-
-
-.MOVIM      MOVE.W  (MACONTRO),D7
-            BTST.L  #3,D7
-            BEQ     .ENDW
-            ; SE HA PULSADO EL W?
-            BTST.B  #2,(KBDVAL)
-            BEQ     .ENDW        ; NO, SE PUEDE SALTAR
-            ORI.W    #$20,(MACONTRO)
-            SUBQ.W  #MASPEED,(MAPOINTY)
             BRA     .END
 
-            ; SE HA PULSADO EL S?
-.ENDW       BTST.L  #4,D7
+            ; FASE 2 DE COMPROBACIONES
+                ; SE HA PULSADO TECLA S?
+.FINF1      BTST.B  #3,(KBDVAL)
             BEQ     .END
-            BTST.B  #3,(KBDVAL)
-            BEQ     .END        ; NO, SE PUEDE SALTAR
-            ORI.W    #$20,(MACONTRO)
-            ADDQ.W  #MASPEED,(MAPOINTY)
+                ; SE HA PULSADO, PASO 2 - VERIFICAR BLOQUE ACTUAL
+                ; AJUSTANDO COORDENADAS
+            ADD.W   #15,D1
+            ADD.W   #15,D0
+                ; REALIZAR CALCULOS
+            JSR     MASIDE
+                ; OBTENER DATOS DEL BLOQUE
+            MOVE.B  (A0,D0),D2
+            BTST.L  #1,D2
+            BEQ     .END
+                ; ES POSIBLE BAJAR, CAMBIAR ESTADO DE BITS
+            BSET.L  #3,D7
+            MOVE.W  D7,(MACONTRO)
+            BRA     .END
+            ; FASE 3 SUBIR Y BAJAR ESCALERAS, ACTUALIZAR DATOS
+                ; SE HA PULSADO TECLA W?
+.FINFT      BTST.B  #2,(KBDVAL)
+            BEQ     .NEXTKEY
+            SUB.W   #MASPEED,(MAPOINTY)
 
-.END        AND.W   #$07,(MACONTRO)
-            MOVE.L  (A7)+,D7
-            MOVEM.L (A7)+,D0-D4/A0
+            ADD.W   #16,D0
+            ADD.W   #15,D1
+                ; REALIZAR CALCULOS
+            JSR     MASIDE
+                ; OBTENER DATOS DEL BLOQUE
+            MOVE.B  (A0,D0),D2
+            BTST.L  #0,D2
+            BEQ     .END
+            BTST.L  #1,D2
+            BEQ     .END
+                ; HA LLEGADO AL FINAL FINALZAR ESCALERA
+            BCHG.L  #3,D7
+            MOVE.W  D7,(MACONTRO)
+
+            BRA     .END
+
+                ; SE HA PULSADO TECLA S?
+.NEXTKEY    BTST.B  #3,(KBDVAL)
+            BEQ     .END
+            ADD.W   #MASPEED,(MAPOINTY)
+
+            ADD.W   #16,D0
+            ADD.W   #15,D1
+                ; REALIZAR CALCULOS
+            JSR     MASIDE
+                ; OBTENER DATOS DEL BLOQUE
+            MOVE.B  (A0,D0),D2
+            BTST.L  #0,D2
+            BEQ     .END
+            BTST.L  #1,D2
+            BNE     .END
+                ; HA LLEGADO AL FINAL FINALZAR ESCALERA
+            BCHG.L  #3,D7
+            MOVE.W  D7,(MACONTRO)
+
+            BRA     .END
+
+.END        MOVE.L  (A7)+,D7
+            MOVEM.L (A7)+,D0-D2/A0
 
             RTS
 ; ---------------------------------------------------------------------------------------------
@@ -338,6 +362,24 @@ MACOLINF
 .ENDN       MOVE.L  (A7)+,D7
             MOVEM.L (A7)+,D0-D3/A0
 
+
+            RTS
+; ---------------------------------------------------------------------------------------------
+MASIDE
+; COMPRUEBA LOS ESTADOS DEL BLOQUE D0 Y D1 HA DE CONTENER LOS DATOS CORRECTOS PARA REALIZAR
+; LOS PROXIMOS CALCULOS DE ESTA SUBRUTINA. ESPECIFICAMENTE PARA EL MAPA 1.
+; INPUT     :
+; OUTPUT    :
+; MODIFIES  :
+; ---------------------------------------------------------------------------------------------
+            ; DIVISION POR 32
+            LSR.W   #5,D0
+            LSR.W   #5,D1
+            ; MULTIPLICAR Y SUMAR
+            LSL.W   #2,D0
+            ADD.W   D0,D1
+            LSL.W   #2,D0
+            ADD.W   D1,D0
 
             RTS
 ; ---------------------------------------------------------------------------------------------

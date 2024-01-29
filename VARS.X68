@@ -11,9 +11,7 @@ MACONTJP     DS.W    1           ; COUNTER FOR CHANGES OF IMAGES IN THE JUMP
     ; BIT 0, SI 1 ESTA FLOTANDO
     ; BIT 1, SI 1 ESTA SALTANDO.
     ; BIT 2, SI 1 DEBE SUBIR SI 0 DEBE BAJAR DEL SALTO
-    ; BIT 3, SI 1 PUEDE SUBIR EN LA ESCALERA
-    ; BIT 4, SI 1 PUEDE BAJAR EN LA ESCALERA
-    ; BIT 5, SI 1 EN LA ESCALERA
+    ; BIT 3, SI 1 EN LA ESCALERA
 MACONTRO     DS.W    1           ; CONTROLES DE MARIO
              DS.W    0
 ;--- Donkey kong variables --------------------------------------------------------------------
