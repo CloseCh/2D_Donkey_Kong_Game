@@ -180,7 +180,7 @@ KBDUPD
             ; CONVERT TO DESIRED FORMAT
             JSR     .PACK
             
-            ; READ FIRST PART
+            ; READ SECOND PART
             MOVE.L  #KBDDOWN<<24+KBDUP<<16+KBDRIGHT<<8+KBDLEFT,D1
             TRAP    #15
             
