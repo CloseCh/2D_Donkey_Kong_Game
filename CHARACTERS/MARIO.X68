@@ -36,12 +36,12 @@ MAUPD
 
             JSR     MASTAIRS
             BTST.L  #3,D6
-            BNE     .NOGANA             ; EN ESCALERA SALTAR OTROS MOVIMIENTOS
-
+            BNE     .IMGESCA             ; EN ESCALERA SALTAR OTROS MOVIMIENTOS
             JSR     MACOLINF
             
             ; UPDATE COORDINATE X
 .NCOLINF    MOVE.W  (MAPOINTX),D0
+           
             BTST.B  #0,(KBDVAL)         ; SE HA PULSADO LA TECLA A?
             BEQ     .CHKRGHT            ; NO SE HA PULSADO TECLA A SALTA
             SUB.W   #MASPEED,D0
@@ -94,9 +94,18 @@ MAUPD
             BRA     .FIN
 
 .IMGLEFT2   CMP.L   #MRL2,(MAIMAGE)
-            BNE     .FIN
-
+            BNE     .MCR
             MOVE.L  #MPL,MAIMAGE
+            BRA     .FIN
+
+.MCR        CMP.L   #MCR,(MAIMAGE)
+            BNE     .MCL
+            MOVE.L  #MPR,MAIMAGE
+            BRA     .FIN
+
+.MCL        CMP.L   #MCL,(MAIMAGE)
+            BNE     .FIN
+            MOVE.L  #MPR,MAIMAGE
             
 .FIN        MOVE.W  D0,(MAPOINTX)
             MOVE.W  (MAPOINTY),D0
@@ -145,7 +154,43 @@ MAUPD
             TRAP    #15
             TRAP   #TRAPSCR
             SIMHALT
-           
+
+.IMGESCA    BTST.B  #2,(KBDVAL)
+            BEQ     .CHKDOWN
+            CMP.W   #CONT/4,(MACONTS)
+            BGT     .STAIR1
+            ADDQ.B  #1,(MACONTS)
+            MOVE.L  #MCL,MAIMAGE
+            BRA     .NOGANA
+
+.STAIR1     ADDQ.B  #1,(MACONTS)
+            MOVE.L  #MCR,MAIMAGE
+            CMP.W   #CONT/2,(MACONTS)
+            BLE     .NOGANA  
+            CLR.W   (MACONTS)
+            BRA     .NOGANA
+
+.CHKDOWN    BTST.B  #3,(KBDVAL)
+            BEQ     .NEXT
+            CMP.W   #CONT/4,(MACONTS)
+            BGT     .STAIR2
+            ADDQ.B  #1,(MACONTS)
+            MOVE.L  #MCL,MAIMAGE
+            BRA     .NOGANA
+
+.STAIR2     ADDQ.B  #1,(MACONTS)
+            MOVE.L  #MCR,MAIMAGE
+            CMP.W   #CONT/2,(MACONTS)
+            BLE     .NOGANA  
+            CLR.W   (MACONTS)
+            BRA     .NOGANA
+
+
+.NEXT       CMP.W #MCL,(MAIMAGE)
+            BNE   .OTRA
+            MOVE.L  #MCR,(MAIMAGE)
+            BRA   .NOGANA
+.OTRA       MOVE.L  #MCL,(MAIMAGE)
 .NOGANA            
             MOVEM.L (A7)+,D0-D6/A0
             RTS
@@ -362,7 +407,6 @@ MACOLINF
 .ENDN       MOVE.L  (A7)+,D7
             MOVEM.L (A7)+,D0-D3/A0
 
-
             RTS
 ; ---------------------------------------------------------------------------------------------
 MASIDE
@@ -402,6 +446,8 @@ MAPLOT
             MOVEM.L (A7)+,D0-D3/A0
            
             RTS
+
+
 
 *~Font name~Courier New~
 *~Font size~12~
