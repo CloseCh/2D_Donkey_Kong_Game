@@ -15,7 +15,6 @@
 			INCLUDE "LIB/UTLCODE.X68"
 			INCLUDE "SYS/DRAW.X68"
 			INCLUDE "SYS/SYSTEM.X68"
-			INCLUDE "MAPL/MAPDATA.X68"
 			INCLUDE "CHARACTERS/MARIO.X68"
 		  	INCLUDE "CHARACTERS/DONKEY_KONG.X68"
 			INCLUDE "CHARACTERS/PEACH.X68"
@@ -27,9 +26,9 @@ START
 ; --- INITIALIZATION --------------------------------------------------------------------------
             
 			ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
-            JSR 	SYSINIT
-			JSR     MAPINIT
+            JSR 	SYSINIT	
 			JSR     UTLINIT
+			JSR     MAPINIT
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
       		JSR 	DKINIT
@@ -93,6 +92,7 @@ START
 			INCLUDE "LIB/UTLVARS.X68"
 
 			END    START
+
 
 
 
