@@ -348,7 +348,7 @@ MACOLINF
             MOVE.L  D7,-(A7)
             AND.W    #%00011110,(MACONTRO)
             ; OBTENER POSICION DE MARIO EN EL MAPA, INTRODUCIR EN D0
-            LEA     MAPDATA2,A0      ; OBTENER DIRECCION DEL MAPA
+            MOVE.L  #MAPA,A0      ; OBTENER DIRECCION DEL MAPA
             CLR.L   D0
             CLR.L   D1
             CLR.L   D2
