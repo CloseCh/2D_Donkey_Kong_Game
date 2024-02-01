@@ -15,7 +15,6 @@
 			INCLUDE "LIB/UTLCODE.X68"
 			INCLUDE "SYS/DRAW.X68"
 			INCLUDE "SYS/SYSTEM.X68"
-			INCLUDE "MAPL/MAPDATA.X68"
 			INCLUDE "CHARACTERS/MARIO.X68"
 		  	INCLUDE "CHARACTERS/DONKEY_KONG.X68"
 			INCLUDE "CHARACTERS/PEACH.X68"
@@ -27,9 +26,9 @@ START
 ; --- INITIALIZATION --------------------------------------------------------------------------
             
 			ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
-            JSR 	SYSINIT
-			JSR     MAPINIT
+            JSR 	SYSINIT	
 			JSR     UTLINIT
+			JSR     MAPINIT
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
       		JSR 	DKINIT
@@ -45,12 +44,17 @@ START
 			JSR 	PPLOT
 			TRAP	#TRAPSCR
             BRA     .INILOOP
-
 .START		CLR.L	D0
-
-.LOOP
+             MOVE.B #SNDMUSIC,D7
+			TRAP   #TRAPSND
+.LOOP		
+			ADDQ.W #1,CONTMUS
+			CMP.W  #CONT/20,CONTMUS
+			BLT    .CONTINUA
 			MOVE.B #SNDMUSIC,D7
-		    TRAP #TRAPSND
+			TRAP   #TRAPSND
+			CLR.W  CONTMUS
+.CONTINUA
 ; --- UPDATE ----------------------------------------------------------------------------------
 
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
@@ -93,6 +97,8 @@ START
 			INCLUDE "LIB/UTLVARS.X68"
 
 			END    START
+
+
 
 
 

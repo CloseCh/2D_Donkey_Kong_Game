@@ -13,16 +13,21 @@ MAPINIT
             MOVE.B #50,D0
             TRAP   #15
 
+            JSR    UTLRAND
+            AND.L  #$00000003,D0
+            MULU   #15,D0
+            LEA    MAPVEC,A1
+            ADD.L  D0,A1
             ; OPEN EXISTING FILE            
-            LEA     TXT,A1  ;NULL TERMINATED FILE NAME
+            ;LEA     MAPVEC,A1  ;NULL TERMINATED FILE NAME
             MOVE.B  #51,D0
             TRAP #15
             
             ;READ FILE
             LEA CONTENIDO,A1
             MOVE.L #MAPA,A2
-            MOVE.W #327,D4 ;NUMERO DE BYTES TOTALES
-.LOOP       MOVE.W #1,D2 ; NUMERO DE BYTES A LEER
+            MOVE.W #327,D4 ;NUMERO DE BYTES TOTALES A LEER POR MAPA
+.LOOP       MOVE.W #1,D2 ; NUMERO DE BYTES LEIDOS POR ITERACIÓN
             MOVE.B #53,D0
             TRAP #15
             
@@ -47,8 +52,12 @@ MAPINIT
             RTS
 
 CONTADOR  DC.W  1
-TXT       DC.B 'MAPL/MAPA2.txt',0
-CONTENIDO DC.B  1,0
+MAPVEC    DC.B 'MAPL/MAPA1.txt',0 ;0
+          DC.B 'MAPL/MAPA2.txt',0 ;1
+          DC.B 'MAPL/MAPA3.txt',0 ;2
+          DC.B 'MAPL/MAPA4.txt',0 ;3
+
+CONTENIDO DC.B  1,0 ;ALMACENA EL BYTE LEIDO
            DC.W  0
 
 ; ------------------------------------------------------------------------------

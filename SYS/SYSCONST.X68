@@ -32,6 +32,9 @@ KBDFIRE2    EQU     'N'                 ; WAIT ASIGNATION
 ; --- SOUND IDENTIFIERS --------------------------------------------------------
 
 SNDMUSIC     EQU     0
+SNDRESTA     EQU     1
+SNDJUMP      EQU     2
+SNDVICTO     EQU     3
 
 *~Font name~Courier New~
 *~Font size~12~

@@ -46,14 +46,17 @@ SNDINIT
 .LOOP       MOVE.L  (A0)+,D0
             BEQ     .DONE
             MOVE.L  D0,A1
-            MOVE.B  #71,D0
+            MOVE.B  #74,D0
             TRAP    #15
             ADDQ.B  #1,D1
             BRA     .LOOP
 .DONE       MOVEM.L (A7)+,D0-D1/A0-A1
             RTS
 .SNDMUSIC   DC.B    'SND/music.wav',0
-.SNDLIST    DC.L    .SNDMUSIC,0           
+.SNDRESTA   DC.B    'SND/restart.wav',0
+.SNDJUMP    DC.B    'SND/jump.wav',0
+.SNDVICTO   DC.B    'SND/victory.wav',0
+.SNDLIST    DC.L    .SNDMUSIC,.SNDRESTA,.SNDJUMP,.SNDVICTO,0           
 ; ------------------------------------------------------------------------------
 SNDPLAY
 ; PLAY SOUND
@@ -62,8 +65,9 @@ SNDPLAY
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             MOVEM.W D0-D1,-(A7)
-            MOVE.B  #72,D0
+            MOVE.B  #75,D0
             MOVE.B  D7,D1
+            MOVE.L  #0,D2
             TRAP    #15
             MOVEM.W (A7)+,D0-D1
             RTE
