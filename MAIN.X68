@@ -5,7 +5,7 @@
 ; HISTORY     : VERSION 1
 ; =============================================================================================
 			ORG 	$1000
-			
+			INCLUDE "MAPL/MAP.X68"
 			INCLUDE "IMAGES.X68"
 			INCLUDE "LIB/DMMCODE.X68"
 			INCLUDE "LIB/DMMCONST.X68"
@@ -16,7 +16,6 @@
 			INCLUDE "SYS/DRAW.X68"
 			INCLUDE "SYS/SYSTEM.X68"
 			INCLUDE "MAPL/MAPDATA.X68"
-			INCLUDE "MAPL/MAP.X68"
 			INCLUDE "CHARACTERS/MARIO.X68"
 		  	INCLUDE "CHARACTERS/DONKEY_KONG.X68"
 			INCLUDE "CHARACTERS/PEACH.X68"
@@ -28,7 +27,8 @@ START
 ; --- INITIALIZATION --------------------------------------------------------------------------
             
 			ORI.W   #$0700,SR       ; DESABILITAR INTERRUPTION
-			JSR 	SYSINIT
+            JSR 	SYSINIT
+			JSR     MAPINIT
 			JSR     UTLINIT
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
@@ -93,6 +93,8 @@ START
 			INCLUDE "LIB/UTLVARS.X68"
 
 			END    START
+
+
 
 
 

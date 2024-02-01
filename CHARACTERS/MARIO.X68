@@ -240,7 +240,7 @@ MASTAIRS
             MOVE.L  D7,-(A7)
             CLR.L   D7
 
-            LEA     MAPDATA2,A0      ; OBTENER DIRECCION DEL MAPA
+            MOVE.L     #MAPA,A0      ; OBTENER DIRECCION DEL MAPA
             CLR.L   D0
             CLR.L   D1
             CLR.L   D2
