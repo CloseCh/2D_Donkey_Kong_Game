@@ -3,10 +3,9 @@
 ; =============================================================================================
 
 ; --- MOUSE RELATED VARIABLES -----------------------------------------------------------------
-MOUPOSY     DS.W    1                       ; MOUSE Y COORDINATE
-MOUPOSX     DS.W    1                       ; MOUSE X COORDINATE
-MOUBUT      DS.B    1                       ; MOUSE BUTTONS STATE
-MOUEDGE     DS.B    1                       ; MOUSE BUTTONS EDGE
+MOUPOSY     DS.L    1                       ; MOUSE Y COORDINATE
+MOUPOSX     DS.L    1                       ; MOUSE X COORDINATE
+MOUSCLIC    DS.B    1                       ; MOUSE CLICK READER
             DS.W    0
 
 ; --- KEYBOARD RELATED VARIABLES --------------------------------------------------------------

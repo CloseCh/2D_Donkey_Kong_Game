@@ -29,12 +29,16 @@ KBDPAUSE    EQU     'P'                 ; PAUSE KEY
 KBDFIRE1    EQU     'M'                 ; WAIT ASIGNATION
 KBDFIRE2    EQU     'N'                 ; WAIT ASIGNATION
 
-; --- SOUND IDENTIFIERS --------------------------------------------------------
+; --- SOUND IDENTIFIERS -----------------------------------------------------------------------
 
 SNDMUSIC     EQU     0
 SNDRESTA     EQU     1
 SNDJUMP      EQU     2
 SNDVICTO     EQU     3
+
+; --- MOUSE MODE ------------------------------------------------------------------------------
+
+MOUSMODE     EQU     2                  ; READ MOUSE DOWN STATE
 
 *~Font name~Courier New~
 *~Font size~12~
