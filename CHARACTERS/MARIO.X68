@@ -46,7 +46,7 @@ MAUPD
             BEQ     .CHKRGHT            ; NO SE HA PULSADO TECLA A SALTA
             SUB.W   #MASPEED,D0
 
-            CMP.W   #CONT/2,(MACONT)
+            CMP.W   #CONT/4,(MACONT)
             BGT     .LEFT
             ADDQ.B  #1,(MACONT)
             MOVE.L  #MRL,MAIMAGE         ; INTRODUCE IMAGEN MARIO IZQUIERDA
@@ -54,7 +54,7 @@ MAUPD
 
 .LEFT       ADDQ.B  #1,(MACONT)
             MOVE.L  #MRL2,MAIMAGE
-            CMP.W   #CONT,(MACONT)
+            CMP.W   #CONT/2,(MACONT)
             BLE     .FIN
             CLR.W   (MACONT)
             BRA     .FIN
@@ -63,7 +63,7 @@ MAUPD
             BEQ     .CONT               ; NO SE HA PULSADO TECLA D SALTA
             ADD.W   #MASPEED,D0
 
-            CMP.W   #CONT/2,(MACONT)
+            CMP.W   #CONT/4,(MACONT)
             BGT     .RIGHT
             ADDQ.B  #1,(MACONT)
             MOVE.L  #MRR,MAIMAGE         ; INTRODUCE IMAGEN MARIO DERECHA
@@ -71,7 +71,7 @@ MAUPD
 
 .RIGHT      ADDQ.B  #1,(MACONT)
             MOVE.L  #MRR2,MAIMAGE
-            CMP.W   #CONT,(MACONT)
+            CMP.W   #CONT/2,(MACONT)
             BLE     .FIN
             CLR.W   (MACONT)
             BRA     .FIN
@@ -240,7 +240,7 @@ MASTAIRS
             MOVE.L  D7,-(A7)
             CLR.L   D7
 
-            LEA     MAPDATA2,A0      ; OBTENER DIRECCION DEL MAPA
+            MOVE.L     #MAPA,A0      ; OBTENER DIRECCION DEL MAPA
             CLR.L   D0
             CLR.L   D1
             CLR.L   D2

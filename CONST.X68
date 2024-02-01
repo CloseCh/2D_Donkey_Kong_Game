@@ -10,6 +10,7 @@ BUTHEIGH    EQU     50
 ; --- MAP CONTANTS ----------------------------------------------------------------------------
 BLCWIDTH    EQU     32                       ; BLOCK WIDTH
 BLCHEIGH    EQU     32                       ; BLOCK HEIGH
+MAPA        EQU     $20000
 
     ; --- BLOCK 1 -----------------------------------------------------------------------------
 B1SIZEH     EQU     18

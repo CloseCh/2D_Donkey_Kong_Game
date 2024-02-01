@@ -1,6 +1,55 @@
 ; =============================================================================================
 ; MAP
 ; =============================================================================================
+; ------------------------------------------------------------------------------
+MAPINIT
+; INIT. THE MAP
+; INPUT    : NONE
+; OUTPUT   : NONE
+; MODIFIES : NONE
+; ------------------------------------------------------------------------------
+             MOVEM.L D0-D4/A1-A2,-(A7)
+            ; CLOSE ALL FILES
+            MOVE.B #50,D0
+            TRAP   #15
+
+            ; OPEN EXISTING FILE            
+            LEA     TXT,A1  ;NULL TERMINATED FILE NAME
+            MOVE.B  #51,D0
+            TRAP #15
+            
+            ;READ FILE
+            LEA CONTENIDO,A1
+            MOVE.L #MAPA,A2
+            MOVE.W #327,D4 ;NUMERO DE BYTES TOTALES
+.LOOP       MOVE.W #1,D2 ; NUMERO DE BYTES A LEER
+            MOVE.B #53,D0
+            TRAP #15
+            
+            ;SET POSITION
+            MOVE.B #55,D0
+            MOVE.W (CONTADOR),D2
+            TRAP #15
+            
+            ;STORE BYTE
+            MOVE.B (CONTENIDO),D3
+            CMP.B  #$0A,D3 ;TRATAMIENTO DE LOS BITS DE FIN DE LINEA
+            BEQ    .SIGUE
+            AND.B  #00000011,D3
+            CMP.B  #$09,D3 ;TRATAMIENTO DE LOS BITS DE FIN DE LINEA
+            BEQ    .SIGUE
+            MOVE.B  D3,(A2)
+            ADDA.L #1,A2
+.SIGUE
+            ADDQ.W  #1,(CONTADOR)
+            DBRA  D4,.LOOP
+            MOVEM.L (A7)+,D0-D4/A1-A2
+            RTS
+
+CONTADOR  DC.W  1
+TXT       DC.B 'MAPL/MAPA2.txt',0
+CONTENIDO DC.B  1,0
+           DC.W  0
 
 ; ------------------------------------------------------------------------------
 MAPPLOT
@@ -12,7 +61,7 @@ MAPPLOT
 
             MOVEM.L D0-D7/A0,-(A7)
 
-            LEA     MAPDATA2,A0 ;LEER EL DIRECCION DEL MAPA
+            MOVE.L  #MAPA,A0 ;LEER EL DIRECCION DEL MAPA
             CLR.W   D2
 
             MOVE.W  #(BLCHEIGH/2)+2,D4
