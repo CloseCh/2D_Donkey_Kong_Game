@@ -19,6 +19,8 @@ KBDEDGE     DS.B    1                           ; KEY EDGE (TECLA DE UNICO PULSO
 SCRINTCT    DS.B    1                           ; INTERRUPT COUNTER
             DS.W    0
 
+CONTMUS     DS.W    1
+CONTJUMP    DS.W    1
 *~Font name~Courier New~
 *~Font size~12~
 *~Tab type~1~

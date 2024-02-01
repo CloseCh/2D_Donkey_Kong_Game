@@ -111,7 +111,9 @@ MAUPD
             MOVE.W  (MAPOINTY),D0
             CMP.W   #BLCHEIGH*2,D0
             BGT     .NOGANA
-                  
+            ; SND VICTORY
+            MOVE.B #SNDVICTO,D7
+            TRAP   #TRAPSND
             ; PRINT SPRITE
             MOVE.W #PCHWIDTH,D0
             MOVE.W #PCHHEIGH,D1
@@ -207,6 +209,8 @@ MAJMPINI
             BEQ     .END        ; NO, SE PUEDE SALTAR
             MOVE.W  #MAJUMPT,(MACONTJP)
             ADDQ.W  #6,(MACONTRO)
+            MOVE.B  #SNDJUMP,D7
+            TRAP    #TRAPSND
 .END
             RTS
 
@@ -224,7 +228,7 @@ MAJMP
             SUBQ.W  #MASPEED,(MAPOINTY)
             SUBQ.W  #1,(MACONTJP)
             BNE     .END
-            MOVE.W  #1,(MACONTRO)
+            MOVE.W  #1,(MACONTRO)         
 
 .END        MOVE.L  (A7)+,D0
 

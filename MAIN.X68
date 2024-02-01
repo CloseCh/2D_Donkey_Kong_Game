@@ -44,12 +44,17 @@ START
 			JSR 	PPLOT
 			TRAP	#TRAPSCR
             BRA     .INILOOP
-
 .START		CLR.L	D0
-
-.LOOP
+             MOVE.B #SNDMUSIC,D7
+			TRAP   #TRAPSND
+.LOOP		
+			ADDQ.W #1,CONTMUS
+			CMP.W  #CONT/20,CONTMUS
+			BLT    .CONTINUA
 			MOVE.B #SNDMUSIC,D7
-		    TRAP #TRAPSND
+			TRAP   #TRAPSND
+			CLR.W  CONTMUS
+.CONTINUA
 ; --- UPDATE ----------------------------------------------------------------------------------
 
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
@@ -92,6 +97,7 @@ START
 			INCLUDE "LIB/UTLVARS.X68"
 
 			END    START
+
 
 
 

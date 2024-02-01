@@ -16,7 +16,7 @@ BRLINIT
 ; ---------------------------------------------------------------------------------------------
           
             MOVE.W  #210,(A0)
-            MOVE.W  #52,2(A0)
+            MOVE.W  #50,2(A0)
             RTS
 ; ---------------------------------------------------------------------------------------------
 BRLUPD
@@ -83,6 +83,8 @@ BRLUPD
             BGT      .DONE
 
             ;MARIO COLLISION
+            MOVE.B #SNDRESTA,D7
+            TRAP   #TRAPSND
             JSR   AGLKILL
             MOVE.W #100,(MAPOINTX)
             MOVE.W #440,(MAPOINTY)
