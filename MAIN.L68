@@ -1,6 +1,6 @@
 0001403A Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 01/02/2024 22:10:52
+Created On: 01/02/2024 22:12:30
 
 00000000                             1  ; =============================================================================================
 00000000                             2  ; TITLE       : DONKEY-KONG CLASSIC 2D GAME
@@ -2925,8 +2925,7 @@ Line 2849 ERROR: Symbol value differs between first and second pass
 00013E84                          2852  ; OUTPUT    :
 00013E84                          2853  ; MODIFIES  :
 00013E84                          2854  ; ---------------------------------------------------------------------------------------------
-Line 2855 ERROR: Undefined symbol
-00013E84  0839 0000 005455B8      2855              BTST.B  #0,(MOUEDGE)
+00013E84  0839 0000 0001412C      2855              BTST.B  #0,(MOUSCLIC)
 00013E8C  6700 00FA               2856              BEQ     .END
 00013E90  303C 0001               2857              MOVE.W  #1,D0
 Line 2858 ERROR: Symbol value differs between first and second pass
@@ -3184,7 +3183,7 @@ Line 3071 ERROR: Symbol value differs between first and second pass
 00014040                          3074  
 00014040                          3075              END    START
 
-106 errors detected
+105 errors detected
 No warnings generated
 
 

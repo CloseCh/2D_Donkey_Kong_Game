@@ -20,7 +20,7 @@ PUPD
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            BTST.B  #0,(MOUEDGE)
+            BTST.B  #0,(MOUSCLIC)
             BEQ     .END
             MOVE.W  #1,D0
 .END        
