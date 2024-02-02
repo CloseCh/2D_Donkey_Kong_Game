@@ -90,7 +90,7 @@ def procesar_imagenes_y_guardar_txt(ruta_imagenes, carpeta_destino):
 
 if __name__ == "__main__":
     # Ruta de la carpeta que contiene las imágenes BMP
-    ruta_imagenes = "IMAGESTEXT\imagenes"
+    ruta_imagenes = "IMAGES\imagenes"
 
     # Carpeta de destino para el archivo TXT
     carpeta_destino = "IMAGESTEXT"
