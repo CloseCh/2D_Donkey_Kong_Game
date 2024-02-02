@@ -107,14 +107,15 @@ MAUPD
             BNE     .FIN
             MOVE.L  #MPR,MAIMAGE
             
-.FIN        MOVE.W  D0,MAPOINTX
+.FIN        MOVE.W  D0,MAPOINTX 
             MOVE.W  MAPOINTY,D0
             CMP.W   #BLCHEIGH*2,D0
             BGT     .NOGANA
+            ; SE EJECUTA SI GANA    
             ; SND VICTORY
             MOVE.B #SNDVICTO,D7
             TRAP   #TRAPSND
-            ; PRINT SPRITE
+            ; PRINT PEACH AND MARIO
             MOVE.W #PCHWIDTH,D0
             MOVE.W #PCHHEIGH,D1
             MOVE.W #SCRWIDTH/2-PCHWIDTH,D2
@@ -128,14 +129,14 @@ MAUPD
             MOVE.W #280,D3
             LEA    DKDW,A0
             TRAP   #TRAPPLOT
-
+            ;B0RRAR LA PANTALLA
             MOVE.B  #92,D0
             MOVE.W  #2,D1
             TRAP    #15
 
             MOVE.B #94,D0
             TRAP   #15
-            ;FORMAT
+            ;FORMATO DEL TEXTO
             MOVE.B  #21,D0
             MOVE.L  #$00FFFFFF,D1
             MOVE.L  #$06290001,D2
@@ -145,19 +146,19 @@ MAUPD
             MOVE.L  #$00000000,D1
             TRAP    #15
 
-            ; SET FIRST LINE POSITION
+            ; SELECCIONAR POSICIÓN TEXTO
             MOVE.B  #11,D0
             MOVE.W  #$0302,D1
             TRAP    #15
             
-             ; PRINT FIRST LINE
+             ; IMPRIMIR TEXTO
             LEA     .TEXT,A1
             MOVE.B  #14,D0
             TRAP    #15
             TRAP   #TRAPSCR
             SIMHALT
 
-.IMGESCA    BTST.B  #2,(KBDVAL)
+.IMGESCA    BTST.B  #2,(KBDVAL) ;MIRAR SI SUBE
             BEQ     .CHKDOWN
             CMP.W   #CONT/4,MACONTS
             BGT     .STAIR1
@@ -165,14 +166,14 @@ MAUPD
             MOVE.L  #MCL,MAIMAGE
             BRA     .NOGANA
 
-.STAIR1     ADDQ.B  #1,MACONTS
+.STAIR1     ADDQ.B  #1,MACONTS ;CAMBIO DE IMAGEN
             MOVE.L  #MCR,MAIMAGE
             CMP.W   #CONT/2,MACONTS
             BLE     .NOGANA  
             CLR.W   MACONTS
             BRA     .NOGANA
 
-.CHKDOWN    BTST.B  #3,(KBDVAL)
+.CHKDOWN    BTST.B  #3,(KBDVAL) ;MIRAR SI BAJA
             BEQ     .NEXT
             CMP.W   #CONT/4,MACONTS
             BGT     .STAIR2
@@ -180,7 +181,7 @@ MAUPD
             MOVE.L  #MCL,MAIMAGE
             BRA     .NOGANA
 
-.STAIR2     ADDQ.B  #1,MACONTS
+.STAIR2     ADDQ.B  #1,MACONTS ; CAMBIO DE IMAGEN
             MOVE.L  #MCR,MAIMAGE
             CMP.W   #CONT/2,MACONTS
             BLE     .NOGANA  
@@ -192,7 +193,7 @@ MAUPD
             BNE   .OTRA
             MOVE.L  #MCR,MAIMAGE
             BRA   .NOGANA
-.OTRA       MOVE.L  #MCL,MAIMAGE
+.OTRA       MOVE.L  #MCL,MAIMAGE 
 .NOGANA            
             MOVEM.L (A7)+,D0-D6/A0
             RTS
