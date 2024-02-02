@@ -30,7 +30,7 @@ DKUPD
             MOVE.L #DKDL,DKIMAGE
             BRA    .FIN
 
-.DKRIGHT    ADDQ.B #1,DKCONT
+.DKRIGHT    ADDQ.B #1,DKCONT 
             MOVE.L #DKDR,DKIMAGE
             CMP.W  #CONT,DKCONT
             BLE    .FIN
