@@ -45,12 +45,13 @@ START
 .START		CLR.L	D0
              MOVE.B #SNDMUSIC,D7
 			TRAP   #TRAPSND
+; --- INICIO DEL BUCLE ------------------------------------------------------------------------			
 .LOOP		
-			ADDQ.W #1,CONTMUS
-			CMP.W  #CONT/20,CONTMUS
+			ADDQ.W #1,CONTMUS 
+			CMP.W  #CONT/20+10,CONTMUS 
 			BLT    .CONTINUA
 			MOVE.B #SNDMUSIC,D7
-			TRAP   #TRAPSND
+			TRAP   #TRAPSND ;REPRODUCE LA MUSICA SI HA PASADO X TIEMPO (PARA QUE NO SE SOLAPE)
 			CLR.W  CONTMUS
 .CONTINUA
 ; --- UPDATE ----------------------------------------------------------------------------------
