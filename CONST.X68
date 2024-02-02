@@ -51,10 +51,6 @@ BRLPCOL     EQU     $00003266              ; BARREL PEN COLOR
 BRLFCOL     EQU     $00013278               ; BARREL FILL COLOR
 BRLCONTN    EQU     115                    ; BARREL CONTADOR
 
-;---HAMMER RELATED CONSTANTS ------------------------------------------------------
-
-HMRWIDTH    EQU     30                     ; BARREL WIDTH
-HMRHEIGH    EQU     40                      ; BARREL HEIGHT
 
 CONT        EQU     2000
       
