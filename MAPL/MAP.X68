@@ -33,11 +33,11 @@ MAPINIT
             
             ;SET POSITION
             MOVE.B #55,D0
-            MOVE.W (CONTADOR),D2
+            MOVE.W CONTADOR,D2
             TRAP #15
             
             ;STORE BYTE
-            MOVE.B (CONTENIDO),D3
+            MOVE.B CONTENIDO,D3
             CMP.B  #$0A,D3 ;TRATAMIENTO DE LOS BITS DE FIN DE LINEA
             BEQ    .SIGUE
             AND.B  #00000011,D3
@@ -46,7 +46,7 @@ MAPINIT
             MOVE.B  D3,(A2)
             ADDA.L #1,A2
 .SIGUE
-            ADDQ.W  #1,(CONTADOR)
+            ADDQ.W  #1,CONTADOR
             DBRA  D4,.LOOP
             MOVEM.L (A7)+,D0-D4/A1-A2
             RTS

@@ -9,8 +9,7 @@ PCHINIT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVE.W #-3,PCHPOSY
-            MOVE.L #PHELP,PCHIMAGE
+            MOVE.W #-3,PCHPOSY   
             RTS
 
 
@@ -22,17 +21,17 @@ PCHUPD
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             
-            CMP.W   #CONT/2,(PCHCONT) ;SI ES MENOR PEACH SUBE
+            CMP.W   #CONT/2,PCHCONT ;SI ES MENOR PEACH SUBE
             BGT     .NEXTSTEP
-            ADDQ.B  #1,(PCHCONT)
-            SUBQ.W  #4,(PCHPOSY)
+            ADDQ.B  #1,PCHCONT
+            SUBQ.W  #4,PCHPOSY
             BRA     .FIN
 
-.NEXTSTEP   ADDQ.B  #1,(PCHCONT) ; PEACH BAJA
-            ADDQ.W  #4,(PCHPOSY)
-            CMP.W   #CONT,(PCHCONT)
+.NEXTSTEP   ADDQ.B  #1,PCHCONT ; SI ES MAYOR PEACH BAJA
+            ADDQ.W  #4,PCHPOSY
+            CMP.W   #CONT,PCHCONT ;SI LLEGA AL FIN DEL CONTADOR, REINICIA
             BLE     .FIN
-            CLR.W   (PCHCONT)
+            CLR.W   PCHCONT
 
 .FIN
             RTS
@@ -51,8 +50,8 @@ PCHPLOT
             MOVE.W #PCHWIDTH,D0
             MOVE.W #PCHHEIGH,D1
             MOVE.W #PCHPOSX,D2
-            MOVE.W (PCHPOSY),D3
-            MOVE.L PCHIMAGE,A0
+            MOVE.W PCHPOSY,D3
+            LEA    PHELP,A0
             TRAP #TRAPPLOT
             
             MOVEM.L (A7)+,D0-D3/A0

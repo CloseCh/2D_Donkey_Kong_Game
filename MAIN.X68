@@ -6,7 +6,7 @@
 ; =============================================================================================
 			ORG 	$1000
 			INCLUDE "MAPL/MAP.X68"
-			INCLUDE "IMAGES.X68"
+			INCLUDE "IMAGES/IMAGES.X68"
 			INCLUDE "LIB/DMMCODE.X68"
 			INCLUDE "LIB/DMMCONST.X68"
 			INCLUDE "CONST.X68"
@@ -18,8 +18,7 @@
 			INCLUDE "CHARACTERS/MARIO.X68"
 		  	INCLUDE "CHARACTERS/DONKEY_KONG.X68"
 			INCLUDE "CHARACTERS/PEACH.X68"
-			INCLUDE "ITEM/BARREL.X68"
-			INCLUDE "ITEM/HAMMER.X68"
+			INCLUDE "ITEMS/BARREL.X68"
 			INCLUDE "PINI.X68"
 START
 
@@ -32,7 +31,6 @@ START
 	   		JSR 	PCHINIT
       		JSR 	MAINIT
       		JSR 	DKINIT
-	    	JSR 	HMRINIT
 
 			
 
@@ -47,12 +45,13 @@ START
 .START		CLR.L	D0
              MOVE.B #SNDMUSIC,D7
 			TRAP   #TRAPSND
+; --- INICIO DEL BUCLE ------------------------------------------------------------------------			
 .LOOP		
-			ADDQ.W #1,CONTMUS
-			CMP.W  #CONT/20,CONTMUS
+			ADDQ.W #1,CONTMUS 
+			CMP.W  #CONT/20+8,CONTMUS 
 			BLT    .CONTINUA
 			MOVE.B #SNDMUSIC,D7
-			TRAP   #TRAPSND
+			TRAP   #TRAPSND ;REPRODUCE LA MUSICA SI HA PASADO X TIEMPO (PARA QUE NO SE SOLAPE)
 			CLR.W  CONTMUS
 .CONTINUA
 ; --- UPDATE ----------------------------------------------------------------------------------
@@ -67,7 +66,6 @@ START
             JSR 	MAUPD
             JSR 	DKUPD
 			JSR     AGLUPD
-			JSR 	HMRUPD
 
 ; --- SYNC (FASE DE SINCRONIZACION DE LA VELOCIDAD DE EJECUCION CONSTANTE) --------------------
 
@@ -82,7 +80,6 @@ START
             JSR 	MAPLOT
             JSR 	DKPLOT
 			JSR     AGLPLOT
-			JSR 	HMRPLOT
 
 			
 			TRAP	#TRAPSCR

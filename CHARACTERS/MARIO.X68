@@ -40,81 +40,82 @@ MAUPD
             JSR     MACOLINF
             
             ; UPDATE COORDINATE X
-.NCOLINF    MOVE.W  (MAPOINTX),D0
+.NCOLINF    MOVE.W  MAPOINTX,D0
            
             BTST.B  #0,(KBDVAL)         ; SE HA PULSADO LA TECLA A?
             BEQ     .CHKRGHT            ; NO SE HA PULSADO TECLA A SALTA
             SUB.W   #MASPEED,D0
 
-            CMP.W   #CONT/4,(MACONT)
+            CMP.W   #CONT/4,MACONT
             BGT     .LEFT
-            ADDQ.B  #1,(MACONT)
+            ADDQ.B  #1,MACONT
             MOVE.L  #MRL,MAIMAGE         ; INTRODUCE IMAGEN MARIO IZQUIERDA
             BRA     .FIN
 
-.LEFT       ADDQ.B  #1,(MACONT)
+.LEFT       ADDQ.B  #1,MACONT
             MOVE.L  #MRL2,MAIMAGE
-            CMP.W   #CONT/2,(MACONT)
+            CMP.W   #CONT/2,MACONT
             BLE     .FIN
-            CLR.W   (MACONT)
+            CLR.W   MACONT
             BRA     .FIN
 
 .CHKRGHT    BTST.B  #1,(KBDVAL)         ; SE HA PULSADO LA TECLA D?
             BEQ     .CONT               ; NO SE HA PULSADO TECLA D SALTA
             ADD.W   #MASPEED,D0
 
-            CMP.W   #CONT/4,(MACONT)
+            CMP.W   #CONT/4,MACONT
             BGT     .RIGHT
-            ADDQ.B  #1,(MACONT)
+            ADDQ.B  #1,MACONT
             MOVE.L  #MRR,MAIMAGE         ; INTRODUCE IMAGEN MARIO DERECHA
             BRA     .FIN
 
-.RIGHT      ADDQ.B  #1,(MACONT)
+.RIGHT      ADDQ.B  #1,MACONT
             MOVE.L  #MRR2,MAIMAGE
-            CMP.W   #CONT/2,(MACONT)
+            CMP.W   #CONT/2,MACONT
             BLE     .FIN
-            CLR.W   (MACONT)
+            CLR.W   MACONT
             BRA     .FIN
 
 
 .CONT       ; NO SE HA PULSADO NINGUNA TECLA
-            CMP.L   #MRL,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA IZQUIERDA?
+            CMP.L   #MRL,MAIMAGE ;LA ULTIMA TECLA HA SIDO A LA IZQUIERDA?
             BNE     .IMGRGHT
             MOVE.L  #MPL,MAIMAGE
             BRA     .FIN
 
-.IMGRGHT    CMP.L   #MRR,(MAIMAGE) ;LA ULTIMA TECLA HA SIDO A LA DERECHA?
+.IMGRGHT    CMP.L   #MRR,MAIMAGE ;LA ULTIMA TECLA HA SIDO A LA DERECHA?
             BNE     .IMGRGHT2
             MOVE.L  #MPR,MAIMAGE
             BRA     .FIN
 
-.IMGRGHT2   CMP.L   #MRR2,(MAIMAGE)
+.IMGRGHT2   CMP.L   #MRR2,MAIMAGE
             BNE     .IMGLEFT2
             MOVE.L  #MPR,MAIMAGE
             BRA     .FIN
 
-.IMGLEFT2   CMP.L   #MRL2,(MAIMAGE)
+.IMGLEFT2   CMP.L   #MRL2,MAIMAGE
             BNE     .MCR
             MOVE.L  #MPL,MAIMAGE
             BRA     .FIN
 
-.MCR        CMP.L   #MCR,(MAIMAGE)
+.MCR        CMP.L   #MCR,MAIMAGE
             BNE     .MCL
             MOVE.L  #MPR,MAIMAGE
             BRA     .FIN
 
-.MCL        CMP.L   #MCL,(MAIMAGE)
+.MCL        CMP.L   #MCL,MAIMAGE
             BNE     .FIN
             MOVE.L  #MPR,MAIMAGE
             
-.FIN        MOVE.W  D0,(MAPOINTX)
-            MOVE.W  (MAPOINTY),D0
+.FIN        MOVE.W  D0,MAPOINTX 
+            MOVE.W  MAPOINTY,D0
             CMP.W   #BLCHEIGH*2,D0
             BGT     .NOGANA
+            ; SE EJECUTA SI GANA    
             ; SND VICTORY
             MOVE.B #SNDVICTO,D7
             TRAP   #TRAPSND
-            ; PRINT SPRITE
+            ; PRINT PEACH AND MARIO
             MOVE.W #PCHWIDTH,D0
             MOVE.W #PCHHEIGH,D1
             MOVE.W #SCRWIDTH/2-PCHWIDTH,D2
@@ -128,14 +129,14 @@ MAUPD
             MOVE.W #280,D3
             LEA    DKDW,A0
             TRAP   #TRAPPLOT
-
+            ;B0RRAR LA PANTALLA
             MOVE.B  #92,D0
             MOVE.W  #2,D1
             TRAP    #15
 
             MOVE.B #94,D0
             TRAP   #15
-            ;FORMAT
+            ;FORMATO DEL TEXTO
             MOVE.B  #21,D0
             MOVE.L  #$00FFFFFF,D1
             MOVE.L  #$06290001,D2
@@ -145,54 +146,54 @@ MAUPD
             MOVE.L  #$00000000,D1
             TRAP    #15
 
-            ; SET FIRST LINE POSITION
+            ; SELECCIONAR POSICIÓN TEXTO
             MOVE.B  #11,D0
             MOVE.W  #$0302,D1
             TRAP    #15
             
-             ; PRINT FIRST LINE
+             ; IMPRIMIR TEXTO
             LEA     .TEXT,A1
             MOVE.B  #14,D0
             TRAP    #15
             TRAP   #TRAPSCR
             SIMHALT
 
-.IMGESCA    BTST.B  #2,(KBDVAL)
+.IMGESCA    BTST.B  #2,(KBDVAL) ;MIRAR SI SUBE
             BEQ     .CHKDOWN
-            CMP.W   #CONT/4,(MACONTS)
+            CMP.W   #CONT/4,MACONTS
             BGT     .STAIR1
-            ADDQ.B  #1,(MACONTS)
+            ADDQ.B  #1,MACONTS
             MOVE.L  #MCL,MAIMAGE
             BRA     .NOGANA
 
-.STAIR1     ADDQ.B  #1,(MACONTS)
+.STAIR1     ADDQ.B  #1,MACONTS ;CAMBIO DE IMAGEN
             MOVE.L  #MCR,MAIMAGE
-            CMP.W   #CONT/2,(MACONTS)
+            CMP.W   #CONT/2,MACONTS
             BLE     .NOGANA  
-            CLR.W   (MACONTS)
+            CLR.W   MACONTS
             BRA     .NOGANA
 
-.CHKDOWN    BTST.B  #3,(KBDVAL)
+.CHKDOWN    BTST.B  #3,(KBDVAL) ;MIRAR SI BAJA
             BEQ     .NEXT
-            CMP.W   #CONT/4,(MACONTS)
+            CMP.W   #CONT/4,MACONTS
             BGT     .STAIR2
-            ADDQ.B  #1,(MACONTS)
+            ADDQ.B  #1,MACONTS
             MOVE.L  #MCL,MAIMAGE
             BRA     .NOGANA
 
-.STAIR2     ADDQ.B  #1,(MACONTS)
+.STAIR2     ADDQ.B  #1,MACONTS ; CAMBIO DE IMAGEN
             MOVE.L  #MCR,MAIMAGE
-            CMP.W   #CONT/2,(MACONTS)
+            CMP.W   #CONT/2,MACONTS
             BLE     .NOGANA  
-            CLR.W   (MACONTS)
+            CLR.W   MACONTS
             BRA     .NOGANA
 
 
-.NEXT       CMP.W #MCL,(MAIMAGE)
+.NEXT       CMP.W #MCL,MAIMAGE
             BNE   .OTRA
-            MOVE.L  #MCR,(MAIMAGE)
+            MOVE.L  #MCR,MAIMAGE
             BRA   .NOGANA
-.OTRA       MOVE.L  #MCL,(MAIMAGE)
+.OTRA       MOVE.L  #MCL,MAIMAGE 
 .NOGANA            
             MOVEM.L (A7)+,D0-D6/A0
             RTS
@@ -225,7 +226,7 @@ MAJMP
             MOVE.W  (MACONTRO),D0
             BTST.L  #1,D0
             BEQ     .END    ; FINALIZAR SI NO ESTA SALTANDO.
-            SUBQ.W  #MASPEED,(MAPOINTY)
+            SUBQ.W  #MASPEED,MAPOINTY
             SUBQ.W  #1,(MACONTJP)
             BNE     .END
             MOVE.W  #1,(MACONTRO)         
@@ -249,8 +250,8 @@ MASTAIRS
             CLR.L   D1
             CLR.L   D2
                 ; OBTENER COORDENADA Y EN D0 Y COORDENADA X EN D1
-            MOVE.W  (MAPOINTY),D0
-            MOVE.W  (MAPOINTX),D1
+            MOVE.W  MAPOINTY,D0
+            MOVE.W  MAPOINTX,D1
 
             ; SI YA ESTA SUBIENDO ESCALERA SALTAR ESTA COMPROBACION
             MOVE.W  (MACONTRO),D7
@@ -298,7 +299,7 @@ MASTAIRS
                 ; SE HA PULSADO TECLA W?
 .FINFT      BTST.B  #2,(KBDVAL)
             BEQ     .NEXTKEY
-            SUB.W   #MASPEED,(MAPOINTY)
+            SUB.W   #MASPEED,MAPOINTY
 
             ADD.W   #16,D0
             ADD.W   #15,D1
@@ -319,7 +320,7 @@ MASTAIRS
                 ; SE HA PULSADO TECLA S?
 .NEXTKEY    BTST.B  #3,(KBDVAL)
             BEQ     .END
-            ADD.W   #MASPEED,(MAPOINTY)
+            ADD.W   #MASPEED,MAPOINTY
 
             ADD.W   #16,D0
             ADD.W   #15,D1
@@ -358,8 +359,8 @@ MACOLINF
             CLR.L   D2
             CLR.L   D3
                 ; OBTENER COORDENADA Y EN D0 Y COORDENADA X EN D1
-            MOVE.W  (MAPOINTY),D0
-            MOVE.W  (MAPOINTX),D1
+            MOVE.W  MAPOINTY,D0
+            MOVE.W  MAPOINTX,D1
             ADD.W   #15,D1
                 ; DIVISION POR 32
             LSR.W   #5,D0
@@ -396,14 +397,14 @@ MACOLINF
             ; REALIZACIÓN DE CALCULOS DE COLISION EN EJE Y
             ADDQ.W  #1,D2
             LSL.W   #5,D2
-            MOVE.W  (MAPOINTY),D0
+            MOVE.W  MAPOINTY,D0
 
                 ; SI ES MENOR O IGUAL COLISIÓN.
             SUB.W   D2,D0
             BLS     .END1
                 ; DECREMENTAR PUNTO DE MARIO EN MASPEED
 .SUBEXE     OR.W    #%00000001,(MACONTRO)
-            ADDQ.W  #MASPEED,(MAPOINTY)
+            ADDQ.W  #MASPEED,MAPOINTY
             BRA     .ENDN
             ; VER SI ES POSIBLE SALTAR
 .END1       JSR     MAJMPINI
@@ -441,8 +442,8 @@ MAPLOT
 
             MOVE.W  #MAWIDTH,D0
             MOVE.W  #MAHEIGHT,D1
-            MOVE.W  (MAPOINTX),D2
-            MOVE.W  (MAPOINTY),D3
+            MOVE.W  MAPOINTX,D2
+            MOVE.W  MAPOINTY,D3
             SUB.W   #40,D3 ; 
             MOVE.L  MAIMAGE,A0
             TRAP    #TRAPPLOT

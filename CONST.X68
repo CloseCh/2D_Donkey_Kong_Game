@@ -2,33 +2,31 @@
 ; GAME CONSTANTS
 ; =============================================================================================
 ; --- STAR BUTTON -----------------------------------------------------------------------------
-BUTPOSX     EQU     220                       ; STAR BUTTON POSITION IN X
-BUTPOSY     EQU     295                       ; STAR BUTTON POSITION IN Y
-BUTWIDTH    EQU     100
-BUTHEIGH    EQU     50
+BUTPOSX     EQU     220                       ; POSICIÓN X  DEL BOTÓN
+BUTPOSY     EQU     295                       ; POSICIÓN Y DEL BOTÓN
+BUTWIDTH    EQU     100                       ; BUTTON WIDTH
+BUTHEIGH    EQU     50                        ; BUTTON HEIGHT
 
 ; --- MAP CONTANTS ----------------------------------------------------------------------------
 BLCWIDTH    EQU     32                       ; BLOCK WIDTH
 BLCHEIGH    EQU     32                       ; BLOCK HEIGH
 MAPA        EQU     $20000
 
-    ; --- BLOCK 1 -----------------------------------------------------------------------------
-B1SIZEH     EQU     18
-B1SIZEW     EQU     32
+; --- BLOCK 1 ---------------------------------------------------------------------------------
+B1SIZEH     EQU     18                       ;HEIGHT
+B1SIZEW     EQU     32                       ;WIDTH
 
-    ; --- BLOCK 2 -----------------------------------------------------------------------------
+; --- MARIO RELATED CONSTANTS -----------------------------------------------------------------
 
-; --- MARIO RELATED CONSTANTS ----------------------------------------------------
+MASPEED     EQU     8                      ; VELOCIDAD DE MARIO
+MAWIDTH     EQU     30                     ; MARIO WIDTH
+MAJUMPT     EQU     4                      ; CUANDO MARIO SALTA, X TIEMPO PARA SUBIR 
+MAHEIGHT    EQU     40                     ; MARIO HEIGHT
 
-MASPEED     EQU     8                      ; MARNITUDE OF THE X AND Y VEL
-MAWIDTH     EQU     30                      ; MARIO WIDHT
-MAJUMPT     EQU     4                      ; WHEN MARIO JUMP, X TIME TO UP THE COORDINATE
-MAHEIGHT    EQU     40                      ; MARIO HEIGHT
-
- ; --- MARIO COLISION CONSTANTS -----------------------------------------------
+; --- MARIO COLISION CONSTANTS ----------------------------------------------------------------
 MACOLW      EQU     24                      ; MARIO COLISION WIDHT
 
-; --- DONKEY_KONG RELATED CONSTANTS ----------------------------------------------------
+; --- DONKEY_KONG RELATED CONSTANTS -----------------------------------------------------------
 
 DKWIDTH     EQU     90                       ; DONKEY_KONG WIDTH
 DKHEIGHT    EQU     70                       ; DONKEY_KONG HEIGHT
@@ -36,27 +34,23 @@ DKPOSX      EQU     85                       ; DONKEY_KONG X POSITION
 DKPOSY      EQU     -5                       ; DONKEY_KONG Y POSITION
 DKCONTTN    EQU     18000                   ; COUNTER FOR THROWING IMAGE
 
-; --- PEACH RELATED CONSTANTS ----------------------------------------------------
+; --- PEACH RELATED CONSTANTS -----------------------------------------------------------------
 
 PCHWIDTH    EQU     90                       ; PEACH WIDTH
 PCHHEIGH    EQU     70                       ; PEACH HEIGHT
-PCHPOSX     EQU     380                      ; PEACH X POSITION
+PCHPOSX     EQU     380                      ; POSICIÓN X DE PEACH
 
 
-; --- BARREL RELATED CONSTANTS ----------------------------------------------------
+; --- BARREL RELATED CONSTANTS ----------------------------------------------------------------
 
-BRLRAD      EQU     9                      ; BARREL RAD
-BRLSPEED    EQU     5                       ; BARREL SPEED
-BRLPCOL     EQU     $00003266              ; BARREL PEN COLOR 
-BRLFCOL     EQU     $00013278               ; BARREL FILL COLOR
-BRLCONTN    EQU     115                    ; BARREL CONTADOR
+BRLRAD      EQU     9                      ; RADIO DEL BARRIL
+BRLSPEED    EQU     5                       ; VELOCIDAD DEL BARRIL
+BRLPCOL     EQU     $00003266              ; COLOR DE RELLENO DEL BARRIL 
+BRLFCOL     EQU     $00013278               ; COLOR DE BORDE DEL BARRIL
+BRLCONTN    EQU     115                    ; CONTADOR DE BARRIL
 
-;---HAMMER RELATED CONSTANTS ------------------------------------------------------
 
-HMRWIDTH    EQU     30                     ; BARREL WIDTH
-HMRHEIGH    EQU     40                      ; BARREL HEIGHT
-
-CONT        EQU     2000
+CONT        EQU     2000          
       
 
 *~Font name~Courier New~

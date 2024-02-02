@@ -10,7 +10,7 @@ DKINIT
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             MOVE.L #DKDL,DKIMAGE
-            CLR.W  (DKCONT)
+            CLR.W  DKCONT
             RTS
 
 
@@ -22,32 +22,32 @@ DKUPD
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             MOVEM.L D0-D2/A1-A3,-(A7)
-            CMP.W  #DKCONTTN/2,(DKCONTT)
+            CMP.W  #DKCONTTN/2,DKCONTT ;MIRAR SI TIENE QUE LANZAR
             BGT    .DKTHROW
-            CMP.W  #CONT/2,(DKCONT)
+            CMP.W  #CONT/2,DKCONT ;MIRAR CAMBIO DE IMAGEN
             BGT    .DKRIGHT
-            ADDQ.B #1,(DKCONT)
+            ADDQ.B #1,DKCONT
             MOVE.L #DKDL,DKIMAGE
             BRA    .FIN
 
-.DKRIGHT    ADDQ.B #1,(DKCONT)
+.DKRIGHT    ADDQ.B #1,DKCONT 
             MOVE.L #DKDR,DKIMAGE
-            CMP.W  #CONT,(DKCONT)
+            CMP.W  #CONT,DKCONT
             BLE    .FIN
-            CLR.W  (DKCONT)
+            CLR.W  DKCONT
             BRA    .FIN
 
 .DKTHROW    MOVE.L #DKTR,DKIMAGE
-            CMP.W  #DKCONTTN-6000,(DKCONTT)
+            CMP.W  #DKCONTTN-6000,DKCONTT
             BLE   .FIN
-            CLR.W  (DKCONTT)
+            CLR.W  DKCONTT
             LEA    BRLINIT,A1
             LEA    BRLUPD,A2
             LEA    BRLPLOT,A3
             MOVE.L #1,D0
             JSR    AGLADD
 
-.FIN        ADDQ.B #1,(DKCONTT)
+.FIN        ADDQ.B #1,DKCONTT
             MOVEM.L (A7)+,D0-D2/A1-A3
             RTS
             

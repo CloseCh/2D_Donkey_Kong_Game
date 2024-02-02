@@ -3,31 +3,28 @@
 ; =============================================================================================
 ; --- Mario variables -------------------------------------------------------------------------
 
-MAPOINTX     DS.W    1           ; MARIO X COORDINATE
-MAPOINTY     DS.W    1           ; MARIO Y COORDINATE
-MAIMAGE      DS.L    1           ; CURRENT IMAGE MARIO
-MACONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
-MACONTS      DS.W    1           ; COUNTE  FOR CHANGES OF IMAGES INT THE STAIRS
-MACONTJP     DS.W    1           ; COUNTER FOR CHANGES OF IMAGES IN THE JUMP
+MAPOINTX     DS.W    1           ; COORDENADA X MARIO
+MAPOINTY     DS.W    1           ; COORDENADA Y MARIO
+MAIMAGE      DS.L    1           ; IMAGEN ACTUAL MARIO
+MACONT       DS.W    1           ; CONTADOR PARA EL CAMBIO DE IMAGENES CUANDO CAMINA
+MACONTS      DS.W    1           ; CONTADOR PARA EL CAMBIO DE IMAGENES CUANDO SUBE ESCALERAS
+MACONTJP     DS.W    1           ; CONTADOR PARA EL SALTO  DE MARIO
     ; BIT 0, SI 1 ESTA FLOTANDO
     ; BIT 1, SI 1 ESTA SALTANDO.
     ; BIT 2, SI 1 DEBE SUBIR SI 0 DEBE BAJAR DEL SALTO
     ; BIT 3, SI 1 EN LA ESCALERA
 MACONTRO     DS.W    1           ; CONTROLES DE MARIO
              DS.W    0
+
 ;--- Donkey kong variables --------------------------------------------------------------------
-DKIMAGE      DS.L    1           ; CURRENT IMAGE DK
-DKCONTT      DS.W    1           ; COUNTER FOR THROWING BARRELS
-DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
+DKIMAGE      DS.L    1           ; IMAGEN ACTUAL DE DONKEY KONG
+DKCONTT      DS.W    1           ; CONTADOR PARA LANZAR BARRILES
+DKCONT       DS.W    1           ; CONTADOR PARA EL CAMBIO DE IMAGEN 
+
 ;--- Peach variables --------------------------------------------------------------------------
-PCHIMAGE     DS.L    1           ; CURRENT IMAGE PEACH
 PCHCONT      DS.W    1           ; COUNTER 
 PCHPOSY      DS.W    1           ; PEACH Y COORDINATE
-
-;--- HAMMER VARIABLES -------------------------------------------------------------------------
-HMRPOSX     DS.W    1           ; HAMMER X COORDINATE
-HMRPOSY     DS.W    1           ; HAMMER Y COORDINATE
-HMRCONT     DS.W    1           ; COUNTER FOR HAMMER             
+         
 
 
 *~Font name~Courier New~
