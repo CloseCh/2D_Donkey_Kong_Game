@@ -6,7 +6,7 @@
 ; =============================================================================================
 			ORG 	$1000
 			INCLUDE "MAPL/MAP.X68"
-			INCLUDE "IMAGES.X68"
+			INCLUDE "IMAGES/IMAGES.X68"
 			INCLUDE "LIB/DMMCODE.X68"
 			INCLUDE "LIB/DMMCONST.X68"
 			INCLUDE "CONST.X68"
