@@ -23,11 +23,7 @@ DKCONT       DS.W    1           ; COUNTER FOR CHANGES OF IMAGES
 PCHIMAGE     DS.L    1           ; CURRENT IMAGE PEACH
 PCHCONT      DS.W    1           ; COUNTER 
 PCHPOSY      DS.W    1           ; PEACH Y COORDINATE
-
-;--- HAMMER VARIABLES -------------------------------------------------------------------------
-HMRPOSX     DS.W    1           ; HAMMER X COORDINATE
-HMRPOSY     DS.W    1           ; HAMMER Y COORDINATE
-HMRCONT     DS.W    1           ; COUNTER FOR HAMMER             
+         
 
 
 *~Font name~Courier New~
