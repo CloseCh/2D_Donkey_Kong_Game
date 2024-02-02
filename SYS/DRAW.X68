@@ -22,12 +22,12 @@ PLOT
             CLR.W   D2
             MOVE.W  COORY,D4
 
-            MOVE.W  (SCRHEIGHX),D6
+            MOVE.W  SCRHEIGHX,D6
             SUB.W   #1,D6
 
 .CLOOP      CLR.W   D1
             MOVE.W  COORX,D3
-            MOVE.W  (SCRWIDTHX),D5
+            MOVE.W  SCRWIDTHX,D5
             SUB.W   #1,D5
 .RLOOP      TST.B   (A0)+
             BEQ     .NEXT
