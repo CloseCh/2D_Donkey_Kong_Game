@@ -10,7 +10,6 @@ PCHINIT
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
             MOVE.W #-3,PCHPOSY
-            MOVE.L #PHELP,PCHIMAGE
             RTS
 
 
@@ -52,7 +51,7 @@ PCHPLOT
             MOVE.W #PCHHEIGH,D1
             MOVE.W #PCHPOSX,D2
             MOVE.W (PCHPOSY),D3
-            MOVE.L PCHIMAGE,A0
+            LEA    PHELP,A0
             TRAP #TRAPPLOT
             
             MOVEM.L (A7)+,D0-D3/A0
