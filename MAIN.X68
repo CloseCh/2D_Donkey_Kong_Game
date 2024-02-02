@@ -48,7 +48,7 @@ START
 ; --- INICIO DEL BUCLE ------------------------------------------------------------------------			
 .LOOP		
 			ADDQ.W #1,CONTMUS 
-			CMP.W  #CONT/20+10,CONTMUS 
+			CMP.W  #CONT/20+8,CONTMUS 
 			BLT    .CONTINUA
 			MOVE.B #SNDMUSIC,D7
 			TRAP   #TRAPSND ;REPRODUCE LA MUSICA SI HA PASADO X TIEMPO (PARA QUE NO SE SOLAPE)
