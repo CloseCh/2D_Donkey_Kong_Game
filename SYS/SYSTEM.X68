@@ -221,7 +221,6 @@ MOUINIT
             CLR.L   (MOUPOSY)
             CLR.L   (MOUPOSX)
             CLR.B   (MOUSCLIC)
-            CLR.W   (MOUBUT)
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -245,10 +244,14 @@ MOUREAD
             MOVE.L  D1,D2
             ANDI.L  #$0000FFFF,D2
             MOVE.W  D2,MOUPOSX     ; OBTENER COORDENADA X
+
+            LSR.L   #8, D1
+            LSR.L   #8, D1
+            MOVE.L  D1,MOUPOSY     ;OBTENER COORDENADA Y
             
-.NOTCLIK    MOVE.L  D1>>16,MOUPOSY     ;OBTENER COORDENADA Y
+.NOTCLIK    
             MOVEM.L (A7)+,D0-D3
-            RTS
+            RTE
 
 *~Font name~Courier New~
 *~Font size~12~
