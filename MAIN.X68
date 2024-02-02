@@ -43,7 +43,7 @@ START
 			TRAP	#TRAPSCR
             BRA     .INILOOP
 .START		CLR.L	D0
-             MOVE.B #SNDMUSIC,D7
+            MOVE.B #SNDMUSIC,D7
 			TRAP   #TRAPSND
 ; --- INICIO DEL BUCLE ------------------------------------------------------------------------			
 .LOOP		

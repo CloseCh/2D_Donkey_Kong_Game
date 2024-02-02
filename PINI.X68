@@ -1,20 +1,92 @@
 ; =============================================================================================
 ; PANTALLA INICIAL
 ; =============================================================================================
+; ---------------------------------------------------------------------------------------------
 PUPD
 ; UPDATE INITIAL SCREEN
 ; INPUT     :
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            BTST.B  #0,(MOUEDGE)
+            MOVEM.L D1-D2,-(A7)
+            
+
+            BTST.B  #0,(MOUSCLIC)
             BEQ     .END
+            CLR.W   D2  ; CONTENDRÁ EL BIT PARA VER SI SALTA O NO A FINAL
+            JSR     SBUTCL
+            JSR     FBUTCL
+            BTST.L  #0,D2
+            BEQ     .END
+
             MOVE.W  #1,D0
-.END        
+.END        MOVEM.L (A7)+,D1-D2
             RTS
 
+; ---------------------------------------------------------------------------------------------
+SBUTCL
+; CHECK START BUTTON
+; INPUT     :
+; OUTPUT    :
+; MODIFIES  :
+; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D1,-(A7)
+                ; PUNTO DERECHO
+            MOVE.W  #BUTPX,D1
+            CMP.W   (MOUPOSX),D1
+            BGT     .END
 
+                ; PUNTO IZQUIERDO
+            ADD.W   #BUTWITH,D1
+            CMP.W   (MOUPOSX),D1
+            BLT     .END
 
+                ; PUNTO SUPERIOR
+            MOVE.W  #SBUTPY,D1
+            CMP.W   (MOUPOSY),D1
+            BGT     .END
+
+                ; PUNTO INFERIOR
+            ADD.W   #BUTHEIG,D1
+            CMP.W   (MOUPOSY),D1
+            BLT     .END
+
+            MOVE.W  #1,D2
+
+.END        MOVEM.L (A7)+,D0-D1
+            RTS
+; ---------------------------------------------------------------------------------------------
+FBUTCL
+; CHECK FPS BUTTON
+; INPUT     :
+; OUTPUT    :
+; MODIFIES  :
+; ---------------------------------------------------------------------------------------------
+            MOVEM.L D0-D1,-(A7)
+                ; PUNTO DERECHO
+            MOVE.W  #BUTPX,D1
+            CMP.W   (MOUPOSX),D1
+            BGT     .END
+
+                ; PUNTO IZQUIERDO
+            ADD.W   #BUTWITH,D1
+            CMP.W   (MOUPOSX),D1
+            BLT     .END
+
+                ; PUNTO SUPERIOR
+            MOVE.W  #FBUTPY,D1
+            CMP.W   (MOUPOSY),D1
+            BGT     .END
+
+                ; PUNTO INFERIOR
+            ADD.W   #BUTHEIG,D1
+            CMP.W   (MOUPOSY),D1
+            BLT     .END
+
+            MOVE.W  #1,D2
+
+.END        MOVEM.L (A7)+,D0-D1
+            RTS
 ; ---------------------------------------------------------------------------------------------
 PPLOT
 ; POLOT INITIAL SCREEN
@@ -24,24 +96,19 @@ PPLOT
 ; ---------------------------------------------------------------------------------------------
             MOVEM.L D0-D3/A0-A1,-(A7)
 
+            ; PRINT BUTTONS
+            JSR     BUT1PLOT
+            JSR     BUT2PLOT
+
+            ; TEXTO DE LOS BOTONES
             MOVE.B  #21,D0
-            MOVE.L  #$00FFFFFF,D1
-            MOVE.L  #$06090002,D2
-            TRAP    #15    
-
-            ; SET PEN COLOR
-            MOVE.B  #80,D0
-            MOVE.L  #$000000FF,D1
-            TRAP    #15
-
-            ; SET BACKGROUND COLOR
-            MOVE.B  #81,D0
             MOVE.L  #$00000000,D1
-            TRAP    #15
+            MOVE.L  #$03160000,D2
+            TRAP    #15    
 
             ; SET FIRST LINE POSITION
             MOVE.B  #11,D0
-            MOVE.W  #$060B,D1
+            MOVE.W  #$1705,D1
             TRAP    #15
 
             ; PRINT FIRST LINE
@@ -51,7 +118,7 @@ PPLOT
 
             ; SET SECOND LINE POSITION
             MOVE.B  #11,D0
-            MOVE.W  #$060C,D1
+            MOVE.W  #$1808,D1
             TRAP    #15
 
             ; PRINT SECOND LINE
@@ -76,8 +143,89 @@ PPLOT
             MOVEM.L (A7)+,D0-D3/A0-A1
             RTS
 
-.TXT1       DC.B   'CLICK IZQUIERDO ',0
-.TXT2       DC.B    'PARA INICIAR PARTIDA',0
+.TXT1       DC.B   'START',0
+.TXT2       DC.B   'FPS: ',0
+
+; ---------------------------------------------------------------------------------------------
+BUT1PLOT
+; POLOT INITIAL SCREEN
+; INPUT     :
+; OUTPUT    :
+; MODIFIES  :
+; ---------------------------------------------------------------------------------------------
+            ; PRINT BUTTONS
+                ; SE DEFINE COLORES
+            MOVE.B  #80,D0
+            MOVE.L  #$00000000,D1
+            TRAP    #15
+
+            MOVE.B  #81,D0
+            MOVE.L  #BUTCOLB,D1
+            TRAP    #15
+
+                ; DEFINIR COORDENADAS E IMPRIMIR START BUTTON INICIAL.
+            MOVE.W  #BUTPX,D1
+            MOVE.W  #SBUTPY,D2
+
+            MOVE.W  D1,D3
+            ADD.W   #BUTWITH,D3
+
+            MOVE.W  D2,D4
+            ADD.W   #BUTHEIG,D4
+
+            MOVE.B  #87,D0
+            TRAP    #15
+
+                ; DEFINIR COORDENADAS E IMPRIMIR FPS BUTTON.
+            MOVE.W  #FBUTPY,D2
+
+            MOVE.W  D2,D4
+            ADD.W   #BUTHEIG,D4
+
+            MOVE.B  #87,D0
+            TRAP    #15
+
+            RTS
+; ---------------------------------------------------------------------------------------------
+BUT2PLOT
+; POLOT INITIAL SCREEN
+; INPUT     :
+; OUTPUT    :
+; MODIFIES  :
+; ---------------------------------------------------------------------------------------------
+            ; PRINT BUTTONS
+                ; SE DEFINE COLORES
+            MOVE.B  #80,D0
+            MOVE.L  #$00000000,D1
+            TRAP    #15
+
+            MOVE.B  #81,D0
+            MOVE.L  #BUTCOLF,D1
+            TRAP    #15
+
+                ; DEFINIR COORDENADAS E IMPRIMIR START BUTTON INICIAL.
+            MOVE.W  #BUTPX+5,D1
+            MOVE.W  #SBUTPY+5,D2
+
+            MOVE.W  D1,D3
+            ADD.W   #BUTWITH-10,D3
+
+            MOVE.W  D2,D4
+            ADD.W   #BUTHEIG-10,D4
+
+            MOVE.B  #87,D0
+            TRAP    #15
+
+                ; DEFINIR COORDENADAS E IMPRIMIR FPS BUTTON.
+            MOVE.W  #FBUTPY+5,D2
+
+            MOVE.W  D2,D4
+            ADD.W   #BUTHEIG-10,D4
+
+            MOVE.B  #87,D0
+            TRAP    #15
+
+            RTS
 
 
 *~Font name~Courier New~

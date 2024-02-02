@@ -219,7 +219,8 @@ MOUINIT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             CLR.L   (MOUPOSY)
-            CLR.W   (MOUBUT)
+            CLR.L   (MOUPOSX)
+            CLR.B   (MOUSCLIC)
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -229,17 +230,26 @@ MOUREAD
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
-            MOVEM.L D0-D1,-(A7)
-            MOVE.B  #61,D0
-            CLR.B   D1
+            MOVEM.L D0-D3,-(A7)
+            CLR.L   D1
+            
+            MOVE.W  #61,D0           ; LECTURA DEL RATÓN
+            MOVE.B  #MOUSMODE,D1
             TRAP    #15
-            MOVE.L  D1,(MOUPOSY)
-            MOVE.B  (MOUBUT),D1
-            MOVE.B  D0,(MOUBUT)
-            NOT.B   D1
-            AND.B   D1,D0
-            MOVE.B  D0,(MOUEDGE)
-            MOVEM.L (A7)+,D0-D1
+            
+            BTST    #0,D0
+            BEQ     .NOTCLIK
+            MOVE.B  #1,MOUSCLIC     ; DETECCIÓN DE CLICK
+      
+            MOVE.L  D1,D2
+            ANDI.L  #$0000FFFF,D2
+            MOVE.W  D2,MOUPOSX     ; OBTENER COORDENADA X
+
+            LSR.L   #8,D1
+            LSR.L   #8,D1
+            MOVE.W  D1,MOUPOSY     ;OBTENER COORDENADA Y
+            
+.NOTCLIK    MOVEM.L (A7)+,D0-D3
             RTE
 
 *~Font name~Courier New~
