@@ -13,6 +13,9 @@ SBUTPY      EQU     150                       ; COORDINATE Y FROM START BUTTON
     ; --- FPS BUTTON --------------------------------------------------------------------------
 FBUTPY      EQU     250                       ; COORDINATE Y FROM START BUTTON
 
+; --- FPS TEXT COLOR --------------------------------------------------------------------------
+FPSCOL      EQU     $00000000               ; TEXT BACKGROUND COLOR
+
 ; --- MAP CONTANTS ----------------------------------------------------------------------------
 BLCWIDTH    EQU     32                       ; BLOCK WIDTH
 BLCHEIGH    EQU     32                       ; BLOCK HEIGH

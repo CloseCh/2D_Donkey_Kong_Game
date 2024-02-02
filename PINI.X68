@@ -15,7 +15,6 @@ PUPD
             BEQ     .END
             CLR.W   D2  ; CONTENDRÁ EL BIT PARA VER SI SALTA O NO A FINAL
             JSR     SBUTCL
-            JSR     FBUTCL
             BTST.L  #0,D2
             BEQ     .END
 
@@ -55,38 +54,7 @@ SBUTCL
 
 .END        MOVEM.L (A7)+,D0-D1
             RTS
-; ---------------------------------------------------------------------------------------------
-FBUTCL
-; CHECK FPS BUTTON
-; INPUT     :
-; OUTPUT    :
-; MODIFIES  :
-; ---------------------------------------------------------------------------------------------
-            MOVEM.L D0-D1,-(A7)
-                ; PUNTO DERECHO
-            MOVE.W  #BUTPX,D1
-            CMP.W   (MOUPOSX),D1
-            BGT     .END
 
-                ; PUNTO IZQUIERDO
-            ADD.W   #BUTWITH,D1
-            CMP.W   (MOUPOSX),D1
-            BLT     .END
-
-                ; PUNTO SUPERIOR
-            MOVE.W  #FBUTPY,D1
-            CMP.W   (MOUPOSY),D1
-            BGT     .END
-
-                ; PUNTO INFERIOR
-            ADD.W   #BUTHEIG,D1
-            CMP.W   (MOUPOSY),D1
-            BLT     .END
-
-            MOVE.W  #1,D2
-
-.END        MOVEM.L (A7)+,D0-D1
-            RTS
 ; ---------------------------------------------------------------------------------------------
 PPLOT
 ; POLOT INITIAL SCREEN
@@ -118,7 +86,7 @@ PPLOT
 
             ; SET SECOND LINE POSITION
             MOVE.B  #11,D0
-            MOVE.W  #$1808,D1
+            MOVE.W  #$1608,D1
             TRAP    #15
 
             ; PRINT SECOND LINE
@@ -144,7 +112,7 @@ PPLOT
             RTS
 
 .TXT1       DC.B   'START',0
-.TXT2       DC.B   'FPS: ',0
+.TXT2       DC.B   'FPS: 50',0
 
 ; ---------------------------------------------------------------------------------------------
 BUT1PLOT
@@ -177,6 +145,12 @@ BUT1PLOT
             TRAP    #15
 
                 ; DEFINIR COORDENADAS E IMPRIMIR FPS BUTTON.
+            MOVE.B  #81,D0
+            MOVE.L  #BUTCOLF,D1
+            TRAP    #15
+
+            MOVE.W  #BUTPX,D1
+
             MOVE.W  #FBUTPY,D2
 
             MOVE.W  D2,D4
@@ -209,15 +183,6 @@ BUT2PLOT
 
             MOVE.W  D1,D3
             ADD.W   #BUTWITH-10,D3
-
-            MOVE.W  D2,D4
-            ADD.W   #BUTHEIG-10,D4
-
-            MOVE.B  #87,D0
-            TRAP    #15
-
-                ; DEFINIR COORDENADAS E IMPRIMIR FPS BUTTON.
-            MOVE.W  #FBUTPY+5,D2
 
             MOVE.W  D2,D4
             ADD.W   #BUTHEIG-10,D4

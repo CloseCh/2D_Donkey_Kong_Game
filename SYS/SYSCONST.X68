@@ -6,7 +6,7 @@
 
 SCRWIDTH    EQU     640                 ; SCREEN WIDTH
 SCRHEIGH    EQU     480                 ; SCREEN HEIGHT
-SCRFPS      EQU     150                 ; SCREEN FRAMES PER SECOND
+SCRFPS      EQU     10                  ; SCREEN FRAMES PER SECOND
 
 ; --- TRAP RELATED CONSTANTS ------------------------------------------------------------------
 TRAPSCR     EQU     1                   ; DOUBLE BUFFER TRAP NUMBER
@@ -17,6 +17,7 @@ TRAPSND     EQU     5
 
 ; --- INTERRUPT NUMBERS -----------------------------------------------------------------------
 SCRINTN     EQU     1                   ; SCREEN TIMED INTERRUPT NUMBER
+TINSEG      EQU     2                   ; TIMED INTERRUPT NUMBER FOR 1 SEG
 
 ; --- KEYCODES --------------------------------------------------------------------------------
 

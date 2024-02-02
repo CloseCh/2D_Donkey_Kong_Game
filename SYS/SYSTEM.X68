@@ -22,6 +22,8 @@ SYSINIT
             MOVE.L  #SNDPLAY,($80+TRAPSND*4)
             ; INSTALL INTERRUPTION FOR THE PLOT
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
+            ; INSTALL INTERRUPTION FOR THE FPS COUNT
+            MOVE.L  #FPSTIM,($60+TINSEG*4)
 
             JSR     SCRINIT
             JSR     KBDINIT
@@ -104,8 +106,19 @@ SCRINIT
             MOVE.B  #32,D0
             MOVE.B  #6,D1
             MOVE.B  #$80+SCRINTN,D2
-            MOVE.L  #1000/SCRFPS,D3              ;50 FOTOGRAMA POR SEGUNDO 20ms
+            MOVE.L  #1000/SCRFPS,D3
             TRAP    #15
+
+            ; ENABLE TIMED INTERRUPT
+            MOVE.B  #32,D0
+            MOVE.B  #6,D1
+            MOVE.B  #$80+TINSEG,D2
+            MOVE.L  #1000,D3
+            TRAP    #15
+
+            ; CLEAR INTERRUPT COUNTER
+            CLR.W   (FPSCOUNT)
+            CLR.W   (SCRINTCT)
             
             MOVEM.L (A7)+,D0-D1
                         
@@ -142,6 +155,19 @@ SCRTIM
 ; MODIFIES  : NONE
 ; ---------------------------------------------------------------------------------------------
             ADDQ.B  #1,(SCRINTCT)
+            
+            RTE
+
+; ---------------------------------------------------------------------------------------------
+FPSTIM
+; TIMED INTERRUPT SERVICE ROUTINE
+; INPUT     : NONE
+; OUTPUT    : NONE
+; MODIFIES  : NONE
+; ---------------------------------------------------------------------------------------------
+            MOVE.W  (FPSCOUNT),D1
+            MOVE.W  D1,FPS
+            CLR.W   (FPSCOUNT)
             
             RTE
 

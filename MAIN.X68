@@ -19,6 +19,7 @@
 		  	INCLUDE "CHARACTERS/DONKEY_KONG.X68"
 			INCLUDE "CHARACTERS/PEACH.X68"
 			INCLUDE "ITEMS/BARREL.X68"
+			INCLUDE "LETTERS/FPSPLOT.X68"
 			INCLUDE "PINI.X68"
 START
 
@@ -38,10 +39,21 @@ START
 .INILOOP    TRAP    #TRNMREAD
 			BTST.L  #0,D0
 			BNE 	.START
+
+			
 			JSR     PUPD
+
+.WINT2      TST.B   (SCRINTCT)
+            BEQ     .WINT2
+            CLR.B   (SCRINTCT)
+			ADDQ.W  #1,(FPSCOUNT)
+
 			JSR 	PPLOT
+
 			TRAP	#TRAPSCR
+
             BRA     .INILOOP
+
 .START		CLR.L	D0
             MOVE.B #SNDMUSIC,D7
 			TRAP   #TRAPSND
@@ -54,6 +66,7 @@ START
 			TRAP   #TRAPSND ;REPRODUCE LA MUSICA SI HA PASADO X TIEMPO (PARA QUE NO SE SOLAPE)
 			CLR.W  CONTMUS
 .CONTINUA
+
 ; --- UPDATE ----------------------------------------------------------------------------------
 
 ; READ INPUT DEVICES --- PARTE LENTA UPDATE IN MEMORY
@@ -72,9 +85,11 @@ START
 .WINT       TST.B   (SCRINTCT)
             BEQ     .WINT
             CLR.B   (SCRINTCT)
+			ADDQ.W  #1,(FPSCOUNT)
 
 
 ; --- PLOT (DIBUJAR) --------------------------------------------------------------------------
+			JSR     FPSPLOT
 			JSR 	MAPPLOT
 			JSR 	PCHPLOT
             JSR 	MAPLOT
@@ -94,6 +109,7 @@ START
 			INCLUDE "LIB/UTLVARS.X68"
 
 			END    START
+
 
 
 

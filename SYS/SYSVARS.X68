@@ -15,7 +15,9 @@ KBDEDGE     DS.B    1                           ; KEY EDGE (TECLA DE UNICO PULSO
 
 
 ; --- TIMED INTERRUPT RELATED VARIABLES -------------------------------------------------------
-SCRINTCT    DS.B    1                           ; INTERRUPT COUNTER
+FPSCOUNT    DS.W    1                           ; FPS COUNTER
+FPS         DS.W    1                           ; FPS FOR THE PLOT
+SCRINTCT    DS.W    1                           ; INTERRUPT COUNTER
             DS.W    0
 
 CONTMUS     DS.W    1
