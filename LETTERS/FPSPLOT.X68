@@ -9,7 +9,7 @@ FPSPLOT
 ; OUTPUT    :
 ; MODIFIES  :
 ; ---------------------------------------------------------------------------------------------
-            MOVEM.L D0-D1/A1,-(A7)
+            MOVEM.L D0-D2/A1,-(A7)
             
             ; TEXTO DE LOS BOTONES
             MOVE.B  #21,D0
@@ -66,7 +66,7 @@ FPSPLOT
             MOVE.B  #14,D0
             TRAP    #15
 
-            MOVEM.L (A7)+,D0-D1/A1
+            MOVEM.L (A7)+,D0-D2/A1
             RTS
 
 .TXT1       DC.B    'GOAL  :',0

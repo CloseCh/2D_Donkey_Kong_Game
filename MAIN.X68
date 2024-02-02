@@ -33,14 +33,11 @@ START
       		JSR 	MAINIT
       		JSR 	DKINIT
 
-			
-
 ; --- PANTALLA INICIAL ------------------------------------------------------------------------
 .INILOOP    TRAP    #TRNMREAD
 			BTST.L  #0,D0
 			BNE 	.START
 
-			
 			JSR     PUPD
 			JSR 	PPLOT
 
@@ -48,8 +45,15 @@ START
 
             BRA     .INILOOP
 .START		CLR.L	D0
+			CLR.L	D1
+			CLR.L	D2
+			CLR.L	D3
+			CLR.L	D4
+			CLR.L	D5
+			CLR.L	D6
             MOVE.B #SNDMUSIC,D7
 			TRAP   #TRAPSND
+
 ; --- INICIO DEL BUCLE ------------------------------------------------------------------------			
 .LOOP		
 			ADDQ.W #1,CONTMUS 
