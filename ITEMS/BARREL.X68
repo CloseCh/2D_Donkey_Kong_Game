@@ -67,14 +67,14 @@ BRLUPD
             BRA     .CHKMARIO
 
 .CHKMARIO   ;CHECK MARIO COLLISIONS (EL PUNTO ESTA ABAJO A LA IZQUIERDA Y LO PONEMOS AL CENTRO)
-            MOVE.W   (MAPOINTX),D2 ; MIRAR SI COLISIONAN EN X
+            MOVE.W   MAPOINTX,D2 ; MIRAR SI COLISIONAN EN X
             ADD.W    #MAWIDTH/2,D2
             SUB.W    D0,D2
             BPL      .ISPOS
             NEG.W    D2
 .ISPOS      CMP.W    #MAWIDTH/2+BRLRAD/3,D2
             BGT      .DONE
-            MOVE.W   (MAPOINTY),D2  ;MIRAR SI COLISIONAN EN Y
+            MOVE.W   MAPOINTY,D2  ;MIRAR SI COLISIONAN EN Y
             SUB.W     #MAHEIGHT/2,D2
             SUB.W    D1,D2
             BPL      .ISPOS2
@@ -85,14 +85,14 @@ BRLUPD
             ;MARIO COLLISION
             MOVE.B #SNDRESTA,D7
             TRAP   #TRAPSND
-            JSR   AGLKILL
-            MOVE.W #100,(MAPOINTX)
-            MOVE.W #440,(MAPOINTY)
-            CLR.W  (MACONT)
+            MOVE.W #100,MAPOINTX
+            MOVE.W #440,MAPOINTY
+            CLR.W  MACONT
             CLR.W  (MACONTJP)
             CLR.W  (MACONTRO)
             CLR.W  8(A0)
-            
+            JSR   AGLKILL
+
 .DONE       MOVE.W D0,(A0)
             MOVE.W D1,2(A0)
             MOVEM.L (A7)+,D0-D4/A1
