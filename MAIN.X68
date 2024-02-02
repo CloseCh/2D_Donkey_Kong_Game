@@ -42,18 +42,11 @@ START
 
 			
 			JSR     PUPD
-
-.WINT2      TST.B   (SCRINTCT)
-            BEQ     .WINT2
-            CLR.B   (SCRINTCT)
-			ADDQ.W  #1,(FPSCOUNT)
-
 			JSR 	PPLOT
 
 			TRAP	#TRAPSCR
 
             BRA     .INILOOP
-
 .START		CLR.L	D0
             MOVE.B #SNDMUSIC,D7
 			TRAP   #TRAPSND

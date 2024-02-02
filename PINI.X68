@@ -91,7 +91,9 @@ PPLOT
 
             ; PRINT SECOND LINE
             LEA     .TXT2,A1
-            MOVE.B  #14,D0
+            CLR.L   D1
+            MOVE.W  #SCRFPS,D1
+            MOVE.B  #17,D0
             TRAP    #15
 
             ;PRINT DONKEY KONG
@@ -112,7 +114,7 @@ PPLOT
             RTS
 
 .TXT1       DC.B   'START',0
-.TXT2       DC.B   'FPS: 50',0
+.TXT2       DC.B   'FPS: ',0
 
 ; ---------------------------------------------------------------------------------------------
 BUT1PLOT
